@@ -11,11 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Solution Items\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\EazyQuiz.Models\EazyQuiz.Models.csproj" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

@@ -4,17 +4,17 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:60563",
-      "sslPort": 44309
+      "applicationUrl": "http://localhost:4236",
+      "sslPort": 44318
     }
   },
   "profiles": {
-    "EazyQuiz.Api": {
+    "EazyQuiz.Web.Api": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7143;http://localhost:5030",
+      "applicationUrl": "https://localhost:7273;http://localhost:5274",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

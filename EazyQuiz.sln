@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EazyQuiz.Api", "EazyQuiz.Api\EazyQuiz.Api.csproj", "{E40F278A-F1FF-4285-B0C4-D4F0DE972604}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{967205FC-A1B0-4295-A62F-9B6587647FAA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EazyQuiz.Models", "EazyQuiz.Models\EazyQuiz.Models.csproj", "{074AAAE8-700C-4C26-8099-4208D67583B2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{81641BF6-C80C-44C6-AAF2-7D2C7D9EB690}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EazyQuiz.Models", "src\EazyQuiz.Models\EazyQuiz.Models.csproj", "{CF37DBD7-4FFD-466E-9628-04B48EEC97B4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EazyQuiz.Web.Api", "src\EazyQuiz.Web.Api\EazyQuiz.Web.Api.csproj", "{CD59146C-F906-45FC-A198-AB31152A610F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EazyQuiz.Web.Tests", "tests\EazyQuiz.Web.Tests\EazyQuiz.Web.Tests.csproj", "{91AC0748-9B30-4319-A1E9-4C43DCFBD45F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,17 +19,26 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E40F278A-F1FF-4285-B0C4-D4F0DE972604}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E40F278A-F1FF-4285-B0C4-D4F0DE972604}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E40F278A-F1FF-4285-B0C4-D4F0DE972604}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E40F278A-F1FF-4285-B0C4-D4F0DE972604}.Release|Any CPU.Build.0 = Release|Any CPU
-		{074AAAE8-700C-4C26-8099-4208D67583B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{074AAAE8-700C-4C26-8099-4208D67583B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{074AAAE8-700C-4C26-8099-4208D67583B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{074AAAE8-700C-4C26-8099-4208D67583B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF37DBD7-4FFD-466E-9628-04B48EEC97B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF37DBD7-4FFD-466E-9628-04B48EEC97B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF37DBD7-4FFD-466E-9628-04B48EEC97B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF37DBD7-4FFD-466E-9628-04B48EEC97B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD59146C-F906-45FC-A198-AB31152A610F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD59146C-F906-45FC-A198-AB31152A610F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD59146C-F906-45FC-A198-AB31152A610F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD59146C-F906-45FC-A198-AB31152A610F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91AC0748-9B30-4319-A1E9-4C43DCFBD45F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91AC0748-9B30-4319-A1E9-4C43DCFBD45F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91AC0748-9B30-4319-A1E9-4C43DCFBD45F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91AC0748-9B30-4319-A1E9-4C43DCFBD45F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CF37DBD7-4FFD-466E-9628-04B48EEC97B4} = {967205FC-A1B0-4295-A62F-9B6587647FAA}
+		{CD59146C-F906-45FC-A198-AB31152A610F} = {967205FC-A1B0-4295-A62F-9B6587647FAA}
+		{91AC0748-9B30-4319-A1E9-4C43DCFBD45F} = {81641BF6-C80C-44C6-AAF2-7D2C7D9EB690}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E9DF3BFA-6A82-4069-A936-4C737D9C7A18}
