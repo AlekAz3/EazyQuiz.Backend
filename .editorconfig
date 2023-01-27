@@ -14,6 +14,11 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 tab_width = 4
 end_of_line = crlf
+csharp_style_throw_expression = false:warning
+csharp_style_prefer_null_check_over_type_check = true:warning
+csharp_prefer_simple_default_expression = true:warning
+csharp_space_around_binary_operators = before_and_after
+csharp_indent_labels = no_change
 
 ##########################################
 # File Extension Settings
