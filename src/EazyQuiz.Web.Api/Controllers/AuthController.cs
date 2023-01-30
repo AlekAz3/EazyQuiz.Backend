@@ -1,6 +1,7 @@
-using EazyQuiz.Models.DTO;
 using EazyQuiz.Models;
+using EazyQuiz.Web.Api.Abstractions;
 using EazyQuiz.Web.Api.Infrastructure;
+using EazyQuiz.Web.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EazyQuiz.Web.Api.Controllers;
@@ -11,12 +12,14 @@ public class AuthController : Controller
     private readonly DataContext _dataContext;
     private readonly ILogger<AuthController> _log;
     private readonly IConfiguration _config;
+    private readonly IUserService _userService;
 
-    public AuthController(DataContext dataContext, ILogger<AuthController> logger, IConfiguration config)
+    public AuthController(DataContext dataContext, ILogger<AuthController> logger, IConfiguration config, IUserService userService)
     {
         _dataContext = dataContext;
         _log = logger;
         _config = config;
+        _userService = userService;
     }
 
     [HttpPost]
@@ -42,13 +45,7 @@ public class AuthController : Controller
     [HttpGet]
     public IActionResult GetUserByPassword([FromQuery] UserAuth auth)
     {
-        var user = _dataContext.User!.Where(x => x.Email == auth.Email && x.Password == x.Password).FirstOrDefault();
-        if (user == null)
-        {
-            _log.LogInformation("User {@User} not found", auth);
-            return BadRequest();
-        }
-        var userResponse = new UserResponse(user, "Token");
+        var userResponse = _userService.Authenticate(auth);
         _log.LogInformation("User {@User} was login", userResponse);
         return new JsonResult(Ok(userResponse));
     }

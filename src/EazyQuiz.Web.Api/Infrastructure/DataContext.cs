@@ -1,5 +1,4 @@
 using EazyQuiz.Models;
-using EazyQuiz.Models.Database;
 using Microsoft.EntityFrameworkCore;
 
 namespace EazyQuiz.Web.Api.Infrastructure;

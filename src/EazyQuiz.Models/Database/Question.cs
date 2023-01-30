@@ -1,7 +1,6 @@
-
 using System.ComponentModel.DataAnnotations;
 
-namespace EazyQuiz.Models.Database;
+namespace EazyQuiz.Models;
 public class Question
 {
     [Key]

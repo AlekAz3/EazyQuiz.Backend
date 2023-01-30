@@ -1,5 +1,5 @@
 
-namespace EazyQuiz.Models.DTO;
+namespace EazyQuiz.Models;
 public class UserRegister
 {
     public string? Email { get; set; }

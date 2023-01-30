@@ -3,9 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EazyQuiz.Web.Api.Controllers;
-
-[Route("api/[controller]/[action]")]
-[ApiController]
+[Route("api/[controller]")]
+[ApiController, Authorize]
 public class QuestionsController : Controller
 {
     private readonly DataContext _dataContext;
