@@ -36,7 +36,7 @@ public class AuthController : Controller
         _dataContext.User!.Add(newUser);
         _dataContext.SaveChanges();
         _log.LogInformation("New User was created");
-        return new JsonResult(Ok(newUser));
+        return new JsonResult(Ok());
     }
 
     [HttpGet]
@@ -48,7 +48,9 @@ public class AuthController : Controller
             _log.LogInformation("User {@User} not found", auth);
             return BadRequest();
         }
-        return new JsonResult(Ok(user));
+        var userResponse = new UserResponse(user, "Token");
+        _log.LogInformation("User {@User} was login", userResponse);
+        return new JsonResult(Ok(userResponse));
     }
 
     private int GetLastId()

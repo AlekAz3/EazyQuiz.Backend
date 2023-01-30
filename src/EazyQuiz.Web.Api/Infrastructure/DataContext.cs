@@ -9,12 +9,12 @@ public class DataContext : DbContext
     public DbSet<User>? User { get; set; }
     public DbSet<Question>? Questions { get; set; }
     private readonly IConfiguration _config;
-    private readonly ILogger<DataContext> _logger;
+    private readonly ILogger<DataContext> _log;
 
     public DataContext(IConfiguration config, ILogger<DataContext> logger)
     {
         _config = config;
-        _logger = logger;
+        _log = logger;
         Database.EnsureCreated();
     }
 
