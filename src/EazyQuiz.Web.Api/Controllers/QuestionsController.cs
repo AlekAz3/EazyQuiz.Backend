@@ -20,8 +20,9 @@ public class QuestionsController : Controller
     [HttpGet]
     public JsonResult GetAllQuestions()
     {
-        var result = _dataContext.Question.ToList();
+        var result = _dataContext.Questions.ToList();
         _log.LogInformation("GetAllQuestions");
         return new JsonResult(result);
     }
+
 }

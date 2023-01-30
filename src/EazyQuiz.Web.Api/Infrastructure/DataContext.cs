@@ -7,7 +7,7 @@ namespace EazyQuiz.Web.Api.Infrastructure;
 public class DataContext : DbContext
 {
     public DbSet<User>? User { get; set; }
-    public DbSet<Question>? Question { get; set; }
+    public DbSet<Question>? Questions { get; set; }
     private readonly IConfiguration _config;
     private readonly ILogger<DataContext> _logger;
 
@@ -23,5 +23,4 @@ public class DataContext : DbContext
         string connectionString = _config.GetConnectionString(nameof(DataContext));
         optionsBuilder.UseSqlServer(connectionString);
     }
-
 }

@@ -1,6 +1,6 @@
 
 namespace EazyQuiz.Models.DTO;
-internal class UserRegister
+public class UserRegister
 {
     public string? Email { get; set; }
 

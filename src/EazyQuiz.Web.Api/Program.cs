@@ -1,4 +1,5 @@
 using EazyQuiz.Web.Api.Infrastructure;
+using Serilog;
 
 namespace EazyQuiz.Web.Api;
 
@@ -6,9 +7,20 @@ public class Program
 {
     public static void Main(string[] args)
     {
+
         var builder = WebApplication.CreateBuilder(args);
 
+        var logger = new LoggerConfiguration()
+        .ReadFrom.Configuration(builder.Configuration)
+        .Enrich.FromLogContext()
+                .WriteTo.Console()
+                .CreateLogger();
+
         // Add services to the container.
+
+        builder.Logging.ClearProviders();
+        builder.Logging.AddSerilog(logger);
+
 
         builder.Services.AddControllers();
         builder.Services.AddDbContext<DataContext>();
