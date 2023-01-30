@@ -8,10 +8,24 @@ using System.Text;
 
 namespace EazyQuiz.Web.Api.Services;
 
+/// <summary>
+/// Класс реальзующий <inheritdoc cref="IUserService"/>
+/// </summary>
 public class UserService : IUserService
 {
+    /// <summary>
+    /// <inheritdoc cref="DataContext"/>
+    /// </summary>
     private readonly DataContext _dataContext;
+
+    /// <summary>
+    /// <inheritdoc cref="ILogger{TCategoryName}"/>
+    /// </summary>
     private readonly ILogger<UserService> _log;
+
+    /// <summary>
+    /// <inheritdoc cref="IConfiguration"/>
+    /// </summary>
     private readonly IConfiguration _config;
 
     public UserService(DataContext dataContext, ILogger<UserService> logger, IConfiguration config)
@@ -21,23 +35,31 @@ public class UserService : IUserService
         _config = config;
     }
 
+    /// <summary>
+    /// Проверка на наличие игрока в базе 
+    /// </summary>
+    /// <param name="auth"><inheritdoc cref="UserAuth"/></param>
+    /// <returns>Объект<see cref="UserResponse"/></returns>
+    /// <exception cref="ArgumentException">Игрок не найден</exception>
     public UserResponse Authenticate(UserAuth auth)
     {
         var user = _dataContext.User.SingleOrDefault(x => x.Email == auth.Email && x.Password == auth.Password);
 
-        // return null if user not found
         if (user == null)
         {
             throw new ArgumentException("User does not exist");
         }
 
-        // authentication successful so generate jwt token
-        var token = GenerateJwtToken(user);
+        string token = GenerateJwtToken(user);
 
         return new UserResponse(user, token);
 
     }
 
+    /// <summary>
+    /// Возвращает список всех игроков
+    /// </summary>
+    /// <returns>Список пользователей</returns>
     public IEnumerable<User> GetAll()
     {
         var user = _dataContext.User.ToList();
@@ -46,6 +68,12 @@ public class UserService : IUserService
 
     }
 
+    /// <summary>
+    /// Получение игрока по Ид
+    /// </summary>
+    /// <param name="id">Ид</param>
+    /// <returns><see cref="User"/></returns>
+    /// <exception cref="ArgumentException">Игрок не найден</exception>
     public User GetById(int id)
     {
         var user = _dataContext.User.FirstOrDefault(x => x.Id == id);
@@ -56,6 +84,11 @@ public class UserService : IUserService
         return user;
     }
 
+    /// <summary>
+    /// Генерация JWT токена
+    /// </summary>
+    /// <param name="user">Объект игрока</param>
+    /// <returns>Строка JWT токена</returns>
     private string GenerateJwtToken(User user)
     {
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));

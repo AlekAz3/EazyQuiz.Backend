@@ -1,6 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace EazyQuiz.Models;
+/// <summary>
+/// Описание обьекта вопроса
+/// </summary>
 public class Question
 {
     [Key]

@@ -13,12 +13,10 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         var logger = new LoggerConfiguration()
-        .ReadFrom.Configuration(builder.Configuration)
+        .ReadFrom.Configuration(builder.Configuration) //Использование Serilog
         .Enrich.FromLogContext()
                 .WriteTo.Console()
                 .CreateLogger();
-
-        // Add services to the container.
 
         builder.Logging.ClearProviders();
         builder.Logging.AddSerilog(logger);
@@ -27,15 +25,15 @@ public class Program
         builder.Services.AddControllers();
         builder.Services.AddDbContext<DataContext>();
         builder.Services.AddScoped<IUserService, UserService>();
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-        builder.Services.AddAuth(builder.Configuration);
+        builder.Services.AddAuth(builder.Configuration); //Добавление JWT
 
 
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
+
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
