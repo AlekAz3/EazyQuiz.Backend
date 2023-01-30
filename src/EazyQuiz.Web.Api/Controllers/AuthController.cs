@@ -1,7 +1,6 @@
 using EazyQuiz.Models;
 using EazyQuiz.Web.Api.Abstractions;
 using EazyQuiz.Web.Api.Infrastructure;
-using EazyQuiz.Web.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EazyQuiz.Web.Api.Controllers;

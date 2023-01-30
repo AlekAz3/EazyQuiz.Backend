@@ -72,9 +72,6 @@ public class UserService : IUserService
             expires: DateTime.Now.AddMinutes(15),
             signingCredentials: credentials);
 
-
         return new JwtSecurityTokenHandler().WriteToken(token);
-
     }
-
 }

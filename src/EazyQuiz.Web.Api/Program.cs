@@ -1,11 +1,7 @@
 using EazyQuiz.Web.Api.Abstractions;
 using EazyQuiz.Web.Api.Infrastructure;
 using EazyQuiz.Web.Api.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 using Serilog;
-using System.Text;
 
 namespace EazyQuiz.Web.Api;
 
