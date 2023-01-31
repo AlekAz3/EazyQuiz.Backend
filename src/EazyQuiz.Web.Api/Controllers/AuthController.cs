@@ -41,19 +41,7 @@ public class AuthController : Controller
     [HttpPost]
     public IActionResult RegisterNewPlayer(UserRegister user)
     {
-        var newUser = new User()
-        {
-            Id = GetLastId(),
-            Age = user.Age,
-            Country = user.Country,
-            Email = user.Email,
-            Gender = user.Gender,
-            Password = user.Password,
-            Points = 0,
-            UserName = user.UserName
-        };
-        _dataContext.User!.Add(newUser);
-        _dataContext.SaveChanges();
+        _userService.RegisterNewUser(user);
         _log.LogInformation("New User was created");
         return new JsonResult(Ok());
     }
@@ -69,14 +57,5 @@ public class AuthController : Controller
         var userResponse = _userService.Authenticate(auth);
         _log.LogInformation("User {@User} was login", userResponse);
         return new JsonResult(Ok(userResponse));
-    }
-
-    /// <summary>
-    /// Получение последнего Ид для добавления нового игрока/пользователя
-    /// </summary>
-    /// <returns>Ид нового игрока</returns>
-    private int GetLastId()
-    {
-        return _dataContext.User!.Select(x => x.Id).Count() + 1;
     }
 }

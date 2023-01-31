@@ -85,6 +85,32 @@ public class UserService : IUserService
     }
 
     /// <summary>
+    /// Запись нового пользователя в БД
+    /// </summary>
+    /// <param name="user">Инфа об игроке в <see cref="UserRegister"/></param>
+    public void RegisterNewUser(UserRegister user)
+    {
+        var newUser = new User()
+        {
+            Id = GetLastId(),
+            Age = user.Age,
+            Country = user.Country,
+            Email = user.Email,
+            Gender = user.Gender,
+            Password = user.Password,
+            Points = 0,
+            UserName = user.UserName
+        };
+        _dataContext.User!.Add(newUser);
+        _dataContext.SaveChanges();
+    }
+
+    private int GetLastId()
+    {
+        return _dataContext.User!.Select(x => x.Id).Count() + 1;
+    }
+
+    /// <summary>
     /// Генерация JWT токена
     /// </summary>
     /// <param name="user">Объект игрока</param>
