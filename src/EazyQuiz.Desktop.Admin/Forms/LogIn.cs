@@ -1,6 +1,5 @@
 using EazyQuiz.Models;
 using System.Text.Json;
-using System.Text.Json.Nodes;
 
 namespace EazyQuiz.Desktop.Admin;
 
@@ -19,6 +18,6 @@ public partial class LogIn : Form
         string email = EmailTextBox.Text;
         string password = PasswordTextBox.Text;
         var userAuth = new UserAuth(email, password);
-        MessageBox.Show(_apiProvider.Authtenticate(userAuth).Email);
+        MessageBox.Show(JsonSerializer.Serialize(_apiProvider.Authtenticate(userAuth)));
     }
 }
