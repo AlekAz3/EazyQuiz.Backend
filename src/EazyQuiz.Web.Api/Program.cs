@@ -1,21 +1,39 @@
+using EazyQuiz.Web.Api.Abstractions;
+using EazyQuiz.Web.Api.Infrastructure;
+using EazyQuiz.Web.Api.Services;
+using Serilog;
+
 namespace EazyQuiz.Web.Api;
 
 public class Program
 {
     public static void Main(string[] args)
     {
+
         var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
+        var logger = new LoggerConfiguration()
+        .ReadFrom.Configuration(builder.Configuration) //Использование Serilog
+        .Enrich.FromLogContext()
+                .WriteTo.Console()
+                .CreateLogger();
+
+        builder.Logging.ClearProviders();
+        builder.Logging.AddSerilog(logger);
+
 
         builder.Services.AddControllers();
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+        builder.Services.AddDbContext<DataContext>();
+        builder.Services.AddScoped<IUserService, UserService>();
+
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        builder.Services.AddAuth(builder.Configuration); //Добавление JWT
+
 
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
+
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
@@ -24,6 +42,7 @@ public class Program
 
         app.UseHttpsRedirection();
 
+        app.UseAuthentication();
         app.UseAuthorization();
 
 
