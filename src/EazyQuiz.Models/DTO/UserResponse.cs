@@ -55,4 +55,16 @@ public class UserResponse
         Country = user.Country;
         Token = token;
     }
+
+    public UserResponse(int id, string? email, string? userName, int age, int gender, int points, string? country, string? token)
+    {
+        Id = id;
+        Email = email;
+        UserName = userName;
+        Age = age;
+        Gender = gender;
+        Points = points;
+        Country = country;
+        Token = token;
+    }
 }

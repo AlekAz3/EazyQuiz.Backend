@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace EazyQuiz.Models;
 /// <summary>
-/// Описание пользевателя
+/// Описание пользователя
 /// </summary>
 public class User
 {
