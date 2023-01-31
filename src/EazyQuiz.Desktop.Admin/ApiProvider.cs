@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using System.Text.Json;
 
 namespace EazyQuiz.Desktop.Admin;
-public class ApiProvider : IDisposable
+public class ApiProvider
 {
     private readonly IConfiguration _config;
     private readonly HttpClient _client;
@@ -31,8 +31,14 @@ public class ApiProvider : IDisposable
         return userResponse;
     }
 
-    public void Dispose()
+    public string Authtenticate1(UserAuth userAuth)
     {
-        throw new NotImplementedException();
+        string myJson = JsonSerializer.Serialize(userAuth);
+
+        var response = Task.Run(() => { return _client.GetAsync($"/api/Auth/GetUserByPassword?Email={userAuth.Email}&Password={userAuth.Password}"); }).Result;
+
+        var responseDataString = Task.Run(() => { return response.Content.ReadAsStringAsync(); }).Result;
+
+        return responseDataString;
     }
 }

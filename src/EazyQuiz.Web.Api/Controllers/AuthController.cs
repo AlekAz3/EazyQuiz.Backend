@@ -2,6 +2,7 @@ using EazyQuiz.Models;
 using EazyQuiz.Web.Api.Abstractions;
 using EazyQuiz.Web.Api.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace EazyQuiz.Web.Api.Controllers;
 /// <summary>
@@ -52,10 +53,10 @@ public class AuthController : Controller
     /// <param name="auth"></param>
     /// <returns></returns>
     [HttpGet]
-    public IActionResult GetUserByPassword([FromQuery] UserAuth auth)
+    public string GetUserByPassword([FromQuery] UserAuth auth)
     {
         var userResponse = _userService.Authenticate(auth);
         _log.LogInformation("User {@User} was login", userResponse);
-        return new JsonResult(userResponse);
+        return JsonSerializer.Serialize(userResponse);
     }
 }

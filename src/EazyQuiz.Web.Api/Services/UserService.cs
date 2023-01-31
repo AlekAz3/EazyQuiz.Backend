@@ -52,7 +52,7 @@ public class UserService : IUserService
 
         string token = GenerateJwtToken(user);
 
-        return new UserResponse(user, token);
+        return new UserResponse(user.Id,user.Email, user.UserName, user.Age, user.Gender, user.Points, user.Country, token);
 
     }
 
