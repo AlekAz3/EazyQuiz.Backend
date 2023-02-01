@@ -1,6 +1,9 @@
 namespace EazyQuiz.Desktop.Admin;
 public partial class Panel : Form
 {
+    /// <summary>
+    /// <inheritdoc cref="UserToken/>
+    /// </summary>
     private readonly UserToken _userToken;
 
     public Panel(UserToken userToken)
