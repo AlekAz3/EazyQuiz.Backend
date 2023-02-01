@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EazyQuiz.Extensions;
 public static class StringExtension
@@ -27,14 +21,20 @@ public static class StringExtension
         '0','1', '2', '3', '4', '5', '6', '7', '8', '9'
     };
 
-
     public static bool IsEqual(string a, string b)
     {
         return a == b;
     }
 
-    public static bool IsMoreEightSimbols(this string str)
+    public static bool IsMoreEightSymbols(this string str)
     {
         return str.Length >= 8;
+    }
+
+    public static bool IsNoBannedSymbols(this string str)
+    {
+        var chars = str.ToCharArray().ToList();
+
+        return true;
     }
 }
