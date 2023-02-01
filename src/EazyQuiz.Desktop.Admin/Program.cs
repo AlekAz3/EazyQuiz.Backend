@@ -30,8 +30,18 @@ internal static class Program
 
     private static void ConfigureServices(IConfiguration configuration, IServiceCollection services)
     {
-        services.AddTransient<LogIn>();
-        services.AddTransient<Panel>();
+        services.AddSingleton<IFormFactory, FormFactory>();
+
+        var forms = typeof(Program).Assembly
+                .GetTypes()
+                .Where(t => t.BaseType == typeof(Form))
+                .ToList();
+
+        forms.ForEach(form =>
+        {
+            services.AddTransient(form);
+        });
+
         services.AddSingleton<ApiProvider>();
         services.AddSingleton<UserToken>();
     }

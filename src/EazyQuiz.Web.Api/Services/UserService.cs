@@ -1,12 +1,10 @@
 using EazyQuiz.Models;
-using EazyQuiz.Web.Api.Abstractions;
-using EazyQuiz.Web.Api.Infrastructure;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace EazyQuiz.Web.Api.Services;
+namespace EazyQuiz.Web.Api;
 
 /// <summary>
 /// Класс реальзующий <inheritdoc cref="IUserService"/>

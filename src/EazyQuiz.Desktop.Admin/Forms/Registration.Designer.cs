@@ -1,4 +1,4 @@
-﻿namespace EazyQuiz.Desktop.Admin.Forms;
+namespace EazyQuiz.Desktop.Admin;
 
 partial class Registration
 {

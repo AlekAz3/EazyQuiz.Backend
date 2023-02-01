@@ -1,4 +1,4 @@
-﻿namespace EazyQuiz.Desktop.Admin.Forms;
+namespace EazyQuiz.Desktop.Admin;
 
 partial class Panel
 {
@@ -28,11 +28,44 @@ partial class Panel
     /// </summary>
     private void InitializeComponent()
     {
-        this.components = new System.ComponentModel.Container();
-        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        this.ClientSize = new System.Drawing.Size(800, 450);
-        this.Text = "Panel";
+            this.StatusLabel = new System.Windows.Forms.Label();
+            this.TokenLabel = new System.Windows.Forms.RichTextBox();
+            this.SuspendLayout();
+            // 
+            // StatusLabel
+            // 
+            this.StatusLabel.AutoSize = true;
+            this.StatusLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.StatusLabel.Location = new System.Drawing.Point(88, 111);
+            this.StatusLabel.Name = "StatusLabel";
+            this.StatusLabel.Size = new System.Drawing.Size(52, 21);
+            this.StatusLabel.TabIndex = 0;
+            this.StatusLabel.Text = "label1";
+            // 
+            // TokenLabel
+            // 
+            this.TokenLabel.Location = new System.Drawing.Point(110, 226);
+            this.TokenLabel.Name = "TokenLabel";
+            this.TokenLabel.Size = new System.Drawing.Size(255, 133);
+            this.TokenLabel.TabIndex = 1;
+            this.TokenLabel.Text = "";
+            // 
+            // Panel
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.TokenLabel);
+            this.Controls.Add(this.StatusLabel);
+            this.Name = "Panel";
+            this.Text = "Panel";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
     }
 
     #endregion
+
+    private Label StatusLabel;
+    private RichTextBox TokenLabel;
 }

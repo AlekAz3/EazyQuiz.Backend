@@ -1,6 +1,6 @@
 using EazyQuiz.Models;
 
-namespace EazyQuiz.Web.Api.Abstractions;
+namespace EazyQuiz.Web.Api;
 /// <summary>
 /// Интерфейс для работы с пользователями
 /// </summary>

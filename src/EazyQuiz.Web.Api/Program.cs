@@ -1,6 +1,3 @@
-using EazyQuiz.Web.Api.Abstractions;
-using EazyQuiz.Web.Api.Infrastructure;
-using EazyQuiz.Web.Api.Services;
 using Serilog;
 
 namespace EazyQuiz.Web.Api;

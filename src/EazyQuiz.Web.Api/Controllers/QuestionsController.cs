@@ -1,9 +1,8 @@
-using EazyQuiz.Web.Api.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
-namespace EazyQuiz.Web.Api.Controllers;
+namespace EazyQuiz.Web.Api;
 /// <summary>
 /// Контроллер работы с вопросами
 /// </summary>

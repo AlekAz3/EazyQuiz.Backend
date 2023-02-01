@@ -1,10 +1,8 @@
 using EazyQuiz.Models;
-using EazyQuiz.Web.Api.Abstractions;
-using EazyQuiz.Web.Api.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
-namespace EazyQuiz.Web.Api.Controllers;
+namespace EazyQuiz.Web.Api;
 /// <summary>
 /// Контроллер Входа/Регистрации
 /// </summary>
@@ -12,11 +10,6 @@ namespace EazyQuiz.Web.Api.Controllers;
 [ApiController]
 public class AuthController : Controller
 {
-    /// <summary>
-    /// <inheritdoc cref="DataContext"/>
-    /// </summary>
-    private readonly DataContext _dataContext;
-
     /// <summary>
     /// <inheritdoc cref="ILogger{TCategoryName}"/>
     /// </summary>
@@ -27,9 +20,8 @@ public class AuthController : Controller
     /// </summary>
     private readonly IUserService _userService;
 
-    public AuthController(DataContext dataContext, ILogger<AuthController> logger, IUserService userService)
+    public AuthController(ILogger<AuthController> logger, IUserService userService)
     {
-        _dataContext = dataContext;
         _log = logger;
         _userService = userService;
     }

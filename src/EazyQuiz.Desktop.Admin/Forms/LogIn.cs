@@ -5,11 +5,13 @@ public partial class LogIn : Form
 {
     private readonly ApiProvider _apiProvider;
     private readonly UserToken _userToken;
+    private readonly IFormFactory _formFactory;
 
-    public LogIn(ApiProvider apiProvider, UserToken userToken)
+    public LogIn(ApiProvider apiProvider, UserToken userToken, IFormFactory formFactory)
     {
         _apiProvider = apiProvider;
         _userToken = userToken;
+        _formFactory = formFactory;
         InitializeComponent();
     }
 
@@ -19,5 +21,6 @@ public partial class LogIn : Form
         string password = PasswordTextBox.Text;
         var userAuth = new UserAuth(email, password);
         _userToken.User = _apiProvider.Authtenticate(userAuth);
+        _formFactory.Create<Forms.Panel>().Open();
     }
 }
