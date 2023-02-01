@@ -47,5 +47,5 @@ public class User
     /// Пароль
     /// </summary>
     [JsonIgnore]
-    public string Password { get; set; } = string.Empty;
+    public UserPassword? Password { get; set; }
 }

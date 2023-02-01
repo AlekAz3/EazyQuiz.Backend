@@ -1,5 +1,5 @@
-
 namespace EazyQuiz.Models;
+
 /// <summary>
 /// ДТО при входе пользователя в систему 
 /// </summary>
@@ -11,11 +11,11 @@ public class UserAuth
     public string? Email { get; set; }
 
     /// <summary>
-    /// Пароль
+    /// <inheritdoc cref="UserPassword"/>
     /// </summary>
-    public string? Password { get; set; }
+    public UserPassword? Password { get; set; }
 
-    public UserAuth(string? email, string? password)
+    public UserAuth(string? email, UserPassword password)
     {
         Email = email;
         Password = password;
