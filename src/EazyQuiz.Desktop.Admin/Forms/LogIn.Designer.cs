@@ -33,6 +33,7 @@ partial class LogIn
             this.PasswordTextBox = new System.Windows.Forms.TextBox();
             this.PasswordLabel = new System.Windows.Forms.Label();
             this.EnterButton = new System.Windows.Forms.Button();
+            this.Register = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // EmailTextBox
@@ -82,11 +83,23 @@ partial class LogIn
             this.EnterButton.UseVisualStyleBackColor = true;
             this.EnterButton.Click += new System.EventHandler(this.EnterButtonClick);
             // 
+            // Register
+            // 
+            this.Register.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Register.Location = new System.Drawing.Point(12, 181);
+            this.Register.Name = "Register";
+            this.Register.Size = new System.Drawing.Size(251, 31);
+            this.Register.TabIndex = 2;
+            this.Register.Text = "Регистрация";
+            this.Register.UseVisualStyleBackColor = true;
+            this.Register.Click += new System.EventHandler(this.RegistrationButtonClick);
+            // 
             // LogIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(281, 195);
+            this.ClientSize = new System.Drawing.Size(281, 227);
+            this.Controls.Add(this.Register);
             this.Controls.Add(this.EnterButton);
             this.Controls.Add(this.PasswordLabel);
             this.Controls.Add(this.PasswordTextBox);
@@ -106,4 +119,5 @@ partial class LogIn
     private TextBox PasswordTextBox;
     private Label PasswordLabel;
     private Button EnterButton;
+    private Button Register;
 }

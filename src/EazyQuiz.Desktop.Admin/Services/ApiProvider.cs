@@ -1,5 +1,7 @@
 using EazyQuiz.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.VisualBasic.ApplicationServices;
+using System.Text;
 using System.Text.Json;
 
 namespace EazyQuiz.Desktop.Admin;
@@ -16,8 +18,6 @@ public class ApiProvider : IDisposable
 
     public UserResponse Authtenticate(UserAuth userAuth)
     {
-        string myJson = JsonSerializer.Serialize(userAuth);
-
         var response = Task.Run(() => { return _client.GetAsync($"/api/Auth/GetUserByPassword?Email={userAuth.Email}&Password={userAuth.Password}"); }).Result;
 
         string responseDataString = Task.Run(() => { return response.Content.ReadAsStringAsync(); }).Result;
@@ -35,5 +35,13 @@ public class ApiProvider : IDisposable
     {
         _client.Dispose();
         GC.SuppressFinalize(this);
+    }
+
+    public void Registrate(UserRegister userRegister)
+    {
+        string json = JsonSerializer.Serialize(userRegister);
+
+        var response = Task.Run(() => { return _client.PostAsync("api/Auth/RegisterNewPlayer", new StringContent(json, Encoding.UTF8, "application/json")); });
+
     }
 }

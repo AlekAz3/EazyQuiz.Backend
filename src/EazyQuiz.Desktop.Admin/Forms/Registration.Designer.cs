@@ -43,6 +43,7 @@ partial class Registration
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.RegisterButton = new System.Windows.Forms.Button();
+            this.EnterButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.AgeInput)).BeginInit();
             this.SuspendLayout();
             // 
@@ -177,19 +178,31 @@ partial class Registration
             // RegisterButton
             // 
             this.RegisterButton.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.RegisterButton.Location = new System.Drawing.Point(18, 258);
+            this.RegisterButton.Location = new System.Drawing.Point(18, 254);
             this.RegisterButton.Name = "RegisterButton";
-            this.RegisterButton.Size = new System.Drawing.Size(339, 55);
+            this.RegisterButton.Size = new System.Drawing.Size(339, 41);
             this.RegisterButton.TabIndex = 11;
             this.RegisterButton.Text = "Зарегестрироваться ";
             this.RegisterButton.UseVisualStyleBackColor = true;
             this.RegisterButton.Click += new System.EventHandler(this.RegisterButtonClick);
             // 
+            // EnterButton
+            // 
+            this.EnterButton.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.EnterButton.Location = new System.Drawing.Point(18, 301);
+            this.EnterButton.Name = "EnterButton";
+            this.EnterButton.Size = new System.Drawing.Size(339, 41);
+            this.EnterButton.TabIndex = 11;
+            this.EnterButton.Text = "Вход";
+            this.EnterButton.UseVisualStyleBackColor = true;
+            this.EnterButton.Click += new System.EventHandler(this.EnterButtonClick);
+            // 
             // Registration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(373, 325);
+            this.ClientSize = new System.Drawing.Size(373, 359);
+            this.Controls.Add(this.EnterButton);
             this.Controls.Add(this.RegisterButton);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -206,7 +219,7 @@ partial class Registration
             this.Controls.Add(this.EmailInput);
             this.Controls.Add(this.UsernameInput);
             this.Name = "Registration";
-            this.Text = "Registration";
+            this.Text = "Регистрация";
             ((System.ComponentModel.ISupportInitialize)(this.AgeInput)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -230,4 +243,5 @@ partial class Registration
     private Label label6;
     private Label label7;
     private Button RegisterButton;
+    private Button EnterButton;
 }

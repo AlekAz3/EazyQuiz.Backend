@@ -1,3 +1,4 @@
+using EazyQuiz.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,18 +14,41 @@ public partial class Registration : Form
 {
     private readonly IFormFactory _formFactory;
     private readonly ApiProvider _apiProvider;
-    private readonly UserToken _userToken;
 
-    public Registration(IFormFactory formFactory, ApiProvider apiProvider, UserToken userToken)
+    public Registration(IFormFactory formFactory, ApiProvider apiProvider)
     {
         _formFactory = formFactory;
         _apiProvider = apiProvider;
-        _userToken = userToken;
         InitializeComponent();
+    }
+
+    public void Open()
+    {
+        if (!Application.OpenForms.OfType<Registration>().Any())
+        {
+            Show();
+        }
     }
 
     private void RegisterButtonClick(object sender, EventArgs e)
     {
+        var userRegister = new UserRegister()
+        {
+            Email = EmailInput.Text,
+            Password = PasswordInput.Text,
+            UserName = UsernameInput.Text,
+            Age = (int)AgeInput.Value,
+            Gender = GenderInput.SelectedIndex + 1,
+            Country = GenderInput.SelectedText
+        };
+        _apiProvider.Registrate(userRegister);
+        MessageBox.Show("Регистрация прошла успешно");
+        Close();
+    }
 
+    private void EnterButtonClick(object sender, EventArgs e)
+    {
+        Close();
+        _formFactory.Create<LogIn>().Open();
     }
 }
