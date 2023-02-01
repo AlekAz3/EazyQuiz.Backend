@@ -52,7 +52,7 @@ public class UserService : IUserService
 
         string token = GenerateJwtToken(user);
 
-        return new UserResponse(user.Id,user.Email, user.UserName, user.Age, user.Gender, user.Points, user.Country, token);
+        return new UserResponse(user.Id, user.Email, user.UserName, user.Age, user.Gender, user.Points, user.Country, token);
 
     }
 
@@ -117,6 +117,11 @@ public class UserService : IUserService
     /// <returns>Строка JWT токена</returns>
     private string GenerateJwtToken(User user)
     {
+        if (user == null)
+        {
+            throw new ArgumentNullException(nameof(user));
+        }
+
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
         var claims = new[]

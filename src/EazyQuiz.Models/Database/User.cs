@@ -16,12 +16,12 @@ public class User
     /// <summary>
     /// Почта/Логин
     /// </summary>
-    public string? Email { get; set; }
+    public string Email { get; set; } = string.Empty;
 
     /// <summary>
     /// Ник
     /// </summary>
-    public string? UserName { get; set; }
+    public string UserName { get; set; } = string.Empty;
 
     /// <summary>
     /// Почта
@@ -41,11 +41,11 @@ public class User
     /// <summary>
     /// Страна
     /// </summary>
-    public string? Country { get; set; }
+    public string Country { get; set; } = string.Empty;
 
     /// <summary>
     /// Пароль
     /// </summary>
     [JsonIgnore]
-    public string? Password { get; set; }
+    public string Password { get; set; } = string.Empty;
 }
