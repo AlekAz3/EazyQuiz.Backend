@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EazyQuiz.Extensions", "src\EazyQuiz.Extensions\EazyQuiz.Extensions.csproj", "{6E9AA1FA-FE44-4D29-95C6-F50CF50CF109}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EazyQuiz.Cryptography", "src\EazyQuiz.Cryptography\EazyQuiz.Cryptography.csproj", "{5680C28A-FE4B-4EBA-8799-6D51DC7CA0D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{6E9AA1FA-FE44-4D29-95C6-F50CF50CF109}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E9AA1FA-FE44-4D29-95C6-F50CF50CF109}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E9AA1FA-FE44-4D29-95C6-F50CF50CF109}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5680C28A-FE4B-4EBA-8799-6D51DC7CA0D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5680C28A-FE4B-4EBA-8799-6D51DC7CA0D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5680C28A-FE4B-4EBA-8799-6D51DC7CA0D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5680C28A-FE4B-4EBA-8799-6D51DC7CA0D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +72,7 @@ Global
 		{6F3A698E-B6E8-4B66-BB44-BCDBEFBF70DA} = {967205FC-A1B0-4295-A62F-9B6587647FAA}
 		{E8245CE0-C950-45E1-B603-E5A4C28DB2D8} = {81641BF6-C80C-44C6-AAF2-7D2C7D9EB690}
 		{6E9AA1FA-FE44-4D29-95C6-F50CF50CF109} = {967205FC-A1B0-4295-A62F-9B6587647FAA}
+		{5680C28A-FE4B-4EBA-8799-6D51DC7CA0D6} = {967205FC-A1B0-4295-A62F-9B6587647FAA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E9DF3BFA-6A82-4069-A936-4C737D9C7A18}
