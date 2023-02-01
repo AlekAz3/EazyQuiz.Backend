@@ -12,6 +12,10 @@ internal static class Program
     [STAThread]
     private static void Main()
     {
+        Application.SetHighDpiMode(HighDpiMode.SystemAware);
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
+
         var host = Host.CreateDefaultBuilder()
                      .ConfigureServices((context, services) =>
                      {
@@ -26,7 +30,9 @@ internal static class Program
 
     private static void ConfigureServices(IConfiguration configuration, IServiceCollection services)
     {
-        services.AddSingleton<LogIn>();
-        services.AddScoped<ApiProvider>();
+        services.AddTransient<LogIn>();
+        services.AddTransient<Panel>();
+        services.AddSingleton<ApiProvider>();
+        services.AddSingleton<UserToken>();
     }
 }

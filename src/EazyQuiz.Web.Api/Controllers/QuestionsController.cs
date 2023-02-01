@@ -1,6 +1,7 @@
 using EazyQuiz.Web.Api.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace EazyQuiz.Web.Api.Controllers;
 /// <summary>
@@ -31,11 +32,11 @@ public class QuestionsController : Controller
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    public JsonResult GetAllQuestions()
+    public string GetAllQuestions()
     {
         var result = _dataContext.Questions.ToList();
         _log.LogInformation("GetAllQuestions");
-        return new JsonResult(result);
+        return JsonSerializer.Serialize(result);
     }
 
 }

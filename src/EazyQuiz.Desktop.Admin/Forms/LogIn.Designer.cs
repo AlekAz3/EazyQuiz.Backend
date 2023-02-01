@@ -59,7 +59,7 @@ partial class LogIn
             this.PasswordTextBox.Location = new System.Drawing.Point(12, 101);
             this.PasswordTextBox.Name = "PasswordTextBox";
             this.PasswordTextBox.Size = new System.Drawing.Size(251, 29);
-            this.PasswordTextBox.TabIndex = 0;
+            this.PasswordTextBox.TabIndex = 1;
             // 
             // PasswordLabel
             // 
