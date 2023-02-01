@@ -1,4 +1,4 @@
-using EazyQuiz.Models.DTO;
+using EazyQuiz.Models;
 using System.Security.Cryptography;
 
 namespace EazyQuiz.Cryptography;

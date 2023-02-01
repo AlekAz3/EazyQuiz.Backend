@@ -44,18 +44,6 @@ public class UserResponse
     /// </summary>
     public string? Token { get; set; }
 
-    //public UserResponse(User user, string token)
-    //{
-    //    Id = user.Id;
-    //    Email = user.Email;
-    //    UserName = user.UserName;
-    //    Age = user.Age;
-    //    Gender = user.Gender;
-    //    Points = user.Points;
-    //    Country = user.Country;
-    //    Token = token;
-    //}
-
     public UserResponse(int id, string? email, string? userName, int age, int gender, int points, string? country, string? token)
     {
         Id = id;

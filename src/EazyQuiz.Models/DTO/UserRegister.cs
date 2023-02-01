@@ -11,9 +11,9 @@ public class UserRegister
     public string Email { get; set; } = string.Empty;
 
     /// <summary>
-    /// Пароль
+    /// <inheritdoc cref="UserPassword"/>
     /// </summary>
-    public string Password { get; set; } = string.Empty;
+    public UserPassword? Password { get; set; }
 
     /// <summary>
     /// Ник
