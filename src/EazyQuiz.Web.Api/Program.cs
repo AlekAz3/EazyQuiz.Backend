@@ -1,6 +1,3 @@
-using EazyQuiz.Web.Api.Abstractions;
-using EazyQuiz.Web.Api.Infrastructure;
-using EazyQuiz.Web.Api.Services;
 using Serilog;
 
 namespace EazyQuiz.Web.Api;
@@ -13,7 +10,7 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         var logger = new LoggerConfiguration()
-        .ReadFrom.Configuration(builder.Configuration) //Использование Serilog
+        .ReadFrom.Configuration(builder.Configuration) //РСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ Serilog
         .Enrich.FromLogContext()
                 .WriteTo.Console()
                 .CreateLogger();
@@ -28,7 +25,7 @@ public class Program
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-        builder.Services.AddAuth(builder.Configuration); //Добавление JWT
+        builder.Services.AddAuth(builder.Configuration); //Р”РѕР±Р°РІР»РµРЅРёРµ JWT
 
 
         var app = builder.Build();

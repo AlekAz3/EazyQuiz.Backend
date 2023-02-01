@@ -1,12 +1,10 @@
 using EazyQuiz.Models;
-using EazyQuiz.Web.Api.Abstractions;
-using EazyQuiz.Web.Api.Infrastructure;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace EazyQuiz.Web.Api.Services;
+namespace EazyQuiz.Web.Api;
 
 /// <summary>
 /// Класс реальзующий <inheritdoc cref="IUserService"/>
@@ -19,19 +17,13 @@ public class UserService : IUserService
     private readonly DataContext _dataContext;
 
     /// <summary>
-    /// <inheritdoc cref="ILogger{TCategoryName}"/>
-    /// </summary>
-    private readonly ILogger<UserService> _log;
-
-    /// <summary>
     /// <inheritdoc cref="IConfiguration"/>
     /// </summary>
     private readonly IConfiguration _config;
 
-    public UserService(DataContext dataContext, ILogger<UserService> logger, IConfiguration config)
+    public UserService(DataContext dataContext, IConfiguration config)
     {
         _dataContext = dataContext;
-        _log = logger;
         _config = config;
     }
 
@@ -52,7 +44,7 @@ public class UserService : IUserService
 
         string token = GenerateJwtToken(user);
 
-        return new UserResponse(user, token);
+        return new UserResponse(user.Id, user.Email, user.UserName, user.Age, user.Gender, user.Points, user.Country, token);
 
     }
 
@@ -117,6 +109,11 @@ public class UserService : IUserService
     /// <returns>Строка JWT токена</returns>
     private string GenerateJwtToken(User user)
     {
+        if (user == null)
+        {
+            throw new ArgumentNullException(nameof(user));
+        }
+
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
         var claims = new[]

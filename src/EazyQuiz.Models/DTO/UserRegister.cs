@@ -8,17 +8,17 @@ public class UserRegister
     /// <summary>
     /// Почта/Логин
     /// </summary>
-    public string? Email { get; set; }
+    public string Email { get; set; } = string.Empty;
 
     /// <summary>
     /// Пароль
     /// </summary>
-    public string? Password { get; set; }
+    public string Password { get; set; } = string.Empty;
 
     /// <summary>
     /// Ник
     /// </summary>
-    public string? UserName { get; set; }
+    public string UserName { get; set; } = string.Empty;
 
     /// <summary>
     /// Возраст
@@ -33,5 +33,5 @@ public class UserRegister
     /// <summary>
     /// Страна проживания
     /// </summary>
-    public string? Country { get; set; }
+    public string Country { get; set; } = string.Empty;
 }

@@ -14,4 +14,12 @@ public class UserAuth
     /// Пароль
     /// </summary>
     public string? Password { get; set; }
+
+    public UserAuth(string? email, string? password)
+    {
+        Email = email;
+        Password = password;
+    }
+
+    public UserAuth() { }
 }

@@ -1,7 +1,7 @@
 using EazyQuiz.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace EazyQuiz.Web.Api.Infrastructure;
+namespace EazyQuiz.Web.Api;
 
 /// <summary>
 /// Контекст подключения к базе данных
