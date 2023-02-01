@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -19,7 +18,7 @@ internal static class Program
         var host = Host.CreateDefaultBuilder()
                      .ConfigureServices((context, services) =>
                      {
-                         ConfigureServices(context.Configuration, services);
+                         ConfigureServices(services);
                      })
                      .Build();
 
@@ -28,7 +27,7 @@ internal static class Program
         Application.Run(mainForm);
     }
 
-    private static void ConfigureServices(IConfiguration configuration, IServiceCollection services)
+    private static void ConfigureServices(IServiceCollection services)
     {
         services.AddSingleton<IFormFactory, FormFactory>();
 

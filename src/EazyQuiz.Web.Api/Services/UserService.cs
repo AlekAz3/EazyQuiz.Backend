@@ -17,19 +17,13 @@ public class UserService : IUserService
     private readonly DataContext _dataContext;
 
     /// <summary>
-    /// <inheritdoc cref="ILogger{TCategoryName}"/>
-    /// </summary>
-    private readonly ILogger<UserService> _log;
-
-    /// <summary>
     /// <inheritdoc cref="IConfiguration"/>
     /// </summary>
     private readonly IConfiguration _config;
 
-    public UserService(DataContext dataContext, ILogger<UserService> logger, IConfiguration config)
+    public UserService(DataContext dataContext, IConfiguration config)
     {
         _dataContext = dataContext;
-        _log = logger;
         _config = config;
     }
 

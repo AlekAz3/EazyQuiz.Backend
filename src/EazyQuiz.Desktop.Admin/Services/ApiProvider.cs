@@ -24,7 +24,7 @@ public class ApiProvider : IDisposable
 
         if (userResponse == null)
         {
-            throw new Exception();
+            throw new ArgumentException("Error in Deserialize");
         }
 
         return userResponse;

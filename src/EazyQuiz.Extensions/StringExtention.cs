@@ -1,5 +1,6 @@
 
 namespace EazyQuiz.Extensions;
+[System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0052:Удалить непрочитанные закрытые члены", Justification = "<Временно>")]
 public static class StringExtension
 {
     private static readonly List<char> AlphabetUpperCase = new()
