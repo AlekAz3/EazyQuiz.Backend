@@ -1,4 +1,4 @@
-﻿namespace EazyQuiz.Extensions;
+namespace EazyQuiz.Extensions;
 public class Class1
 {
 
