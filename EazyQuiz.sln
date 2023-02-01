@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EazyQuiz.Extensions", "EazyQuiz.Extensions\EazyQuiz.Extensions.csproj", "{92A3CE79-AEA8-4BD6-98C6-3DE2C025AB4F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{E8245CE0-C950-45E1-B603-E5A4C28DB2D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8245CE0-C950-45E1-B603-E5A4C28DB2D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8245CE0-C950-45E1-B603-E5A4C28DB2D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92A3CE79-AEA8-4BD6-98C6-3DE2C025AB4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92A3CE79-AEA8-4BD6-98C6-3DE2C025AB4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92A3CE79-AEA8-4BD6-98C6-3DE2C025AB4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92A3CE79-AEA8-4BD6-98C6-3DE2C025AB4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +65,7 @@ Global
 		{91AC0748-9B30-4319-A1E9-4C43DCFBD45F} = {81641BF6-C80C-44C6-AAF2-7D2C7D9EB690}
 		{6F3A698E-B6E8-4B66-BB44-BCDBEFBF70DA} = {967205FC-A1B0-4295-A62F-9B6587647FAA}
 		{E8245CE0-C950-45E1-B603-E5A4C28DB2D8} = {81641BF6-C80C-44C6-AAF2-7D2C7D9EB690}
+		{92A3CE79-AEA8-4BD6-98C6-3DE2C025AB4F} = {967205FC-A1B0-4295-A62F-9B6587647FAA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E9DF3BFA-6A82-4069-A936-4C737D9C7A18}
