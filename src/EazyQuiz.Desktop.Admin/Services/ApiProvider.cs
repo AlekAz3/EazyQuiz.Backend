@@ -38,7 +38,7 @@ public class ApiProvider : IDisposable
     /// <exception cref="ArgumentException">Пользователь не найден</exception>
     public UserResponse Authtenticate(string email, string password)
     {
-        var salt = System.Text.Encoding.UTF8.GetBytes(GetUserSaltByEmail(email));
+        var salt = Encoding.UTF8.GetBytes(GetUserSaltByEmail(email));
 
         var hashPassword = PasswordHash.HashWithCurrentSalt(password, salt);
 
