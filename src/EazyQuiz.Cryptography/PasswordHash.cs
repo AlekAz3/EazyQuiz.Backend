@@ -9,7 +9,7 @@ public class PasswordHash
     private const int SaltSize = 32;
     private const int KeySize = 64;
     private const int Iterations = 1000;
-    private const string Pepper = "lkdehfbdtcgegsnGdTsgFdcxdeRgfDfD";
+    private const string Pepper = "lk$dehfbd^tcgeg@TsgFdcx4deRgfDfD";
     private static readonly HashAlgorithmName Algorithm = HashAlgorithmName.SHA512;
 
     public static UserPassword Hash(string password)
@@ -23,35 +23,25 @@ public class PasswordHash
             KeySize
         );
 
-        byte[] hash2 = Rfc2898DeriveBytes.Pbkdf2(
-            hash,
-            Encoding.UTF8.GetBytes(Pepper),
-            Iterations,
-            Algorithm,
-            KeySize
-        );
-
-        return new UserPassword(hash2, salt);
+        return new UserPassword(hash, salt);
     }
 
-    public static bool Verify(string input, UserPassword hash)
+    public static byte[] HashWithCurrentSalt(string password, byte[] salt)
     {
-        byte[] inputHash = Rfc2898DeriveBytes.Pbkdf2(
-            input,
-            hash.PasswordSalt,
+        byte[] hash = Rfc2898DeriveBytes.Pbkdf2(
+            password,
+            salt,
             Iterations,
             Algorithm,
             KeySize
         );
 
-        byte[] inputHash2 = Rfc2898DeriveBytes.Pbkdf2(
-            inputHash,
-            Encoding.UTF8.GetBytes(Pepper),
-            Iterations,
-            Algorithm,
-            KeySize
-        );
+        return hash;
+    }
 
-        return CryptographicOperations.FixedTimeEquals(inputHash, hash.PasswordHash);
+
+    public static bool Verify(byte[] inputHash, byte[] hash2)
+    {
+        return CryptographicOperations.FixedTimeEquals(inputHash, hash2);
     }
 }

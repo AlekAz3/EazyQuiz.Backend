@@ -1,4 +1,6 @@
+using EazyQuiz.Cryptography;
 using EazyQuiz.Models;
+using System.Diagnostics.Metrics;
 
 namespace EazyQuiz.Desktop.Admin;
 public partial class Registration : Form
@@ -36,16 +38,14 @@ public partial class Registration : Form
     /// </summary>
     private void RegisterButtonClick(object sender, EventArgs e)
     {
-        var userRegister = new UserRegister()
-        {
-            Email = EmailInput.Text,
-            Password = PasswordInput.Text,
-            UserName = UsernameInput.Text,
-            Age = (int)AgeInput.Value,
-            Gender = GenderInput.SelectedIndex + 1,
-            Country = GenderInput.SelectedText
-        };
-        _apiProvider.Registrate(userRegister);
+        var email = EmailInput.Text;
+        var password = PasswordInput.Text;
+        var username = UsernameInput.Text;
+        var age = (int)AgeInput.Value;
+        var gender = GenderInput.SelectedText;
+        var country = GenderInput.SelectedText;
+
+        _apiProvider.Registrate(email, password, username, age, gender, country);
         MessageBox.Show("Регистрация прошла успешно");
         Close();
     }

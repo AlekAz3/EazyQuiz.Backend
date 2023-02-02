@@ -27,7 +27,7 @@ public class UserResponse
     /// <summary>
     /// Пол
     /// </summary>
-    public int Gender { get; set; }
+    public string Gender { get; set; } = string.Empty;
 
     /// <summary>
     /// Счёт
@@ -44,7 +44,7 @@ public class UserResponse
     /// </summary>
     public string? Token { get; set; }
 
-    public UserResponse(int id, string? email, string? userName, int age, int gender, int points, string? country, string? token)
+    public UserResponse(int id, string? email, string? userName, int age, string gender, int points, string? country, string? token)
     {
         Id = id;
         Email = email;

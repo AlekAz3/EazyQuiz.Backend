@@ -27,6 +27,13 @@ public interface IUserService
     User GetById(int id);
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="email"></param>
+    /// <returns></returns>
+    byte[] GetUserSalt(string email);
+
+    /// <summary>
     /// Запись нового пользователя в базу данных
     /// </summary>
     /// <param name="user">Данные регистрации пользователя в <see cref="UserRegister"/></param>

@@ -1,3 +1,4 @@
+using EazyQuiz.Cryptography;
 using EazyQuiz.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
@@ -45,10 +46,17 @@ public class AuthController : Controller
     /// <param name="auth"></param>
     /// <returns></returns>
     [HttpGet]
-    public string GetUserByPassword([FromQuery] UserAuth auth)
+    public string GetUserByPassword([FromBody] UserAuth auth)
     {
         var userResponse = _userService.Authenticate(auth);
         _log.LogInformation("User {@User} was login", userResponse);
         return JsonSerializer.Serialize(userResponse);
+    }
+
+    [HttpGet]
+    public string GetUserSalt(string email)
+    {
+        var userSalt = _userService.GetUserSalt(email);
+        return Convert.ToBase64String(userSalt);
     }
 }

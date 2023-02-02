@@ -28,7 +28,7 @@ public class UserRegister
     /// <summary>
     /// Пол
     /// </summary>
-    public int Gender { get; set; }
+    public string Gender { get; set; } = string.Empty;
 
     /// <summary>
     /// Страна проживания
