@@ -111,6 +111,10 @@ public class UserService : IUserService
         _dataContext.SaveChanges();
     }
 
+    /// <summary>
+    /// Получение последнего Ид
+    /// </summary>
+    /// <returns>Ид</returns>
     private int GetLastId()
     {
         return _dataContext.User!.Select(x => x.Id).Count() + 1;
@@ -144,7 +148,12 @@ public class UserService : IUserService
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
-
+    /// <summary>
+    /// Получение соли игрока по почте из БД
+    /// </summary>
+    /// <param name="email">Почта</param>
+    /// <returns>Соль</returns>
+    /// <exception cref="Exception">Игрок не найден</exception>
     public string GetUserSalt(string email)
     {
         var user = _dataContext.User.Where(x => email == x.Email).Select(x => x.PasswordSalt).FirstOrDefault();
@@ -153,6 +162,6 @@ public class UserService : IUserService
             throw new Exception("user not found");
         }
         _log.LogInformation("user {@User}", user);
-        return System.Text.Encoding.ASCII.GetString(user);
+        return Encoding.UTF8.GetString(user);
     }
 }

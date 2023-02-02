@@ -31,7 +31,6 @@ public class AuthController : Controller
     /// Запись в БД нового игрока/пользователя 
     /// </summary>
     /// <param name="user">Логин и Пароль в <see cref="UserRegister"/></param>
-    /// <returns></returns>
     [HttpPost]
     public IActionResult RegisterNewPlayer(UserRegister user)
     {
@@ -44,7 +43,6 @@ public class AuthController : Controller
     /// Вход в систему возвращает <see cref="UserResponse"/> с токеном JWT
     /// </summary>
     /// <param name="auth"></param>
-    /// <returns></returns>
     [HttpGet]
     public string GetUserByPassword([FromBody] UserAuth auth)
     {
@@ -54,6 +52,10 @@ public class AuthController : Controller
         return JsonSerializer.Serialize(userResponse);
     }
 
+    /// <summary>
+    /// Получение соли по почте
+    /// </summary>
+    /// <param name="email">Почта</param>
     [HttpGet]
     public string GetUserSalt(string email)
     {

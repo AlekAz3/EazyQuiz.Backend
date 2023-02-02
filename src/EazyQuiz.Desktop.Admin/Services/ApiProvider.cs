@@ -21,6 +21,9 @@ public class ApiProvider : IDisposable
     /// </summary>
     private readonly HttpClient _client;
 
+    /// <summary>
+    /// Адрес сервера 
+    /// </summary>
     private readonly string _baseAdress;
 
     public ApiProvider(IConfiguration config)
@@ -33,8 +36,8 @@ public class ApiProvider : IDisposable
     /// <summary>
     /// Авторизация пользователя 
     /// </summary>
-    /// <param name="userAuth"></param>
-    /// <returns>Объект <see cref="UserResponse"/> инфа о пользователе с JWT токеном</returns>
+    /// <param name="email">Почта</param>
+    /// <param name="password">Пароль</param>
     /// <exception cref="ArgumentException">Пользователь не найден</exception>
     public UserResponse Authtenticate(string email, string password)
     {
@@ -70,6 +73,12 @@ public class ApiProvider : IDisposable
         return userResponse;
     }
 
+    /// <summary>
+    /// Получение соли по почте игрока
+    /// </summary>
+    /// <param name="email">Почта</param>
+    /// <returns>Соль</returns>
+    /// <exception cref="Exception">Соль не найдена</exception>
     public string GetUserSaltByEmail(string email)
     {
         var request = new HttpRequestMessage
@@ -92,13 +101,15 @@ public class ApiProvider : IDisposable
         return responseBody;
     }
 
-
-    public void Dispose()
-    {
-        _client.Dispose();
-        GC.SuppressFinalize(this);
-    }
-
+    /// <summary>
+    /// Регистрация нового игрока
+    /// </summary>
+    /// <param name="email">Почта</param>
+    /// <param name="password">Пароль</param>
+    /// <param name="username">Ник</param>
+    /// <param name="age">Возраст</param>
+    /// <param name="gender">Пол</param>
+    /// <param name="country">Страна</param>
     internal void Registrate(string email, string password, string username, int age, string gender, string country)
     {
         var user = new UserRegister()
@@ -123,6 +134,12 @@ public class ApiProvider : IDisposable
 
         var response = Task.Run(() => { return _client.SendAsync(request); });
 
+    }
+
+    public void Dispose()
+    {
+        _client.Dispose();
+        GC.SuppressFinalize(this);
     }
 
 }
