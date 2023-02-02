@@ -37,5 +37,4 @@ public class QuestionsController : Controller
         _log.LogInformation("GetAllQuestions");
         return JsonSerializer.Serialize(result);
     }
-
 }

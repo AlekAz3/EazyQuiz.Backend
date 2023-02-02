@@ -1,7 +1,9 @@
+using EazyQuiz.Cryptography;
 using EazyQuiz.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace EazyQuiz.Web.Api;
@@ -21,10 +23,13 @@ public class UserService : IUserService
     /// </summary>
     private readonly IConfiguration _config;
 
-    public UserService(DataContext dataContext, IConfiguration config)
+    private readonly ILogger<UserService> _log;
+
+    public UserService(DataContext dataContext, IConfiguration config, ILogger<UserService> logger)
     {
         _dataContext = dataContext;
         _config = config;
+        _log = logger;
     }
 
     /// <summary>
@@ -35,16 +40,24 @@ public class UserService : IUserService
     /// <exception cref="ArgumentException">Игрок не найден</exception>
     public UserResponse Authenticate(UserAuth auth)
     {
-        var user = _dataContext.User.SingleOrDefault(x => x.Email == auth.Email && x.Password == auth.Password);
-
+        var user = _dataContext.User.Where(x => x.Email == auth.Email).First();
+        _log.LogInformation("Auth {@User}", auth);
+        _log.LogInformation("User {@User}", user);
         if (user == null)
         {
             throw new ArgumentException("User does not exist");
         }
 
-        string token = GenerateJwtToken(user);
+        if (PasswordHash.Verify(Encoding.UTF8.GetBytes(auth.Password!.PasswordHash), user.PasswordHash))
+        {
+            string token = GenerateJwtToken(user);
+            var a = new UserResponse(user.Id, user.Email, user.UserName, user.Age, user.Gender, user.Points, user.Country, token);
+            _log.LogInformation("{@User}", a);
+            return a;
+        }
+        throw new ArgumentException("WrongPassword");
 
-        return new UserResponse(user.Id, user.Email, user.UserName, user.Age, user.Gender, user.Points, user.Country, token);
+
 
     }
 
@@ -89,7 +102,8 @@ public class UserService : IUserService
             Country = user.Country,
             Email = user.Email,
             Gender = user.Gender,
-            Password = user.Password,
+            PasswordHash = Encoding.UTF8.GetBytes(user.Password!.PasswordHash),
+            PasswordSalt = Encoding.UTF8.GetBytes(user.Password!.PasswordSalt),
             Points = 0,
             UserName = user.UserName
         };
@@ -97,6 +111,10 @@ public class UserService : IUserService
         _dataContext.SaveChanges();
     }
 
+    /// <summary>
+    /// Получение последнего Ид
+    /// </summary>
+    /// <returns>Ид</returns>
     private int GetLastId()
     {
         return _dataContext.User!.Select(x => x.Id).Count() + 1;
@@ -115,7 +133,7 @@ public class UserService : IUserService
         }
 
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512);
         var claims = new[]
         {
             new Claim(ClaimTypes.NameIdentifier,user.UserName),
@@ -129,5 +147,21 @@ public class UserService : IUserService
             signingCredentials: credentials);
 
         return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+    /// <summary>
+    /// Получение соли игрока по почте из БД
+    /// </summary>
+    /// <param name="email">Почта</param>
+    /// <returns>Соль</returns>
+    /// <exception cref="Exception">Игрок не найден</exception>
+    public string GetUserSalt(string email)
+    {
+        var user = _dataContext.User.Where(x => email == x.Email).Select(x => x.PasswordSalt).FirstOrDefault();
+        if (user == null)
+        {
+            throw new Exception("user not found");
+        }
+        _log.LogInformation("user {@User}", user);
+        return Encoding.UTF8.GetString(user);
     }
 }

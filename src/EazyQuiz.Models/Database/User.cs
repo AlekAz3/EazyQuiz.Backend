@@ -1,10 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace EazyQuiz.Models;
 /// <summary>
 /// Описание пользователя
 /// </summary>
+[Table("Users")]
 public class User
 {
     /// <summary>
@@ -31,7 +33,7 @@ public class User
     /// <summary>
     /// Пол
     /// </summary>
-    public int Gender { get; set; }
+    public string Gender { get; set; } = string.Empty;
 
     /// <summary>
     /// Счёт
@@ -44,8 +46,14 @@ public class User
     public string Country { get; set; } = string.Empty;
 
     /// <summary>
-    /// Пароль
+    /// Пароль Хэш
     /// </summary>
     [JsonIgnore]
-    public string Password { get; set; } = string.Empty;
+    public byte[]? PasswordHash { get; set; }
+
+    /// <summary>
+    /// Соль пароля
+    /// </summary>
+    [JsonIgnore]
+    public byte[]? PasswordSalt { get; set; }
 }

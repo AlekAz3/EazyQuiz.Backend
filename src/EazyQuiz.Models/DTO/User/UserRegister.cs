@@ -11,9 +11,9 @@ public class UserRegister
     public string Email { get; set; } = string.Empty;
 
     /// <summary>
-    /// Пароль
+    /// <inheritdoc cref="UserPassword"/>
     /// </summary>
-    public string Password { get; set; } = string.Empty;
+    public UserPassword? Password { get; set; }
 
     /// <summary>
     /// Ник
@@ -28,7 +28,7 @@ public class UserRegister
     /// <summary>
     /// Пол
     /// </summary>
-    public int Gender { get; set; }
+    public string Gender { get; set; } = string.Empty;
 
     /// <summary>
     /// Страна проживания

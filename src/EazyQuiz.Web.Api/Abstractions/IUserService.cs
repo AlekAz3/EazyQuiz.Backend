@@ -27,6 +27,13 @@ public interface IUserService
     User GetById(int id);
 
     /// <summary>
+    /// Получение соли по почте 
+    /// </summary>
+    /// <param name="email">Почта игрока</param>
+    /// <returns>Соль</returns>
+    string GetUserSalt(string email);
+
+    /// <summary>
     /// Запись нового пользователя в базу данных
     /// </summary>
     /// <param name="user">Данные регистрации пользователя в <see cref="UserRegister"/></param>

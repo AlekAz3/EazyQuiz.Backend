@@ -1,3 +1,4 @@
+using EazyQuiz.Cryptography;
 using EazyQuiz.Models;
 namespace EazyQuiz.Desktop.Admin;
 
@@ -44,8 +45,8 @@ public partial class LogIn : Form
     {
         string email = EmailTextBox.Text;
         string password = PasswordTextBox.Text;
-        var userAuth = new UserAuth(email, password);
-        _userToken.User = _apiProvider.Authtenticate(userAuth);
+
+        _userToken.User = _apiProvider.Authtenticate(email, password);
         _formFactory.Create<Panel>().Open();
     }
 

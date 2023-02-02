@@ -1,3 +1,4 @@
+using EazyQuiz.Cryptography;
 using EazyQuiz.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
@@ -30,7 +31,6 @@ public class AuthController : Controller
     /// Запись в БД нового игрока/пользователя 
     /// </summary>
     /// <param name="user">Логин и Пароль в <see cref="UserRegister"/></param>
-    /// <returns></returns>
     [HttpPost]
     public IActionResult RegisterNewPlayer(UserRegister user)
     {
@@ -43,12 +43,26 @@ public class AuthController : Controller
     /// Вход в систему возвращает <see cref="UserResponse"/> с токеном JWT
     /// </summary>
     /// <param name="auth"></param>
-    /// <returns></returns>
     [HttpGet]
-    public string GetUserByPassword([FromQuery] UserAuth auth)
+    public string GetUserByPassword([FromBody] UserAuth auth)
     {
+        _log.LogInformation("Get user {@User}", auth);
         var userResponse = _userService.Authenticate(auth);
         _log.LogInformation("User {@User} was login", userResponse);
         return JsonSerializer.Serialize(userResponse);
+    }
+
+    /// <summary>
+    /// Получение соли по почте
+    /// </summary>
+    /// <param name="email">Почта</param>
+    [HttpGet]
+    public string GetUserSalt(string email)
+    {
+        _log.LogInformation(" 1 GetSalt {Email}", email);
+        var userSalt = _userService.GetUserSalt(email);
+        _log.LogInformation(" 2 GetSalt {UserSalt}", userSalt);
+
+        return userSalt;
     }
 }
