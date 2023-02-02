@@ -31,7 +31,7 @@ public interface IUserService
     /// </summary>
     /// <param name="email"></param>
     /// <returns></returns>
-    byte[] GetUserSalt(string email);
+    string GetUserSalt(string email);
 
     /// <summary>
     /// Запись нового пользователя в базу данных

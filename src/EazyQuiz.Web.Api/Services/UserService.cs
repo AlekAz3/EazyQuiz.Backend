@@ -41,17 +41,17 @@ public class UserService : IUserService
     public UserResponse Authenticate(UserAuth auth)
     {
         var user = _dataContext.User.Where(x => x.Email == auth.Email).First();
-        _log.LogInformation("{@User}", auth);
-        _log.LogInformation("{@User}", user);
+        _log.LogInformation("Auth {@User}", auth);
+        _log.LogInformation("User {@User}", user);
         if (user == null)
         {
             throw new ArgumentException("User does not exist");
         }
 
-        if (PasswordHash.Verify(auth.Password!.PasswordHash, user.PasswordHash))
+        if (PasswordHash.Verify(Encoding.UTF8.GetBytes(auth.Password!.PasswordHash), user.PasswordHash))
         {
             string token = GenerateJwtToken(user);
-            var a =  new UserResponse(user.Id, user.Email, user.UserName, user.Age, user.Gender, user.Points, user.Country, token);
+            var a = new UserResponse(user.Id, user.Email, user.UserName, user.Age, user.Gender, user.Points, user.Country, token);
             _log.LogInformation("{@User}", a);
             return a;
         }
@@ -102,8 +102,8 @@ public class UserService : IUserService
             Country = user.Country,
             Email = user.Email,
             Gender = user.Gender,
-            PasswordHash = user.Password!.PasswordHash,
-            PasswordSalt = user.Password!.PasswordSalt,
+            PasswordHash = Encoding.UTF8.GetBytes(user.Password!.PasswordHash),
+            PasswordSalt = Encoding.UTF8.GetBytes(user.Password!.PasswordSalt),
             Points = 0,
             UserName = user.UserName
         };
@@ -145,14 +145,14 @@ public class UserService : IUserService
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    public byte[] GetUserSalt(string email)
+    public string GetUserSalt(string email)
     {
         var user = _dataContext.User.Where(x => email == x.Email).Select(x => x.PasswordSalt).FirstOrDefault();
         if (user == null)
         {
             throw new Exception("user not found");
         }
-        _log.LogInformation("{@User}", user);
-        return user;
+        _log.LogInformation("user {@User}", user);
+        return System.Text.Encoding.ASCII.GetString(user);
     }
 }

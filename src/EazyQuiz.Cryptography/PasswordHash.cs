@@ -9,36 +9,35 @@ public class PasswordHash
     private const int SaltSize = 32;
     private const int KeySize = 64;
     private const int Iterations = 1000;
-    private const string Pepper = "lk$dehfbd^tcgeg@TsgFdcx4deRgfDfD";
     private static readonly HashAlgorithmName Algorithm = HashAlgorithmName.SHA512;
 
     public static UserPassword Hash(string password)
     {
         byte[] salt = RandomNumberGenerator.GetBytes(SaltSize);
+        var saltt = Convert.ToBase64String(salt);
         byte[] hash = Rfc2898DeriveBytes.Pbkdf2(
             password,
-            salt,
+            Encoding.UTF8.GetBytes(saltt),
             Iterations,
             Algorithm,
             KeySize
         );
 
-        return new UserPassword(hash, salt);
+        return new UserPassword(Convert.ToBase64String(hash), Convert.ToBase64String(salt));
     }
 
-    public static byte[] HashWithCurrentSalt(string password, byte[] salt)
+    public static string HashWithCurrentSalt(string password, string salt)
     {
         byte[] hash = Rfc2898DeriveBytes.Pbkdf2(
             password,
-            salt,
+            Encoding.UTF8.GetBytes(salt),
             Iterations,
             Algorithm,
             KeySize
         );
 
-        return hash;
+        return Convert.ToBase64String(hash);
     }
-
 
     public static bool Verify(byte[] inputHash, byte[] hash2)
     {

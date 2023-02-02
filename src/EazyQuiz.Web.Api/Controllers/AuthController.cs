@@ -48,6 +48,7 @@ public class AuthController : Controller
     [HttpGet]
     public string GetUserByPassword([FromBody] UserAuth auth)
     {
+        _log.LogInformation("Get user {@User}", auth);
         var userResponse = _userService.Authenticate(auth);
         _log.LogInformation("User {@User} was login", userResponse);
         return JsonSerializer.Serialize(userResponse);
@@ -56,7 +57,10 @@ public class AuthController : Controller
     [HttpGet]
     public string GetUserSalt(string email)
     {
+        _log.LogInformation(" 1 GetSalt {Email}", email);
         var userSalt = _userService.GetUserSalt(email);
-        return Convert.ToBase64String(userSalt);
+        _log.LogInformation(" 2 GetSalt {UserSalt}", userSalt);
+
+        return userSalt;
     }
 }

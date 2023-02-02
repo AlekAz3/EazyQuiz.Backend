@@ -38,7 +38,7 @@ public class ApiProvider : IDisposable
     /// <exception cref="ArgumentException">Пользователь не найден</exception>
     public UserResponse Authtenticate(string email, string password)
     {
-        var salt = Encoding.UTF8.GetBytes(GetUserSaltByEmail(email));
+        var salt = GetUserSaltByEmail(email);
 
         var hashPassword = PasswordHash.HashWithCurrentSalt(password, salt);
 
@@ -72,12 +72,10 @@ public class ApiProvider : IDisposable
 
     public string GetUserSaltByEmail(string email)
     {
-        string json = JsonSerializer.Serialize(email);
         var request = new HttpRequestMessage
         {
             Method = HttpMethod.Get,
-            RequestUri = new Uri($"{_baseAdress}/api/Auth/GetUserSalt"),
-            Content = new StringContent(json, Encoding.UTF8, MediaTypeNames.Application.Json),
+            RequestUri = new Uri($"{_baseAdress}/api/Auth/GetUserSalt?email={email}"),
         };
 
         var response = Task.Run(() => { return _client.SendAsync(request); }).Result;

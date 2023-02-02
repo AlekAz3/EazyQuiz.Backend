@@ -7,14 +7,14 @@ public class UserPassword
     /// <summary>
     /// Хэш
     /// </summary>
-    public byte[] PasswordHash { get; set; }
+    public string PasswordHash { get; set; }
 
     /// <summary>
     /// Соль
     /// </summary>
-    public byte[] PasswordSalt { get; set; }
+    public string PasswordSalt { get; set; }
 
-    public UserPassword(byte[] passwordHash, byte[] passwordSalt)
+    public UserPassword(string passwordHash, string passwordSalt)
     {
         PasswordHash = passwordHash;
         PasswordSalt = passwordSalt;
