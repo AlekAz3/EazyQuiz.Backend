@@ -1,3 +1,4 @@
+using EazyQuiz.Extensions;
 namespace EazyQuiz.Desktop.Admin;
 
 public partial class LogIn : Form
@@ -41,8 +42,16 @@ public partial class LogIn : Form
     /// </summary>
     private void EnterButtonClick(object sender, EventArgs e)
     {
-        string username = UsernameTextBox.Text;
-        string password = PasswordTextBox.Text;
+        string username = UsernameInput.Text;
+        string password = PasswordInput.Text;
+
+        if (username.IsNullOrEmpty() || username.IsNullOrEmpty())
+        {
+            MessageBox.Show("Есть пустые поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
+
+
 
         _userToken.User = _apiProvider.Authtenticate(username, password);
         _formFactory.Create<Panel>().Open();

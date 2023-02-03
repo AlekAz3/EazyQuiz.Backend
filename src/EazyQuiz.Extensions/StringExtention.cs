@@ -113,6 +113,10 @@ public static class StringExtension
         {
             return true;
         }
+        if (str == " ")
+        {
+            return true;
+        }
         return false;
     }
 

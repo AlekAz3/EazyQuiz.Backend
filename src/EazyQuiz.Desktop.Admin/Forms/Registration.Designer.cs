@@ -59,7 +59,7 @@ partial class Registration
             this.PasswordInput.Location = new System.Drawing.Point(163, 45);
             this.PasswordInput.Name = "PasswordInput";
             this.PasswordInput.Size = new System.Drawing.Size(194, 27);
-            this.PasswordInput.TabIndex = 2;
+            this.PasswordInput.TabIndex = 1;
             // 
             // PasswordVerifyInput
             // 
@@ -67,7 +67,7 @@ partial class Registration
             this.PasswordVerifyInput.Location = new System.Drawing.Point(163, 78);
             this.PasswordVerifyInput.Name = "PasswordVerifyInput";
             this.PasswordVerifyInput.Size = new System.Drawing.Size(194, 27);
-            this.PasswordVerifyInput.TabIndex = 3;
+            this.PasswordVerifyInput.TabIndex = 2;
             // 
             // AgeInput
             // 
@@ -75,25 +75,75 @@ partial class Registration
             this.AgeInput.Location = new System.Drawing.Point(163, 111);
             this.AgeInput.Name = "AgeInput";
             this.AgeInput.Size = new System.Drawing.Size(194, 27);
-            this.AgeInput.TabIndex = 4;
+            this.AgeInput.TabIndex = 3;
             // 
             // GenderInput
             // 
             this.GenderInput.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.GenderInput.FormattingEnabled = true;
+            this.GenderInput.Items.AddRange(new object[] {
+            "Мужской",
+            "Женский",
+            "Другой",
+            "Не скажу"});
             this.GenderInput.Location = new System.Drawing.Point(163, 144);
             this.GenderInput.Name = "GenderInput";
             this.GenderInput.Size = new System.Drawing.Size(194, 28);
-            this.GenderInput.TabIndex = 5;
+            this.GenderInput.TabIndex = 4;
             // 
             // CountryInput
             // 
             this.CountryInput.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.CountryInput.FormattingEnabled = true;
+            this.CountryInput.Items.AddRange(new object[] {
+            "Австрия",
+            "Албания",
+            "Андорра",
+            "Беларусь",
+            "Бельгия",
+            "Болгария",
+            "Босния и Герцеговина",
+            "Ватикан",
+            "Великобритания",
+            "Венгрия",
+            "Германия",
+            "Греция",
+            "Дания",
+            "Ирландия",
+            "Исландия",
+            "Испания",
+            "Италия",
+            "Латвия",
+            "Литва",
+            "Лихтенштейн",
+            "Люксембург",
+            "Мальта",
+            "Молдова",
+            "Монако",
+            "Нидерланды",
+            "Норвегия",
+            "Польша",
+            "Португалия",
+            "Россия",
+            "Румыния",
+            "Сан-Марино",
+            "Северная Македония",
+            "Сербия",
+            "Словакия",
+            "Словения",
+            "Украина",
+            "Финляндия",
+            "Франция",
+            "Хорватия",
+            "Черногория",
+            "Чехия",
+            "Швейцария",
+            "Швеция",
+            "Эстония"});
             this.CountryInput.Location = new System.Drawing.Point(163, 178);
             this.CountryInput.Name = "CountryInput";
             this.CountryInput.Size = new System.Drawing.Size(194, 28);
-            this.CountryInput.TabIndex = 6;
+            this.CountryInput.TabIndex = 5;
             // 
             // label1
             // 
@@ -161,7 +211,7 @@ partial class Registration
             this.RegisterButton.Location = new System.Drawing.Point(18, 221);
             this.RegisterButton.Name = "RegisterButton";
             this.RegisterButton.Size = new System.Drawing.Size(339, 41);
-            this.RegisterButton.TabIndex = 11;
+            this.RegisterButton.TabIndex = 6;
             this.RegisterButton.Text = "Зарегестрироваться ";
             this.RegisterButton.UseVisualStyleBackColor = true;
             this.RegisterButton.Click += new System.EventHandler(this.RegisterButtonClick);
@@ -172,7 +222,7 @@ partial class Registration
             this.EnterButton.Location = new System.Drawing.Point(18, 268);
             this.EnterButton.Name = "EnterButton";
             this.EnterButton.Size = new System.Drawing.Size(339, 41);
-            this.EnterButton.TabIndex = 11;
+            this.EnterButton.TabIndex = 7;
             this.EnterButton.Text = "Вход";
             this.EnterButton.UseVisualStyleBackColor = true;
             this.EnterButton.Click += new System.EventHandler(this.EnterButtonClick);
