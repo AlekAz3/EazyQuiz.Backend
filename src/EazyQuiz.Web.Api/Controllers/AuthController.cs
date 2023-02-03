@@ -1,4 +1,3 @@
-using EazyQuiz.Cryptography;
 using EazyQuiz.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;

@@ -122,7 +122,6 @@ public class ApiProvider : IDisposable
             Password = PasswordHash.Hash(password)
         };
 
-
         string json = JsonSerializer.Serialize(user);
 
         var request = new HttpRequestMessage
@@ -141,5 +140,4 @@ public class ApiProvider : IDisposable
         _client.Dispose();
         GC.SuppressFinalize(this);
     }
-
 }

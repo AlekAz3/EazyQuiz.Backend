@@ -3,7 +3,6 @@ using EazyQuiz.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
 
 namespace EazyQuiz.Web.Api;
@@ -148,6 +147,7 @@ public class UserService : IUserService
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
+
     /// <summary>
     /// Получение соли игрока по почте из БД
     /// </summary>
@@ -156,7 +156,7 @@ public class UserService : IUserService
     /// <exception cref="Exception">Игрок не найден</exception>
     public string GetUserSalt(string email)
     {
-        var user = _dataContext.User.Where(x => email == x.Email).Select(x => x.PasswordSalt).FirstOrDefault();
+        byte[]? user = _dataContext.User.Where(x => email == x.Email).Select(x => x.PasswordSalt).FirstOrDefault();
         if (user == null)
         {
             throw new Exception("user not found");

@@ -1,5 +1,3 @@
-using EazyQuiz.Cryptography;
-using EazyQuiz.Models;
 namespace EazyQuiz.Desktop.Admin;
 
 public partial class LogIn : Form

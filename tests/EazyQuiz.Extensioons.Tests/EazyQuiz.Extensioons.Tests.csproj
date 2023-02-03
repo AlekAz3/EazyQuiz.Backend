@@ -21,4 +21,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\EazyQuiz.Extensions\EazyQuiz.Extensions.csproj" />
+  </ItemGroup>
+
 </Project>
