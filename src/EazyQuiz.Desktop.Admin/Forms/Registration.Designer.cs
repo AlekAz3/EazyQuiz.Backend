@@ -29,14 +29,12 @@ partial class Registration
     private void InitializeComponent()
     {
             this.UsernameInput = new System.Windows.Forms.TextBox();
-            this.EmailInput = new System.Windows.Forms.TextBox();
             this.PasswordInput = new System.Windows.Forms.TextBox();
             this.PasswordVerifyInput = new System.Windows.Forms.TextBox();
             this.AgeInput = new System.Windows.Forms.NumericUpDown();
             this.GenderInput = new System.Windows.Forms.ComboBox();
             this.CountryInput = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -55,18 +53,10 @@ partial class Registration
             this.UsernameInput.Size = new System.Drawing.Size(194, 27);
             this.UsernameInput.TabIndex = 0;
             // 
-            // EmailInput
-            // 
-            this.EmailInput.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.EmailInput.Location = new System.Drawing.Point(163, 45);
-            this.EmailInput.Name = "EmailInput";
-            this.EmailInput.Size = new System.Drawing.Size(194, 27);
-            this.EmailInput.TabIndex = 1;
-            // 
             // PasswordInput
             // 
             this.PasswordInput.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.PasswordInput.Location = new System.Drawing.Point(163, 78);
+            this.PasswordInput.Location = new System.Drawing.Point(163, 45);
             this.PasswordInput.Name = "PasswordInput";
             this.PasswordInput.Size = new System.Drawing.Size(194, 27);
             this.PasswordInput.TabIndex = 2;
@@ -74,7 +64,7 @@ partial class Registration
             // PasswordVerifyInput
             // 
             this.PasswordVerifyInput.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.PasswordVerifyInput.Location = new System.Drawing.Point(163, 111);
+            this.PasswordVerifyInput.Location = new System.Drawing.Point(163, 78);
             this.PasswordVerifyInput.Name = "PasswordVerifyInput";
             this.PasswordVerifyInput.Size = new System.Drawing.Size(194, 27);
             this.PasswordVerifyInput.TabIndex = 3;
@@ -82,7 +72,7 @@ partial class Registration
             // AgeInput
             // 
             this.AgeInput.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.AgeInput.Location = new System.Drawing.Point(163, 144);
+            this.AgeInput.Location = new System.Drawing.Point(163, 111);
             this.AgeInput.Name = "AgeInput";
             this.AgeInput.Size = new System.Drawing.Size(194, 27);
             this.AgeInput.TabIndex = 4;
@@ -91,7 +81,7 @@ partial class Registration
             // 
             this.GenderInput.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.GenderInput.FormattingEnabled = true;
-            this.GenderInput.Location = new System.Drawing.Point(163, 177);
+            this.GenderInput.Location = new System.Drawing.Point(163, 144);
             this.GenderInput.Name = "GenderInput";
             this.GenderInput.Size = new System.Drawing.Size(194, 28);
             this.GenderInput.TabIndex = 5;
@@ -100,7 +90,7 @@ partial class Registration
             // 
             this.CountryInput.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.CountryInput.FormattingEnabled = true;
-            this.CountryInput.Location = new System.Drawing.Point(163, 211);
+            this.CountryInput.Location = new System.Drawing.Point(163, 178);
             this.CountryInput.Name = "CountryInput";
             this.CountryInput.Size = new System.Drawing.Size(194, 28);
             this.CountryInput.TabIndex = 6;
@@ -115,21 +105,11 @@ partial class Registration
             this.label1.TabIndex = 7;
             this.label1.Text = "Ник";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(18, 48);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(51, 20);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Почта";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(18, 81);
+            this.label3.Location = new System.Drawing.Point(18, 48);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(62, 20);
             this.label3.TabIndex = 8;
@@ -139,7 +119,7 @@ partial class Registration
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(18, 114);
+            this.label4.Location = new System.Drawing.Point(18, 81);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(139, 20);
             this.label4.TabIndex = 8;
@@ -149,7 +129,7 @@ partial class Registration
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(18, 146);
+            this.label5.Location = new System.Drawing.Point(18, 113);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(64, 20);
             this.label5.TabIndex = 8;
@@ -159,7 +139,7 @@ partial class Registration
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(18, 180);
+            this.label6.Location = new System.Drawing.Point(18, 147);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(37, 20);
             this.label6.TabIndex = 9;
@@ -169,7 +149,7 @@ partial class Registration
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(18, 214);
+            this.label7.Location = new System.Drawing.Point(18, 181);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(58, 20);
             this.label7.TabIndex = 10;
@@ -178,7 +158,7 @@ partial class Registration
             // RegisterButton
             // 
             this.RegisterButton.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.RegisterButton.Location = new System.Drawing.Point(18, 254);
+            this.RegisterButton.Location = new System.Drawing.Point(18, 221);
             this.RegisterButton.Name = "RegisterButton";
             this.RegisterButton.Size = new System.Drawing.Size(339, 41);
             this.RegisterButton.TabIndex = 11;
@@ -189,7 +169,7 @@ partial class Registration
             // EnterButton
             // 
             this.EnterButton.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.EnterButton.Location = new System.Drawing.Point(18, 301);
+            this.EnterButton.Location = new System.Drawing.Point(18, 268);
             this.EnterButton.Name = "EnterButton";
             this.EnterButton.Size = new System.Drawing.Size(339, 41);
             this.EnterButton.TabIndex = 11;
@@ -201,7 +181,7 @@ partial class Registration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(373, 359);
+            this.ClientSize = new System.Drawing.Size(373, 321);
             this.Controls.Add(this.EnterButton);
             this.Controls.Add(this.RegisterButton);
             this.Controls.Add(this.label7);
@@ -209,14 +189,12 @@ partial class Registration
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.CountryInput);
             this.Controls.Add(this.GenderInput);
             this.Controls.Add(this.AgeInput);
             this.Controls.Add(this.PasswordVerifyInput);
             this.Controls.Add(this.PasswordInput);
-            this.Controls.Add(this.EmailInput);
             this.Controls.Add(this.UsernameInput);
             this.Name = "Registration";
             this.Text = "Регистрация";
@@ -229,14 +207,12 @@ partial class Registration
     #endregion
 
     private TextBox UsernameInput;
-    private TextBox EmailInput;
     private TextBox PasswordInput;
     private TextBox PasswordVerifyInput;
     private NumericUpDown AgeInput;
     private ComboBox GenderInput;
     private ComboBox CountryInput;
     private Label label1;
-    private Label label2;
     private Label label3;
     private Label label4;
     private Label label5;
