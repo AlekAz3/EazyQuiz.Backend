@@ -14,4 +14,15 @@ public class StringExtentionTests
         bool result = str.IsContaintsUpperCaseLetter();
         Assert.Equal(expected, result);
     }
+
+    [Theory]
+    [InlineData("sdaf", true)]
+    [InlineData("SWDda", true)]
+    [InlineData("sd_2af", false)]
+    [InlineData("1234dqaf", true)]
+    public void IsNoBannedSymbols_Tests(string str, bool expected)
+    {
+        bool result = str.IsNoBannedSymbols();
+        Assert.Equal(expected, result);
+    }
 }

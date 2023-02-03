@@ -33,13 +33,6 @@ public static class StringExtension
         return str.Length >= 8;
     }
 
-    public static bool IsNoBannedSymbols(this string str)
-    {
-        var chars = str.ToCharArray().ToList();
-
-        return true;
-    }
-
     public static bool IsContaintsUpperCaseLetter(this string str)
     {
         var result = str.Where(letter => AlphabetUpperCase.Contains(letter)).ToList();
@@ -72,4 +65,24 @@ public static class StringExtension
         }
         return true;
     }
+
+    public static bool IsNullOrEmpty(this string str)
+    {
+        if (str == null)
+        {
+            return true;
+        }
+        if (str.Length == 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public static bool IsNoBannedSymbols(this string str)
+    {
+        var result = str.Where(letter => Numeric.Contains(letter) || AlphabetLowerCase.Contains(letter) || AlphabetUpperCase.Contains(letter)).ToList();
+        return result.Count == str.Length;
+    }
+
 }
