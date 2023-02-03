@@ -7,9 +7,8 @@ public class StringExtentionTests
     [Theory]
     [InlineData("sdaf", false)]
     [InlineData("SWDda", true)]
-    [InlineData("sdaf", false)]
     [InlineData("sdwDd", true)]
-    public void IsContaintsUpperCaseLetter_Tests(string str, bool expected)
+    public void IsContaintsUpperCaseLetterTests(string str, bool expected)
     {
         bool result = str.IsContaintsUpperCaseLetter();
         Assert.Equal(expected, result);
@@ -20,7 +19,7 @@ public class StringExtentionTests
     [InlineData("SWDda", true)]
     [InlineData("sd_2af", false)]
     [InlineData("1234dqaf", true)]
-    public void IsNoBannedSymbols_Tests(string str, bool expected)
+    public void IsNoBannedSymbolsTests(string str, bool expected)
     {
         bool result = str.IsNoBannedSymbols();
         Assert.Equal(expected, result);
