@@ -6,19 +6,14 @@ namespace EazyQuiz.Models;
 public class UserRegister
 {
     /// <summary>
-    /// Почта/Логин
+    /// Ник
     /// </summary>
-    public string Email { get; set; } = string.Empty;
+    public string Username { get; set; } = string.Empty;
 
     /// <summary>
     /// <inheritdoc cref="UserPassword"/>
     /// </summary>
     public UserPassword? Password { get; set; }
-
-    /// <summary>
-    /// Ник
-    /// </summary>
-    public string UserName { get; set; } = string.Empty;
 
     /// <summary>
     /// Возраст

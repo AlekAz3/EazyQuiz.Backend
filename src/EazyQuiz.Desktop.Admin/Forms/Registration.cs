@@ -34,14 +34,13 @@ public partial class Registration : Form
     /// </summary>
     private void RegisterButtonClick(object sender, EventArgs e)
     {
-        var email = EmailInput.Text;
         var password = PasswordInput.Text;
         var username = UsernameInput.Text;
         var age = (int)AgeInput.Value;
         var gender = GenderInput.SelectedText;
         var country = GenderInput.SelectedText;
 
-        _apiProvider.Registrate(email, password, username, age, gender, country);
+        _apiProvider.Registrate(password, username, age, gender, country);
         MessageBox.Show("Регистрация прошла успешно");
         Close();
     }

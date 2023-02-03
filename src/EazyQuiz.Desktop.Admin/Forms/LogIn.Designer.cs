@@ -28,31 +28,31 @@ partial class LogIn
     /// </summary>
     private void InitializeComponent()
     {
-            this.EmailTextBox = new System.Windows.Forms.TextBox();
-            this.EmailLabel = new System.Windows.Forms.Label();
+            this.UsernameTextBox = new System.Windows.Forms.TextBox();
+            this.UsernameLabel = new System.Windows.Forms.Label();
             this.PasswordTextBox = new System.Windows.Forms.TextBox();
             this.PasswordLabel = new System.Windows.Forms.Label();
             this.EnterButton = new System.Windows.Forms.Button();
             this.Register = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // EmailTextBox
+            // UsernameTextBox
             // 
-            this.EmailTextBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.EmailTextBox.Location = new System.Drawing.Point(12, 33);
-            this.EmailTextBox.Name = "EmailTextBox";
-            this.EmailTextBox.Size = new System.Drawing.Size(251, 29);
-            this.EmailTextBox.TabIndex = 0;
+            this.UsernameTextBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.UsernameTextBox.Location = new System.Drawing.Point(12, 33);
+            this.UsernameTextBox.Name = "UsernameTextBox";
+            this.UsernameTextBox.Size = new System.Drawing.Size(251, 29);
+            this.UsernameTextBox.TabIndex = 0;
             // 
-            // EmailLabel
+            // UsernameLabel
             // 
-            this.EmailLabel.AutoSize = true;
-            this.EmailLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.EmailLabel.Location = new System.Drawing.Point(12, 9);
-            this.EmailLabel.Name = "EmailLabel";
-            this.EmailLabel.Size = new System.Drawing.Size(110, 21);
-            this.EmailLabel.TabIndex = 1;
-            this.EmailLabel.Text = "Введите Email";
+            this.UsernameLabel.AutoSize = true;
+            this.UsernameLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.UsernameLabel.Location = new System.Drawing.Point(12, 9);
+            this.UsernameLabel.Name = "UsernameLabel";
+            this.UsernameLabel.Size = new System.Drawing.Size(98, 21);
+            this.UsernameLabel.TabIndex = 1;
+            this.UsernameLabel.Text = "Введите ник";
             // 
             // PasswordTextBox
             // 
@@ -103,8 +103,8 @@ partial class LogIn
             this.Controls.Add(this.EnterButton);
             this.Controls.Add(this.PasswordLabel);
             this.Controls.Add(this.PasswordTextBox);
-            this.Controls.Add(this.EmailLabel);
-            this.Controls.Add(this.EmailTextBox);
+            this.Controls.Add(this.UsernameLabel);
+            this.Controls.Add(this.UsernameTextBox);
             this.Name = "LogIn";
             this.Text = "Вход";
             this.ResumeLayout(false);
@@ -114,8 +114,8 @@ partial class LogIn
 
     #endregion
 
-    private TextBox EmailTextBox;
-    private Label EmailLabel;
+    private TextBox UsernameTextBox;
+    private Label UsernameLabel;
     private TextBox PasswordTextBox;
     private Label PasswordLabel;
     private Button EnterButton;

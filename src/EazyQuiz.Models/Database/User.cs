@@ -16,14 +16,9 @@ public class User
     public int Id { get; set; }
 
     /// <summary>
-    /// Почта/Логин
-    /// </summary>
-    public string Email { get; set; } = string.Empty;
-
-    /// <summary>
     /// Ник
     /// </summary>
-    public string UserName { get; set; } = string.Empty;
+    public string Username { get; set; } = string.Empty;
 
     /// <summary>
     /// Почта

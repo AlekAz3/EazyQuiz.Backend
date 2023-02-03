@@ -29,9 +29,9 @@ public interface IUserService
     /// <summary>
     /// Получение соли по почте 
     /// </summary>
-    /// <param name="email">Почта игрока</param>
+    /// <param name="userName">Почта игрока</param>
     /// <returns>Соль</returns>
-    string GetUserSalt(string email);
+    string GetUserSalt(string userName);
 
     /// <summary>
     /// Запись нового пользователя в базу данных

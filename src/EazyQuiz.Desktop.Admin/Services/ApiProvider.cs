@@ -36,16 +36,16 @@ public class ApiProvider : IDisposable
     /// <summary>
     /// Авторизация пользователя 
     /// </summary>
-    /// <param name="email">Почта</param>
+    /// <param name="username">Ник</param>
     /// <param name="password">Пароль</param>
     /// <exception cref="ArgumentException">Пользователь не найден</exception>
-    public UserResponse Authtenticate(string email, string password)
+    public UserResponse Authtenticate(string username, string password)
     {
-        var salt = GetUserSaltByEmail(email);
+        var salt = GetUserSaltByUsername(username);
 
         var hashPassword = PasswordHash.HashWithCurrentSalt(password, salt);
 
-        var userAuth = new UserAuth(email, new UserPassword(hashPassword, salt));
+        var userAuth = new UserAuth(username, new UserPassword(hashPassword, salt));
 
         string json = JsonSerializer.Serialize(userAuth);
 
@@ -74,17 +74,17 @@ public class ApiProvider : IDisposable
     }
 
     /// <summary>
-    /// Получение соли по почте игрока
+    /// Получение соли по нику игрока
     /// </summary>
-    /// <param name="email">Почта</param>
+    /// <param name="userName">Ник</param>
     /// <returns>Соль</returns>
     /// <exception cref="Exception">Соль не найдена</exception>
-    public string GetUserSaltByEmail(string email)
+    public string GetUserSaltByUsername(string userName)
     {
         var request = new HttpRequestMessage
         {
             Method = HttpMethod.Get,
-            RequestUri = new Uri($"{_baseAdress}/api/Auth/GetUserSalt?email={email}"),
+            RequestUri = new Uri($"{_baseAdress}/api/Auth/GetUserSalt?userName={userName}"),
         };
 
         var response = Task.Run(() => { return _client.SendAsync(request); }).Result;
@@ -104,18 +104,16 @@ public class ApiProvider : IDisposable
     /// <summary>
     /// Регистрация нового игрока
     /// </summary>
-    /// <param name="email">Почта</param>
     /// <param name="password">Пароль</param>
     /// <param name="username">Ник</param>
     /// <param name="age">Возраст</param>
     /// <param name="gender">Пол</param>
     /// <param name="country">Страна</param>
-    internal void Registrate(string email, string password, string username, int age, string gender, string country)
+    internal void Registrate(string password, string username, int age, string gender, string country)
     {
         var user = new UserRegister()
         {
-            Email = email,
-            UserName = username,
+            Username = username,
             Age = age,
             Gender = gender,
             Country = country,

@@ -52,14 +52,14 @@ public class AuthController : Controller
     }
 
     /// <summary>
-    /// Получение соли по почте
+    /// Получение соли по нику
     /// </summary>
-    /// <param name="email">Почта</param>
+    /// <param name="userName">Ник</param>
     [HttpGet]
-    public string GetUserSalt(string email)
+    public string GetUserSalt(string userName)
     {
-        _log.LogInformation(" 1 GetSalt {Email}", email);
-        var userSalt = _userService.GetUserSalt(email);
+        _log.LogInformation(" 1 GetSalt {Email}", userName);
+        var userSalt = _userService.GetUserSalt(userName);
         _log.LogInformation(" 2 GetSalt {UserSalt}", userSalt);
 
         return userSalt;
