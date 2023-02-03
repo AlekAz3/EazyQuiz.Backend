@@ -36,7 +36,7 @@ public class ApiProvider : IDisposable
     /// <summary>
     /// Авторизация пользователя 
     /// </summary>
-    /// <param name="username">Почта</param>
+    /// <param name="username">Ник</param>
     /// <param name="password">Пароль</param>
     /// <exception cref="ArgumentException">Пользователь не найден</exception>
     public UserResponse Authtenticate(string username, string password)
