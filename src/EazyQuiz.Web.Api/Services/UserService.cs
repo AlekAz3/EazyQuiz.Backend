@@ -3,6 +3,7 @@ using EazyQuiz.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace EazyQuiz.Web.Api;
@@ -39,7 +40,7 @@ public class UserService : IUserService
     /// <exception cref="ArgumentException">Игрок не найден</exception>
     public UserResponse Authenticate(UserAuth auth)
     {
-        var user = _dataContext.User.Where(x => x.Email == auth.Email).First();
+        var user = _dataContext.User.Where(x => x.Username == auth.Username).First();
         _log.LogInformation("Auth {@User}", auth);
         _log.LogInformation("User {@User}", user);
         if (user == null)
@@ -50,7 +51,7 @@ public class UserService : IUserService
         if (PasswordHash.Verify(Encoding.UTF8.GetBytes(auth.Password!.PasswordHash), user.PasswordHash))
         {
             string token = GenerateJwtToken(user);
-            var a = new UserResponse(user.Id, user.Email, user.UserName, user.Age, user.Gender, user.Points, user.Country, token);
+            var a = new UserResponse(user.Id, user.Username, user.Age, user.Gender, user.Points, user.Country, token);
             _log.LogInformation("{@User}", a);
             return a;
         }
@@ -99,12 +100,11 @@ public class UserService : IUserService
             Id = GetLastId(),
             Age = user.Age,
             Country = user.Country,
-            Email = user.Email,
             Gender = user.Gender,
             PasswordHash = Encoding.UTF8.GetBytes(user.Password!.PasswordHash),
             PasswordSalt = Encoding.UTF8.GetBytes(user.Password!.PasswordSalt),
             Points = 0,
-            UserName = user.UserName
+            Username = user.UserName
         };
         _dataContext.User!.Add(newUser);
         _dataContext.SaveChanges();
@@ -135,8 +135,7 @@ public class UserService : IUserService
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512);
         var claims = new[]
         {
-            new Claim(ClaimTypes.NameIdentifier,user.UserName),
-            new Claim(ClaimTypes.Email ,user.Email),
+            new Claim(ClaimTypes.NameIdentifier,user.Username),
             new Claim(ClaimTypes.Country ,user.Country)
         };
         var token = new JwtSecurityToken(_config["Jwt:Issuer"],
@@ -147,16 +146,15 @@ public class UserService : IUserService
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
-
     /// <summary>
-    /// Получение соли игрока по почте из БД
+    /// Получение соли игрока по его нику из БД
     /// </summary>
-    /// <param name="email">Почта</param>
+    /// <param name="email">Ник игрока</param>
     /// <returns>Соль</returns>
     /// <exception cref="Exception">Игрок не найден</exception>
-    public string GetUserSalt(string email)
+    public string GetUserSalt(string userName)
     {
-        byte[]? user = _dataContext.User.Where(x => email == x.Email).Select(x => x.PasswordSalt).FirstOrDefault();
+        var user = _dataContext.User.Where(x => userName == x.Username).Select(x => x.PasswordSalt).FirstOrDefault();
         if (user == null)
         {
             throw new Exception("user not found");

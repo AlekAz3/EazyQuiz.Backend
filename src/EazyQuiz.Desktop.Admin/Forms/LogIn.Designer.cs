@@ -28,7 +28,7 @@ partial class LogIn
     /// </summary>
     private void InitializeComponent()
     {
-            this.EmailTextBox = new System.Windows.Forms.TextBox();
+            this.UsernameTextBox = new System.Windows.Forms.TextBox();
             this.EmailLabel = new System.Windows.Forms.Label();
             this.PasswordTextBox = new System.Windows.Forms.TextBox();
             this.PasswordLabel = new System.Windows.Forms.Label();
@@ -38,11 +38,11 @@ partial class LogIn
             // 
             // EmailTextBox
             // 
-            this.EmailTextBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.EmailTextBox.Location = new System.Drawing.Point(12, 33);
-            this.EmailTextBox.Name = "EmailTextBox";
-            this.EmailTextBox.Size = new System.Drawing.Size(251, 29);
-            this.EmailTextBox.TabIndex = 0;
+            this.UsernameTextBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.UsernameTextBox.Location = new System.Drawing.Point(12, 33);
+            this.UsernameTextBox.Name = "EmailTextBox";
+            this.UsernameTextBox.Size = new System.Drawing.Size(251, 29);
+            this.UsernameTextBox.TabIndex = 0;
             // 
             // EmailLabel
             // 
@@ -104,7 +104,7 @@ partial class LogIn
             this.Controls.Add(this.PasswordLabel);
             this.Controls.Add(this.PasswordTextBox);
             this.Controls.Add(this.EmailLabel);
-            this.Controls.Add(this.EmailTextBox);
+            this.Controls.Add(this.UsernameTextBox);
             this.Name = "LogIn";
             this.Text = "Вход";
             this.ResumeLayout(false);
@@ -114,7 +114,7 @@ partial class LogIn
 
     #endregion
 
-    private TextBox EmailTextBox;
+    private TextBox UsernameTextBox;
     private Label EmailLabel;
     private TextBox PasswordTextBox;
     private Label PasswordLabel;

@@ -14,7 +14,7 @@ public partial class Panel : Form
 
     public void Open()
     {
-        StatusLabel.Text = $"{_userToken.User.UserName}\n{_userToken.User.Email}\n{_userToken.User.Age}\n{_userToken.User.Country}";
+        StatusLabel.Text = $"{_userToken.User.UserName}\n{_userToken.User.Age}\n{_userToken.User.Country}";
         TokenLabel.Text = _userToken.User.Token;
         Show();
     }

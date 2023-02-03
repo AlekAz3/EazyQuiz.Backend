@@ -41,10 +41,10 @@ public partial class LogIn : Form
     /// </summary>
     private void EnterButtonClick(object sender, EventArgs e)
     {
-        string email = EmailTextBox.Text;
+        string username = UsernameTextBox.Text;
         string password = PasswordTextBox.Text;
 
-        _userToken.User = _apiProvider.Authtenticate(email, password);
+        _userToken.User = _apiProvider.Authtenticate(username, password);
         _formFactory.Create<Panel>().Open();
     }
 

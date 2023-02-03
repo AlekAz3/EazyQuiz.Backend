@@ -6,18 +6,18 @@ namespace EazyQuiz.Models;
 public class UserAuth
 {
     /// <summary>
-    /// Почта/Логин
+    /// Логин
     /// </summary>
-    public string? Email { get; set; }
+    public string? Username { get; set; }
 
     /// <summary>
     /// <inheritdoc cref="UserPassword"/>
     /// </summary>
     public UserPassword? Password { get; set; }
 
-    public UserAuth(string? email, UserPassword password)
+    public UserAuth(string? username, UserPassword password)
     {
-        Email = email;
+        Username = username;
         Password = password;
     }
 
