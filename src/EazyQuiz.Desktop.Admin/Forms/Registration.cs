@@ -1,7 +1,3 @@
-using EazyQuiz.Cryptography;
-using EazyQuiz.Models;
-using System.Diagnostics.Metrics;
-
 namespace EazyQuiz.Desktop.Admin;
 public partial class Registration : Form
 {
