@@ -1,3 +1,4 @@
+using System.Linq;
 
 namespace EazyQuiz.Extensions;
 [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0052:Удалить непрочитанные закрытые члены", Justification = "<Временно>")]
@@ -36,6 +37,39 @@ public static class StringExtension
     {
         var chars = str.ToCharArray().ToList();
 
+        return true;
+    }
+
+    public static bool IsContaintsUpperCaseLetter(this string str)
+    {
+        var result = str.Where(letter => AlphabetUpperCase.Contains(letter)).ToList();
+
+        if (result.Count == 0)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public static bool IsContaintsLowerCaseLetter(this string str)
+    {
+        var result = str.Where(letter => AlphabetLowerCase.Contains(letter)).ToList();
+
+        if (result.Count == 0)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public static bool IsContaintsNumeric(this string str)
+    {
+        var result = str.Where(letter => Numeric.Contains(letter)).ToList();
+
+        if (result.Count == 0)
+        {
+            return false;
+        }
         return true;
     }
 }
