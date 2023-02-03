@@ -113,7 +113,7 @@ public class ApiProvider : IDisposable
     {
         var user = new UserRegister()
         {
-            UserName = username,
+            Username = username,
             Age = age,
             Gender = gender,
             Country = country,

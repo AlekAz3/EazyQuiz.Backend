@@ -103,7 +103,7 @@ public class UserService : IUserService
             PasswordHash = Encoding.UTF8.GetBytes(user.Password!.PasswordHash),
             PasswordSalt = Encoding.UTF8.GetBytes(user.Password!.PasswordSalt),
             Points = 0,
-            Username = user.UserName
+            Username = user.Username
         };
         _dataContext.User!.Add(newUser);
         _dataContext.SaveChanges();
@@ -148,7 +148,7 @@ public class UserService : IUserService
     /// <summary>
     /// Получение соли игрока по его нику из БД
     /// </summary>
-    /// <param name="email">Ник игрока</param>
+    /// <param name="userName">Ник игрока</param>
     /// <returns>Соль</returns>
     /// <exception cref="Exception">Игрок не найден</exception>
     public string GetUserSalt(string userName)

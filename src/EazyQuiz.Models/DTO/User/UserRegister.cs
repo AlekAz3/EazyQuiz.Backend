@@ -8,7 +8,7 @@ public class UserRegister
     /// <summary>
     /// Ник
     /// </summary>
-    public string UserName { get; set; } = string.Empty;
+    public string Username { get; set; } = string.Empty;
 
     /// <summary>
     /// <inheritdoc cref="UserPassword"/>
