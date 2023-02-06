@@ -79,6 +79,7 @@ partial class Registration
             // 
             // GenderInput
             // 
+            this.GenderInput.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.GenderInput.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.GenderInput.FormattingEnabled = true;
             this.GenderInput.Items.AddRange(new object[] {
@@ -93,6 +94,7 @@ partial class Registration
             // 
             // CountryInput
             // 
+            this.CountryInput.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CountryInput.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.CountryInput.FormattingEnabled = true;
             this.CountryInput.Items.AddRange(new object[] {

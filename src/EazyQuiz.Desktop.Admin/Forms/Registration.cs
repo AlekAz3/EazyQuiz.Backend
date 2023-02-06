@@ -18,6 +18,8 @@ public partial class Registration : Form
         _formFactory = formFactory;
         _apiProvider = apiProvider;
         InitializeComponent();
+        GenderInput.SelectedIndex = 0;
+        CountryInput.SelectedIndex = 28;
     }
 
     /// <summary>
@@ -48,6 +50,13 @@ public partial class Registration : Form
             MessageBox.Show("Неверный пароль", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }
+
+        if (!username.IsNullOrEmpty())
+        {
+            MessageBox.Show("Неверный ник", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
+
         if (age <= 0)
         {
             MessageBox.Show("Неверный поле возраст", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
