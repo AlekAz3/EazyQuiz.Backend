@@ -28,21 +28,21 @@ partial class LogIn
     /// </summary>
     private void InitializeComponent()
     {
-            this.UsernameTextBox = new System.Windows.Forms.TextBox();
+            this.UsernameInput = new System.Windows.Forms.TextBox();
             this.UsernameLabel = new System.Windows.Forms.Label();
-            this.PasswordTextBox = new System.Windows.Forms.TextBox();
+            this.PasswordInput = new System.Windows.Forms.TextBox();
             this.PasswordLabel = new System.Windows.Forms.Label();
             this.EnterButton = new System.Windows.Forms.Button();
             this.Register = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // UsernameTextBox
+            // UsernameInput
             // 
-            this.UsernameTextBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.UsernameTextBox.Location = new System.Drawing.Point(12, 33);
-            this.UsernameTextBox.Name = "UsernameTextBox";
-            this.UsernameTextBox.Size = new System.Drawing.Size(251, 29);
-            this.UsernameTextBox.TabIndex = 0;
+            this.UsernameInput.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.UsernameInput.Location = new System.Drawing.Point(12, 33);
+            this.UsernameInput.Name = "UsernameInput";
+            this.UsernameInput.Size = new System.Drawing.Size(251, 29);
+            this.UsernameInput.TabIndex = 0;
             // 
             // UsernameLabel
             // 
@@ -54,13 +54,13 @@ partial class LogIn
             this.UsernameLabel.TabIndex = 1;
             this.UsernameLabel.Text = "Введите ник";
             // 
-            // PasswordTextBox
+            // PasswordInput
             // 
-            this.PasswordTextBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.PasswordTextBox.Location = new System.Drawing.Point(12, 101);
-            this.PasswordTextBox.Name = "PasswordTextBox";
-            this.PasswordTextBox.Size = new System.Drawing.Size(251, 29);
-            this.PasswordTextBox.TabIndex = 1;
+            this.PasswordInput.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.PasswordInput.Location = new System.Drawing.Point(12, 101);
+            this.PasswordInput.Name = "PasswordInput";
+            this.PasswordInput.Size = new System.Drawing.Size(251, 29);
+            this.PasswordInput.TabIndex = 1;
             // 
             // PasswordLabel
             // 
@@ -102,9 +102,9 @@ partial class LogIn
             this.Controls.Add(this.Register);
             this.Controls.Add(this.EnterButton);
             this.Controls.Add(this.PasswordLabel);
-            this.Controls.Add(this.PasswordTextBox);
+            this.Controls.Add(this.PasswordInput);
             this.Controls.Add(this.UsernameLabel);
-            this.Controls.Add(this.UsernameTextBox);
+            this.Controls.Add(this.UsernameInput);
             this.Name = "LogIn";
             this.Text = "Вход";
             this.ResumeLayout(false);
@@ -114,9 +114,9 @@ partial class LogIn
 
     #endregion
 
-    private TextBox UsernameTextBox;
+    private TextBox UsernameInput;
     private Label UsernameLabel;
-    private TextBox PasswordTextBox;
+    private TextBox PasswordInput;
     private Label PasswordLabel;
     private Button EnterButton;
     private Button Register;

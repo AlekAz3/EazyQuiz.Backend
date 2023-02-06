@@ -1,3 +1,5 @@
+using EazyQuiz.Extensions;
+
 namespace EazyQuiz.Desktop.Admin;
 public partial class Registration : Form
 {
@@ -16,6 +18,8 @@ public partial class Registration : Form
         _formFactory = formFactory;
         _apiProvider = apiProvider;
         InitializeComponent();
+        GenderInput.SelectedIndex = 0;
+        CountryInput.SelectedIndex = 28;
     }
 
     /// <summary>
@@ -34,11 +38,30 @@ public partial class Registration : Form
     /// </summary>
     private void RegisterButtonClick(object sender, EventArgs e)
     {
-        var password = PasswordInput.Text;
-        var username = UsernameInput.Text;
-        var age = (int)AgeInput.Value;
-        var gender = GenderInput.SelectedText;
-        var country = GenderInput.SelectedText;
+        string password = PasswordInput.Text;
+        string passwordVerify = PasswordVerifyInput.Text;
+        string username = UsernameInput.Text;
+        int age = (int)AgeInput.Value;
+        string gender = GenderInput.SelectedText;
+        string country = GenderInput.SelectedText;
+
+        if (!(password.IsEqual(passwordVerify) && password.IsNoBannedSymbols() && password.IsContaintsLowerCaseLetter() && password.IsContaintsUpperCaseLetter() && password.IsContaintsNumeric() && password.IsMoreEightSymbols()))
+        {
+            MessageBox.Show("Неверный пароль", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
+
+        if (!username.IsNullOrEmpty())
+        {
+            MessageBox.Show("Неверный ник", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
+
+        if (age <= 0)
+        {
+            MessageBox.Show("Неверный поле возраст", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
 
         _apiProvider.Registrate(password, username, age, gender, country);
         MessageBox.Show("Регистрация прошла успешно");
