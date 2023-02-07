@@ -94,6 +94,8 @@ public class UserService : IUserService
     /// <param name="user">Инфа об игроке в <see cref="UserRegister"/></param>
     public void RegisterNewUser(UserRegister user)
     {
+        _log.LogInformation("Register {@User}", user);
+
         var newUser = new User()
         {
             Id = GetLastId(),
