@@ -2,6 +2,7 @@ using EazyQuiz.Cryptography;
 using EazyQuiz.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -37,15 +38,14 @@ public class UserService : IUserService
     /// </summary>
     /// <param name="auth"><inheritdoc cref="UserAuth"/></param>
     /// <returns>Объект<see cref="UserResponse"/></returns>
-    /// <exception cref="ArgumentException">Игрок не найден</exception>
     public async Task<UserResponse> Authenticate(UserAuth auth)
     {
         var user = await _dataContext.User.FirstOrDefaultAsync(x => x.Username == auth.Username);
-        _log.LogInformation("Auth {@User}", auth);
-        _log.LogInformation("User {@User}", user);
         if (user == null)
         {
-            throw new ArgumentException("User does not exist");
+            var userResponse = new UserResponse(0, "", 0, "", 0, "", "");
+            _log.LogInformation("{@User} not found", auth);
+            return userResponse;
         }
 
         if (PasswordHash.Verify(Encoding.UTF8.GetBytes(auth.Password!.PasswordHash), user.PasswordHash))
@@ -55,7 +55,10 @@ public class UserService : IUserService
             _log.LogInformation("{@User}", userResponse);
             return userResponse;
         }
-        throw new ArgumentException("WrongPassword");
+        var response = new UserResponse(0, "", 0, "", 0, "", "");
+        _log.LogInformation("Wrong password", auth);
+        return response;
+
     }
 
     /// <summary>
@@ -156,7 +159,8 @@ public class UserService : IUserService
         var user = await _dataContext.User.Where(x => userName == x.Username).Select(x => x.PasswordSalt).FirstOrDefaultAsync();
         if (user == null)
         {
-            throw new ArgumentNullException(paramName: nameof(userName));
+            _log.LogInformation("User does not exist");
+            return "";
         }
         _log.LogInformation("user {@User}", user);
         return Encoding.UTF8.GetString(user);

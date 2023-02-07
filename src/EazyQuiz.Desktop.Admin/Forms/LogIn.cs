@@ -1,4 +1,6 @@
 using EazyQuiz.Extensions;
+using EazyQuiz.Models;
+
 namespace EazyQuiz.Desktop.Admin;
 
 public partial class LogIn : Form
@@ -51,9 +53,14 @@ public partial class LogIn : Form
             return;
         }
 
-
-
         _userToken.User = _apiProvider.Authtenticate(username, password);
+
+        if (_userToken.User.Id == 0)
+        {
+            MessageBox.Show("Неверный логин/пароль", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
+
         _formFactory.Create<Panel>().Open();
     }
 

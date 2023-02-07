@@ -69,7 +69,7 @@ public class ApiProvider : IDisposable
         {
             throw new ArgumentException("Error in Deserialize");
         }
-
+        
         return userResponse;
     }
 

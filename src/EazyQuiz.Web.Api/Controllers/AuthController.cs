@@ -1,5 +1,6 @@
 using EazyQuiz.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace EazyQuiz.Web.Api;
 /// <summary>
@@ -42,10 +43,10 @@ public class AuthController : Controller
     /// </summary>
     /// <param name="auth"></param>
     [HttpGet]
-    public async Task<IActionResult> GetUserByPassword([FromBody] UserAuth auth)
+    public async Task<string> GetUserByPassword([FromBody] UserAuth auth)
     {
         var userResponse = await _userService.Authenticate(auth);
-        return new JsonResult(userResponse);
+        return JsonSerializer.Serialize(userResponse);
     }
 
     /// <summary>
@@ -55,9 +56,7 @@ public class AuthController : Controller
     [HttpGet]
     public async Task<string> GetUserSalt(string userName)
     {
-        _log.LogInformation(" 1 GetSalt {Email}", userName);
         string userSalt = await _userService.GetUserSalt(userName);
-        _log.LogInformation(" 2 GetSalt {UserSalt}", userSalt);
 
         return userSalt;
     }
