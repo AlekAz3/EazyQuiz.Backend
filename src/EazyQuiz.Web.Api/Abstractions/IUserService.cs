@@ -7,11 +7,11 @@ namespace EazyQuiz.Web.Api;
 public interface IUserService
 {
     /// <summary>
-    /// Аунтетификация игрока
+    /// Аутентификация игрока
     /// </summary>
     /// <param name="auth">Логин и Пароль <see cref="UserAuth"/></param>
     /// <returns>Инфа о пользователе и JWT токен в <see cref="UserResponse"/></returns>
-    UserResponse Authenticate(UserAuth auth);
+    Task<UserResponse> Authenticate(UserAuth auth);
 
     /// <summary>
     /// Получение списка всех игроков
@@ -23,19 +23,19 @@ public interface IUserService
     /// Получение инфы пользователя по Ид
     /// </summary>
     /// <param name="id">Ид</param>
-    /// <returns>Инфа о пользевателе в <see cref="User"/></returns>
-    User GetById(int id);
+    /// <returns>Инфа о пользователе в <see cref="User"/></returns>
+    Task<User> GetById(int id);
 
     /// <summary>
     /// Получение соли по почте 
     /// </summary>
     /// <param name="userName">Почта игрока</param>
     /// <returns>Соль</returns>
-    string GetUserSalt(string userName);
+    Task<string> GetUserSalt(string userName);
 
     /// <summary>
     /// Запись нового пользователя в базу данных
     /// </summary>
     /// <param name="user">Данные регистрации пользователя в <see cref="UserRegister"/></param>
-    void RegisterNewUser(UserRegister user);
+    Task RegisterNewUser(UserRegister user);
 }

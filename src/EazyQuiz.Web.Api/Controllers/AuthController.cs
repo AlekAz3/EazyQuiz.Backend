@@ -1,6 +1,5 @@
 using EazyQuiz.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 
 namespace EazyQuiz.Web.Api;
 /// <summary>
@@ -31,11 +30,11 @@ public class AuthController : Controller
     /// </summary>
     /// <param name="user">Логин и Пароль в <see cref="UserRegister"/></param>
     [HttpPost]
-    public IActionResult RegisterNewPlayer(UserRegister user)
+    public async Task<IActionResult> RegisterNewPlayer(UserRegister user)
     {
-        _userService.RegisterNewUser(user);
+        await _userService.RegisterNewUser(user);
         _log.LogInformation("New User was created");
-        return new JsonResult(Ok());
+        return Ok();
     }
 
     /// <summary>
@@ -43,12 +42,10 @@ public class AuthController : Controller
     /// </summary>
     /// <param name="auth"></param>
     [HttpGet]
-    public string GetUserByPassword([FromBody] UserAuth auth)
+    public async Task<IActionResult> GetUserByPassword([FromBody] UserAuth auth)
     {
-        _log.LogInformation("Get user {@User}", auth);
-        var userResponse = _userService.Authenticate(auth);
-        _log.LogInformation("User {@User} was login", userResponse);
-        return JsonSerializer.Serialize(userResponse);
+        var userResponse = await _userService.Authenticate(auth);
+        return new JsonResult(userResponse);
     }
 
     /// <summary>
@@ -56,10 +53,10 @@ public class AuthController : Controller
     /// </summary>
     /// <param name="userName">Ник</param>
     [HttpGet]
-    public string GetUserSalt(string userName)
+    public async Task<string> GetUserSalt(string userName)
     {
         _log.LogInformation(" 1 GetSalt {Email}", userName);
-        var userSalt = _userService.GetUserSalt(userName);
+        string userSalt = await _userService.GetUserSalt(userName);
         _log.LogInformation(" 2 GetSalt {UserSalt}", userSalt);
 
         return userSalt;
