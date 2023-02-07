@@ -165,6 +165,11 @@ public class UserService : IUserService
         return Encoding.UTF8.GetString(user);
     }
 
+    /// <summary>
+    /// Запрос к базе на проверку существующего ника
+    /// </summary>
+    /// <param name="userName">Ник</param>
+    /// <returns>true - если ник НЕ уникален</returns>
     public async Task<bool> CheckUniqueUsername(string userName)
     {
         var checkUser = await _dataContext.User.FirstOrDefaultAsync(x => x.Username == userName);

@@ -61,6 +61,12 @@ public class AuthController : Controller
         return userSalt;
     }
 
+
+    /// <summary>
+    /// Проверка уникальности ника
+    /// </summary>
+    /// <param name="userName">Ник</param>
+    /// <returns>true - если ник НЕ уникален</returns>
     [HttpGet]
     public async Task<bool> CheckUniqueUsername(string userName)
     {

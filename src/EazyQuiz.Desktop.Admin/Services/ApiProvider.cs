@@ -133,6 +133,12 @@ public class ApiProvider : IDisposable
 
     }
 
+    /// <summary>
+    /// Проверка на существующей ник 
+    /// </summary>
+    /// <param name="userName">Ник</param>
+    /// <returns>true - если ник НЕ уникален</returns>
+    /// <exception cref="ArgumentNullException">Нулл</exception>
     public bool CheckUsername(string userName)
     {
         var request = new HttpRequestMessage
