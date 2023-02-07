@@ -38,4 +38,11 @@ public interface IUserService
     /// </summary>
     /// <param name="user">Данные регистрации пользователя в <see cref="UserRegister"/></param>
     Task RegisterNewUser(UserRegister user);
+
+    /// <summary>
+    /// Проверка на уникальность Ника
+    /// </summary>
+    /// <param name="userName"></param>
+    /// <returns></returns>
+    Task<bool> CheckUniqueUsername(string userName);
 }

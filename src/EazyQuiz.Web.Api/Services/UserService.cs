@@ -164,4 +164,14 @@ public class UserService : IUserService
         _log.LogInformation("user {@User}", user);
         return Encoding.UTF8.GetString(user);
     }
+
+    public async Task<bool> CheckUniqueUsername(string userName)
+    {
+        var checkUser = await _dataContext.User.FirstOrDefaultAsync(x => x.Username == userName);
+        if (checkUser == null)
+        {
+            return true;
+        }
+        return false;
+    }
 }

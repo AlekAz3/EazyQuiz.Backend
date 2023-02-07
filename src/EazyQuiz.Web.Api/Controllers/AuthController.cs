@@ -60,4 +60,10 @@ public class AuthController : Controller
 
         return userSalt;
     }
+
+    [HttpGet]
+    public async Task<bool> CheckUniqueUsername(string userName)
+    {
+        return await _userService.CheckUniqueUsername(userName);
+    }
 }
