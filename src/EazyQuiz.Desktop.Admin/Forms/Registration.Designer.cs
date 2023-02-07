@@ -83,10 +83,8 @@ partial class Registration
             this.GenderInput.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.GenderInput.FormattingEnabled = true;
             this.GenderInput.Items.AddRange(new object[] {
-            "Мужской",
-            "Женский",
-            "Другой",
-            "Не скажу"});
+            "Male",
+            "Female"});
             this.GenderInput.Location = new System.Drawing.Point(163, 144);
             this.GenderInput.Name = "GenderInput";
             this.GenderInput.Size = new System.Drawing.Size(194, 28);

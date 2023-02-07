@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
 namespace EazyQuiz.Web.Api;
@@ -31,9 +32,9 @@ public class QuestionsController : Controller
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    public string GetAllQuestions()
+    public async Task<string> GetAllQuestions()
     {
-        var result = _dataContext.Questions.ToList();
+        var result = await _dataContext.Questions.ToListAsync();
         _log.LogInformation("GetAllQuestions");
         return JsonSerializer.Serialize(result);
     }

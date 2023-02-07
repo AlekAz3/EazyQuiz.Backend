@@ -1,5 +1,6 @@
 using EazyQuiz.Cryptography;
 using EazyQuiz.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -36,27 +37,26 @@ public class UserService : IUserService
     /// </summary>
     /// <param name="auth"><inheritdoc cref="UserAuth"/></param>
     /// <returns>Объект<see cref="UserResponse"/></returns>
-    /// <exception cref="ArgumentException">Игрок не найден</exception>
-    public UserResponse Authenticate(UserAuth auth)
+    public async Task<UserResponse> Authenticate(UserAuth auth)
     {
-        var user = _dataContext.User.Where(x => x.Username == auth.Username).First();
-        _log.LogInformation("Auth {@User}", auth);
-        _log.LogInformation("User {@User}", user);
+        var user = await _dataContext.User.FirstOrDefaultAsync(x => x.Username == auth.Username);
         if (user == null)
         {
-            throw new ArgumentException("User does not exist");
+            var userResponse = new UserResponse(0, "", 0, "", 0, "", "");
+            _log.LogInformation("{@User} not found", auth);
+            return userResponse;
         }
 
         if (PasswordHash.Verify(Encoding.UTF8.GetBytes(auth.Password!.PasswordHash), user.PasswordHash))
         {
             string token = GenerateJwtToken(user);
-            var a = new UserResponse(user.Id, user.Username, user.Age, user.Gender, user.Points, user.Country, token);
-            _log.LogInformation("{@User}", a);
-            return a;
+            var userResponse = new UserResponse(user.Id, user.Username, user.Age, user.Gender, user.Points, user.Country, token);
+            _log.LogInformation("{@User}", userResponse);
+            return userResponse;
         }
-        throw new ArgumentException("WrongPassword");
-
-
+        var response = new UserResponse(0, "", 0, "", 0, "", "");
+        _log.LogInformation("Wrong password", auth);
+        return response;
 
     }
 
@@ -64,9 +64,9 @@ public class UserService : IUserService
     /// Возвращает список всех игроков
     /// </summary>
     /// <returns>Список пользователей</returns>
-    public IEnumerable<User> GetAll()
+    public async Task<IEnumerable<User>> GetAll()
     {
-        var user = _dataContext.User.ToList();
+        var user = await _dataContext.User.ToListAsync();
 
         return user;
 
@@ -78,9 +78,9 @@ public class UserService : IUserService
     /// <param name="id">Ид</param>
     /// <returns><see cref="User"/></returns>
     /// <exception cref="ArgumentException">Игрок не найден</exception>
-    public User GetById(int id)
+    public async Task<User> GetById(int id)
     {
-        var user = _dataContext.User.FirstOrDefault(x => x.Id == id);
+        var user = await _dataContext.User.FirstOrDefaultAsync(x => x.Id == id);
         if (user == null)
         {
             throw new ArgumentException("User does not exist");
@@ -92,8 +92,10 @@ public class UserService : IUserService
     /// Запись нового пользователя в БД
     /// </summary>
     /// <param name="user">Инфа об игроке в <see cref="UserRegister"/></param>
-    public void RegisterNewUser(UserRegister user)
+    public async Task RegisterNewUser(UserRegister user)
     {
+        _log.LogInformation("Register {@User}", user);
+
         var newUser = new User()
         {
             Id = GetLastId(),
@@ -106,7 +108,7 @@ public class UserService : IUserService
             Username = user.Username
         };
         _dataContext.User!.Add(newUser);
-        _dataContext.SaveChanges();
+        await _dataContext.SaveChangesAsync();
     }
 
     /// <summary>
@@ -140,7 +142,7 @@ public class UserService : IUserService
         var token = new JwtSecurityToken(_config["Jwt:Issuer"],
             _config["Jwt:Audience"],
             claims,
-            expires: DateTime.Now.AddMinutes(15),
+            expires: DateTime.Now.AddDays(1),
             signingCredentials: credentials);
 
         return new JwtSecurityTokenHandler().WriteToken(token);
@@ -151,12 +153,13 @@ public class UserService : IUserService
     /// <param name="userName">Ник игрока</param>
     /// <returns>Соль</returns>
     /// <exception cref="Exception">Игрок не найден</exception>
-    public string GetUserSalt(string userName)
+    public async Task<string> GetUserSalt(string userName)
     {
-        var user = _dataContext.User.Where(x => userName == x.Username).Select(x => x.PasswordSalt).FirstOrDefault();
+        var user = await _dataContext.User.Where(x => userName == x.Username).Select(x => x.PasswordSalt).FirstOrDefaultAsync();
         if (user == null)
         {
-            throw new Exception("user not found");
+            _log.LogInformation("User does not exist");
+            return "";
         }
         _log.LogInformation("user {@User}", user);
         return Encoding.UTF8.GetString(user);

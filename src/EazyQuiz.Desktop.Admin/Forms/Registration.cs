@@ -42,8 +42,8 @@ public partial class Registration : Form
         string passwordVerify = PasswordVerifyInput.Text;
         string username = UsernameInput.Text;
         int age = (int)AgeInput.Value;
-        string gender = GenderInput.SelectedText;
-        string country = GenderInput.SelectedText;
+        string? gender = GenderInput.SelectedItem.ToString();
+        string? country = CountryInput.SelectedItem.ToString();
 
         if (!(password.IsEqual(passwordVerify) && password.IsNoBannedSymbols() && password.IsContaintsLowerCaseLetter() && password.IsContaintsUpperCaseLetter() && password.IsContaintsNumeric() && password.IsMoreEightSymbols()))
         {
@@ -51,7 +51,7 @@ public partial class Registration : Form
             return;
         }
 
-        if (!username.IsNullOrEmpty())
+        if (username.IsNullOrEmpty())
         {
             MessageBox.Show("Неверный ник", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
@@ -63,7 +63,9 @@ public partial class Registration : Form
             return;
         }
 
+#pragma warning disable CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
         _apiProvider.Registrate(password, username, age, gender, country);
+#pragma warning restore CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
         MessageBox.Show("Регистрация прошла успешно");
         Close();
     }

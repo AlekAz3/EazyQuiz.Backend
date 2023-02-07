@@ -14,11 +14,6 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 tab_width = 4
 end_of_line = crlf
-csharp_style_throw_expression = false:warning
-csharp_style_prefer_null_check_over_type_check = true:warning
-csharp_prefer_simple_default_expression = true:warning
-csharp_space_around_binary_operators = before_and_after
-csharp_indent_labels = no_change
 
 ##########################################
 # File Extension Settings
@@ -205,6 +200,17 @@ dotnet_diagnostic.IDE0059.severity = none
 dotnet_sort_system_directives_first = false
 dotnet_separate_import_directive_groups = false
 # Dotnet namespace options
+dotnet_style_namespace_match_folder = false:none
+dotnet_diagnostic.IDE0130.severity = none
+
+##########################################
+# Временно закомментированно из-за бага SDK. Исправлено только в 7.0.101 https://github.com/dotnet/format/issues/1623
+##########################################
+# [Tests/**.{cs,csx,cake,vb,vbx}]
+# dotnet_style_namespace_match_folder = true:warning
+# dotnet_diagnostic.IDE0130.severity = warning
+
+[Tests/**/Fixture/**.{cs,csx,cake,vb,vbx}]
 dotnet_style_namespace_match_folder = false:none
 dotnet_diagnostic.IDE0130.severity = none
 
@@ -425,11 +431,6 @@ dotnet_naming_symbols.parameters_group.applicable_kinds = parameter
 dotnet_naming_rule.parameters_rule.symbols              = parameters_group
 dotnet_naming_rule.parameters_rule.style = camel_case_style
 dotnet_naming_rule.parameters_rule.severity = warning
-
-# Nullable reference types
-dotnet_diagnostic.CS8602.severity = error
-dotnet_diagnostic.CS8603.severity = error
-dotnet_diagnostic.CS8618.severity = error
 
 ##########################################
 # Всякая дичь (временно отключено)

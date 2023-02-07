@@ -69,7 +69,7 @@ public class ApiProvider : IDisposable
         {
             throw new ArgumentException("Error in Deserialize");
         }
-
+        
         return userResponse;
     }
 
@@ -96,7 +96,7 @@ public class ApiProvider : IDisposable
 
         if (responseBody == null)
         {
-            throw new Exception();
+            throw new ArgumentNullException(paramName: nameof(userName));
         }
         return responseBody;
     }
