@@ -170,8 +170,8 @@ public class UserService : IUserService
         var checkUser = await _dataContext.User.FirstOrDefaultAsync(x => x.Username == userName);
         if (checkUser == null)
         {
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 }
