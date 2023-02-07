@@ -2,7 +2,6 @@ using EazyQuiz.Cryptography;
 using EazyQuiz.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Serilog;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -65,9 +64,9 @@ public class UserService : IUserService
     /// Возвращает список всех игроков
     /// </summary>
     /// <returns>Список пользователей</returns>
-    public IEnumerable<User> GetAll()
+    public async Task<IEnumerable<User>> GetAll()
     {
-        var user = _dataContext.User.ToList();
+        var user = await _dataContext.User.ToListAsync();
 
         return user;
 

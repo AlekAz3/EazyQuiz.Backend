@@ -17,7 +17,7 @@ public interface IUserService
     /// Получение списка всех игроков
     /// </summary>
     /// <returns>Список игроков</returns>
-    IEnumerable<User> GetAll();
+    Task<IEnumerable<User>> GetAll();
 
     /// <summary>
     /// Получение инфы пользователя по Ид
