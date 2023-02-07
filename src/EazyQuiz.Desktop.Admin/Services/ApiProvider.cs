@@ -69,7 +69,7 @@ public class ApiProvider : IDisposable
         {
             throw new ArgumentException("Error in Deserialize");
         }
-        
+
         return userResponse;
     }
 
@@ -131,6 +131,39 @@ public class ApiProvider : IDisposable
 
         var response = Task.Run(() => { return _client.SendAsync(request); });
 
+    }
+
+    /// <summary>
+    /// Проверка на существующей ник 
+    /// </summary>
+    /// <param name="userName">Ник</param>
+    /// <returns>true - если ник НЕ уникален</returns>
+    /// <exception cref="ArgumentNullException">Нулл</exception>
+    public bool CheckUsername(string userName)
+    {
+        var request = new HttpRequestMessage
+        {
+            Method = HttpMethod.Get,
+            RequestUri = new Uri($"{_baseAdress}/api/Auth/CheckUniqueUsername?userName={userName}"),
+        };
+
+        var response = Task.Run(() => { return _client.SendAsync(request); }).Result;
+
+        var responseBody = Task.Run(() =>
+        {
+            return response.Content.ReadAsStringAsync();
+        }).Result;
+
+        if (responseBody == null)
+        {
+            throw new ArgumentNullException(paramName: nameof(userName));
+        }
+
+        if (responseBody == "true")
+        {
+            return true;
+        }
+        return false;
     }
 
     public void Dispose()

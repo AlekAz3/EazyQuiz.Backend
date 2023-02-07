@@ -62,6 +62,11 @@ public partial class Registration : Form
             MessageBox.Show("Неверный поле возраст", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }
+        if (_apiProvider.CheckUsername(username))
+        {
+            MessageBox.Show("Ник уже существует", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
 
 #pragma warning disable CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
         _apiProvider.Registrate(password, username, age, gender, country);
