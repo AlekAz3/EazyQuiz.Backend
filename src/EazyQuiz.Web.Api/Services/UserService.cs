@@ -140,7 +140,7 @@ public class UserService : IUserService
         var token = new JwtSecurityToken(_config["Jwt:Issuer"],
             _config["Jwt:Audience"],
             claims,
-            expires: DateTime.Now.AddMinutes(15),
+            expires: DateTime.Now.AddDays(1),
             signingCredentials: credentials);
 
         return new JwtSecurityTokenHandler().WriteToken(token);
@@ -156,7 +156,7 @@ public class UserService : IUserService
         var user = _dataContext.User.Where(x => userName == x.Username).Select(x => x.PasswordSalt).FirstOrDefault();
         if (user == null)
         {
-            throw new Exception("user not found");
+            throw new ArgumentNullException(paramName: nameof(userName));
         }
         _log.LogInformation("user {@User}", user);
         return Encoding.UTF8.GetString(user);

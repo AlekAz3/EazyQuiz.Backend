@@ -51,7 +51,7 @@ public partial class Registration : Form
             return;
         }
 
-        if (!username.IsNullOrEmpty())
+        if (username.IsNullOrEmpty())
         {
             MessageBox.Show("Неверный ник", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
