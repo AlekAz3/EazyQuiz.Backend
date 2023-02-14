@@ -1,4 +1,5 @@
 using EazyQuiz.Models;
+using EazyQuiz.Models.DTO;
 
 namespace EazyQuiz.Web.Api;
 /// <summary>

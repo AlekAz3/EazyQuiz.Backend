@@ -1,5 +1,5 @@
 using EazyQuiz.Cryptography;
-using EazyQuiz.Models;
+using EazyQuiz.Models.DTO;
 using Microsoft.Extensions.Configuration;
 using System.Net.Mime;
 using System.Text;

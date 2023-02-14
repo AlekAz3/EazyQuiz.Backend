@@ -1,4 +1,4 @@
-using EazyQuiz.Models;
+using EazyQuiz.Models.DTO;
 using System.Security.Cryptography;
 using System.Text;
 

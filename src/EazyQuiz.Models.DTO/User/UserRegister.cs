@@ -1,5 +1,5 @@
 
-namespace EazyQuiz.Models;
+namespace EazyQuiz.Models.DTO;
 /// <summary>
 /// ДТО полей для регистрации
 /// </summary>

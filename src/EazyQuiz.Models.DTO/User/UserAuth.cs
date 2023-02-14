@@ -1,4 +1,4 @@
-namespace EazyQuiz.Models;
+namespace EazyQuiz.Models.DTO;
 
 /// <summary>
 /// ДТО при входе пользователя в систему 

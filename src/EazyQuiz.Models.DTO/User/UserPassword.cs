@@ -1,4 +1,4 @@
-namespace EazyQuiz.Models;
+namespace EazyQuiz.Models.DTO;
 /// <summary>
 /// ДТО для хранения хэша пароля и соли 
 /// </summary>
