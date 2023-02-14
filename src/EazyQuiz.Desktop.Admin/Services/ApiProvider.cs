@@ -1,3 +1,4 @@
+using EazyQuiz.Abstractions;
 using EazyQuiz.Cryptography;
 using EazyQuiz.Models.DTO;
 using Microsoft.Extensions.Configuration;
