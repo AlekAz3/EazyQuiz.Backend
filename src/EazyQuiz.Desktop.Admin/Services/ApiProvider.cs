@@ -9,7 +9,7 @@ namespace EazyQuiz.Desktop.Admin;
 /// <summary>
 /// Работа с Апи EazyQuiz
 /// </summary>
-public class ApiProvider : IDisposable
+public class ApiProvider : IDisposable, IApiProvider
 {
     /// <summary>
     /// <inheritdoc cref="IConfiguration"/>
