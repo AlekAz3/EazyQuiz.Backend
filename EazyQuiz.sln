@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{967205FC-A1B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{81641BF6-C80C-44C6-AAF2-7D2C7D9EB690}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EazyQuiz.Models", "src\EazyQuiz.Models\EazyQuiz.Models.csproj", "{CF37DBD7-4FFD-466E-9628-04B48EEC97B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EazyQuiz.Models.Database", "src\EazyQuiz.Models.Database\EazyQuiz.Models.Database.csproj", "{CF37DBD7-4FFD-466E-9628-04B48EEC97B4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EazyQuiz.Web.Api", "src\EazyQuiz.Web.Api\EazyQuiz.Web.Api.csproj", "{CD59146C-F906-45FC-A198-AB31152A610F}"
 EndProject

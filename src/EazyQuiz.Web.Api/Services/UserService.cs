@@ -1,5 +1,5 @@
 using EazyQuiz.Cryptography;
-using EazyQuiz.Models;
+using EazyQuiz.Models.Database;
 using EazyQuiz.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
