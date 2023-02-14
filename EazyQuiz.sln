@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EazyQuiz.Cryptography.Tests
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EazyQuiz.Extensioons.Tests", "tests\EazyQuiz.Extensioons.Tests\EazyQuiz.Extensioons.Tests.csproj", "{699931C8-9403-46B9-85CE-3D5B40BFC7AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EazyQuiz.Models.DTO", "src\EazyQuiz.Models.DTO\EazyQuiz.Models.DTO.csproj", "{256026B3-AE03-4D86-93D6-1844D06F9F1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EazyQuiz.Models.DTO", "src\EazyQuiz.Models.DTO\EazyQuiz.Models.DTO.csproj", "{256026B3-AE03-4D86-93D6-1844D06F9F1D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
