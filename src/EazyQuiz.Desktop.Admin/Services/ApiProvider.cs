@@ -109,7 +109,7 @@ public class ApiProvider : IDisposable
     /// <param name="age">Возраст</param>
     /// <param name="gender">Пол</param>
     /// <param name="country">Страна</param>
-    internal void Registrate(string password, string username, int age, string gender, string country)
+    internal async Task Registrate(string password, string username, int age, string gender, string country)
     {
         var user = new UserRegister()
         {
@@ -129,8 +129,7 @@ public class ApiProvider : IDisposable
             Content = new StringContent(json, Encoding.UTF8, MediaTypeNames.Application.Json),
         };
 
-        var response = Task.Run(() => { return _client.SendAsync(request); });
-
+        await _client.SendAsync(request);
     }
 
     /// <summary>

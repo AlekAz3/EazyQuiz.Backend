@@ -1,3 +1,4 @@
+using EazyQuiz.Models.Database;
 using EazyQuiz.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
@@ -34,7 +35,7 @@ public class AuthController : Controller
     public async Task<IActionResult> RegisterNewPlayer(UserRegister user)
     {
         await _userService.RegisterNewUser(user);
-        _log.LogInformation("New User was created");
+        _log.LogInformation("New User was created {@User}", user);
         return Ok();
     }
 
@@ -45,6 +46,7 @@ public class AuthController : Controller
     [HttpGet]
     public async Task<string> GetUserByPassword([FromBody] UserAuth auth)
     {
+        _log.LogInformation("Login {@User}", auth);
         var userResponse = await _userService.Authenticate(auth);
         return JsonSerializer.Serialize(userResponse);
     }

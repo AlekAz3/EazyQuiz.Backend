@@ -1,6 +1,6 @@
 using EazyQuiz.Models.DTO;
+using System;
 using System.Security.Cryptography;
-using System.Text;
 
 namespace EazyQuiz.Cryptography
 {
@@ -36,7 +36,7 @@ namespace EazyQuiz.Cryptography
                 HashAlgorithmName.SHA512
                 ).GetBytes(KeySize);
 
-            return new UserPassword(Encoding.UTF8.GetString(hash), Encoding.UTF8.GetString(salt));
+            return new UserPassword(Convert.ToBase64String(hash), Convert.ToBase64String(salt));
         }
 
         /// <summary>
@@ -48,13 +48,12 @@ namespace EazyQuiz.Cryptography
         public static string HashWithCurrentSalt(string password, string salt)
         {
             var hash = new Rfc2898DeriveBytes(
-                Encoding.UTF8.GetBytes(password),
-                Encoding.UTF8.GetBytes(salt),
+                password,
+                Convert.FromBase64String(salt),
                 Iterations,
                 HashAlgorithmName.SHA512
                 ).GetBytes(KeySize);
-
-            return Encoding.UTF8.GetString(hash);
+            return Convert.ToBase64String(hash);
         }
 
         /// <summary>
@@ -68,18 +67,15 @@ namespace EazyQuiz.Cryptography
             return CryptographicOperations.FixedTimeEquals(inputHash, hash2);
         }
 
+        /// <summary>
+        /// Генерация Соли
+        /// </summary>
+        /// <returns>Соль</returns>
         private static byte[] GenerateSalt()
         {
-            byte[] salt = new byte[SaltSize];
-
-#pragma warning disable SYSLIB0023 // Type or member is obsolete
-            using (var random = new RNGCryptoServiceProvider())
-            {
-                random.GetNonZeroBytes(salt);
-            }
-#pragma warning restore SYSLIB0023 // Type or member is obsolete
+            var salt = new byte[SaltSize];
+            RandomNumberGenerator.Fill(salt);
             return salt;
         }
-
     }
 }
