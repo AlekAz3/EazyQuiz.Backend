@@ -52,7 +52,7 @@ public class ApiProvider : IDisposable, IApiProvider
 
         var request = new HttpRequestMessage
         {
-            Method = HttpMethod.Get,
+            Method = HttpMethod.Post,
             RequestUri = new Uri($"{_baseAdress}/api/Auth/GetUserByPassword"),
             Content = new StringContent(json, Encoding.UTF8, MediaTypeNames.Application.Json),
         };

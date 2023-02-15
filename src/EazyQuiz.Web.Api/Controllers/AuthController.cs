@@ -43,7 +43,7 @@ public class AuthController : Controller
     /// Вход в систему возвращает <see cref="UserResponse"/> с токеном JWT
     /// </summary>
     /// <param name="auth"></param>
-    [HttpGet]
+    [HttpPost]
     public async Task<string> GetUserByPassword([FromBody] UserAuth auth)
     {
         _log.LogInformation("Login {@User}", auth);
