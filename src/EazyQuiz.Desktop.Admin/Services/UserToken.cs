@@ -1,4 +1,4 @@
-using EazyQuiz.Models;
+using EazyQuiz.Models.DTO;
 
 namespace EazyQuiz.Desktop.Admin;
 /// <summary>

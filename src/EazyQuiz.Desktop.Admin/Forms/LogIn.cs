@@ -1,5 +1,4 @@
 using EazyQuiz.Extensions;
-using EazyQuiz.Models;
 
 namespace EazyQuiz.Desktop.Admin;
 

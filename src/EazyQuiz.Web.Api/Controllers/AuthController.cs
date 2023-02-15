@@ -1,4 +1,5 @@
-using EazyQuiz.Models;
+using EazyQuiz.Models.Database;
+using EazyQuiz.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
@@ -34,7 +35,7 @@ public class AuthController : Controller
     public async Task<IActionResult> RegisterNewPlayer(UserRegister user)
     {
         await _userService.RegisterNewUser(user);
-        _log.LogInformation("New User was created");
+        _log.LogInformation("New User was created {@User}", user);
         return Ok();
     }
 
@@ -42,9 +43,10 @@ public class AuthController : Controller
     /// Вход в систему возвращает <see cref="UserResponse"/> с токеном JWT
     /// </summary>
     /// <param name="auth"></param>
-    [HttpGet]
+    [HttpPost]
     public async Task<string> GetUserByPassword([FromBody] UserAuth auth)
     {
+        _log.LogInformation("Login {@User}", auth);
         var userResponse = await _userService.Authenticate(auth);
         return JsonSerializer.Serialize(userResponse);
     }

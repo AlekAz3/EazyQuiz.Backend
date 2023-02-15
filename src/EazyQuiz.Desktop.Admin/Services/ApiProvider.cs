@@ -1,5 +1,6 @@
+using EazyQuiz.Abstractions;
 using EazyQuiz.Cryptography;
-using EazyQuiz.Models;
+using EazyQuiz.Models.DTO;
 using Microsoft.Extensions.Configuration;
 using System.Net.Mime;
 using System.Text;
@@ -9,7 +10,7 @@ namespace EazyQuiz.Desktop.Admin;
 /// <summary>
 /// Работа с Апи EazyQuiz
 /// </summary>
-public class ApiProvider : IDisposable
+public class ApiProvider : IDisposable, IApiProvider
 {
     /// <summary>
     /// <inheritdoc cref="IConfiguration"/>
@@ -51,7 +52,7 @@ public class ApiProvider : IDisposable
 
         var request = new HttpRequestMessage
         {
-            Method = HttpMethod.Get,
+            Method = HttpMethod.Post,
             RequestUri = new Uri($"{_baseAdress}/api/Auth/GetUserByPassword"),
             Content = new StringContent(json, Encoding.UTF8, MediaTypeNames.Application.Json),
         };
@@ -109,7 +110,7 @@ public class ApiProvider : IDisposable
     /// <param name="age">Возраст</param>
     /// <param name="gender">Пол</param>
     /// <param name="country">Страна</param>
-    internal void Registrate(string password, string username, int age, string gender, string country)
+    internal async Task Registrate(string password, string username, int age, string gender, string country)
     {
         var user = new UserRegister()
         {
@@ -129,8 +130,7 @@ public class ApiProvider : IDisposable
             Content = new StringContent(json, Encoding.UTF8, MediaTypeNames.Application.Json),
         };
 
-        var response = Task.Run(() => { return _client.SendAsync(request); });
-
+        await _client.SendAsync(request);
     }
 
     /// <summary>

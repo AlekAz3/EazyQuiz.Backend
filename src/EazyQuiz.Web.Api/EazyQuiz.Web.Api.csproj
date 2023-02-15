@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EazyQuiz.Cryptography\EazyQuiz.Cryptography.csproj" />
-    <ProjectReference Include="..\EazyQuiz.Models\EazyQuiz.Models.csproj" />
+    <ProjectReference Include="..\EazyQuiz.Models.Database\EazyQuiz.Models.Database.csproj" />
   </ItemGroup>
 
 </Project>

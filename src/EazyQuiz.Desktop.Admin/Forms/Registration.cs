@@ -1,4 +1,5 @@
 using EazyQuiz.Extensions;
+using System.Reflection.Metadata.Ecma335;
 
 namespace EazyQuiz.Desktop.Admin;
 public partial class Registration : Form
@@ -68,9 +69,10 @@ public partial class Registration : Form
             return;
         }
 
-#pragma warning disable CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
-        _apiProvider.Registrate(password, username, age, gender, country);
-#pragma warning restore CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
+#pragma warning disable CS8604 // Possible null reference argument.
+        Task.Run(() => { return _apiProvider.Registrate(password, username, age, gender, country); });
+#pragma warning restore CS8604 // Possible null reference argument.
+
         MessageBox.Show("Регистрация прошла успешно");
         Close();
     }
