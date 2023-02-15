@@ -1,5 +1,4 @@
 using EazyQuiz.Extensions;
-using System.Reflection.Metadata.Ecma335;
 
 namespace EazyQuiz.Desktop.Admin;
 public partial class Registration : Form
@@ -20,7 +19,7 @@ public partial class Registration : Form
         _apiProvider = apiProvider;
         InitializeComponent();
         GenderInput.SelectedIndex = 0;
-        CountryInput.SelectedIndex = 28;
+        CountryInput.SelectedIndex = 0;
     }
 
     /// <summary>
