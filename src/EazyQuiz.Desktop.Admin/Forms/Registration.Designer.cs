@@ -83,8 +83,10 @@ partial class Registration
             this.GenderInput.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.GenderInput.FormattingEnabled = true;
             this.GenderInput.Items.AddRange(new object[] {
-            "Male",
-            "Female"});
+            "Мужской",
+            "Женский",
+            "Другой",
+            "Не скажу"});
             this.GenderInput.Location = new System.Drawing.Point(163, 144);
             this.GenderInput.Name = "GenderInput";
             this.GenderInput.Size = new System.Drawing.Size(194, 28);
@@ -96,50 +98,10 @@ partial class Registration
             this.CountryInput.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.CountryInput.FormattingEnabled = true;
             this.CountryInput.Items.AddRange(new object[] {
-            "Австрия",
-            "Албания",
-            "Андорра",
-            "Беларусь",
-            "Бельгия",
-            "Болгария",
-            "Босния и Герцеговина",
-            "Ватикан",
-            "Великобритания",
-            "Венгрия",
-            "Германия",
-            "Греция",
-            "Дания",
-            "Ирландия",
-            "Исландия",
-            "Испания",
-            "Италия",
-            "Латвия",
-            "Литва",
-            "Лихтенштейн",
-            "Люксембург",
-            "Мальта",
-            "Молдова",
-            "Монако",
-            "Нидерланды",
-            "Норвегия",
-            "Польша",
-            "Португалия",
             "Россия",
-            "Румыния",
-            "Сан-Марино",
-            "Северная Македония",
-            "Сербия",
-            "Словакия",
-            "Словения",
             "Украина",
-            "Финляндия",
-            "Франция",
-            "Хорватия",
-            "Черногория",
-            "Чехия",
-            "Швейцария",
-            "Швеция",
-            "Эстония"});
+            "Беларусь"
+            });
             this.CountryInput.Location = new System.Drawing.Point(163, 178);
             this.CountryInput.Name = "CountryInput";
             this.CountryInput.Size = new System.Drawing.Size(194, 28);
