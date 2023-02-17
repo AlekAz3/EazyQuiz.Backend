@@ -108,7 +108,7 @@ public class UserService : IUserService
             Points = 0,
             Username = user.Username
         };
-        _dataContext.User!.Add(newUser);
+        await _dataContext.User.AddAsync(newUser);
         await _dataContext.SaveChangesAsync();
     }
 
@@ -118,7 +118,7 @@ public class UserService : IUserService
     /// <returns>Ид</returns>
     private int GetLastId()
     {
-        return _dataContext.User!.Select(x => x.Id).Count() + 1;
+        return _dataContext.User.Select(x => x.Id).Count() + 1;
     }
 
     /// <summary>
@@ -156,7 +156,7 @@ public class UserService : IUserService
     /// <exception cref="Exception">Игрок не найден</exception>
     public async Task<string> GetUserSalt(string userName)
     {
-        var user = await _dataContext.User.Where(x => userName == x.Username).Select(x => x.PasswordSalt).FirstOrDefaultAsync();
+        byte[] user = await _dataContext.User.Where(x => userName == x.Username).Select(x => x.PasswordSalt).FirstOrDefaultAsync();
         if (user == null)
         {
             _log.LogInformation("User does not exist");

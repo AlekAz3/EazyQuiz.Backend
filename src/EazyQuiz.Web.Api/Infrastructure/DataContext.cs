@@ -11,12 +11,22 @@ public class DataContext : DbContext
     /// <summary>
     /// Таблица User
     /// </summary>
-    public DbSet<User>? User { get; set; }
+    public DbSet<User> User { get; set; }
 
     /// <summary>
-    /// Таблица Question
+    /// Таблица Questions
     /// </summary>
-    public DbSet<Question>? Questions { get; set; }
+    public DbSet<Question> Question { get; set; }
+
+    /// <summary>
+    /// Таблица Answers
+    /// </summary>
+    public DbSet<Answers> Answer { get; set; }
+
+    /// <summary>
+    /// Таблица UsersAnswers
+    /// </summary>
+    public DbSet<UsersAnswers> UserAnswer { get; set; }
 
     /// <summary>
     /// <inheritdoc cref="IConfiguration"/>
