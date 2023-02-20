@@ -18,10 +18,4 @@ public class Question
     /// Тест вопроса
     /// </summary>
     public string? Text { get; set; }
-
-    /// <summary>
-    /// Количество очков
-    /// </summary>
-    public int Points { get; set; }
-
 }

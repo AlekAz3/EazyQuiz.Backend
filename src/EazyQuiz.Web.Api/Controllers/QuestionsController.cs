@@ -7,21 +7,21 @@ namespace EazyQuiz.Web.Api;
 /// <summary>
 /// Контроллер работы с вопросами
 /// </summary>
-[Route("api/[controller]")]
+[Route("api/[controller]/[action]")]
 [ApiController, Authorize]
 public class QuestionsController : Controller
 {
     /// <summary>
     /// <inheritdoc cref="QuestionsService"/>
     /// </summary>
-    private readonly QuestionsService _questionsService;
+    private readonly IQuestionsService _questionsService;
 
     /// <summary>
     /// <inheritdoc cref="ILogger{TCategoryName}"/>
     /// </summary>
     private readonly ILogger<QuestionsController> _log;
 
-    public QuestionsController(QuestionsService questionsService, ILogger<QuestionsController> logger)
+    public QuestionsController(IQuestionsService questionsService, ILogger<QuestionsController> logger)
     {
         _questionsService = questionsService;
         _log = logger;

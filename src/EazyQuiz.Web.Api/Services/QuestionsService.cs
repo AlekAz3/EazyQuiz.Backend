@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EazyQuiz.Web.Api;
 
-public class QuestionsService
+public class QuestionsService : IQuestionsService
 {
     private readonly DataContext _dataContext;
     private readonly ILogger<QuestionsService> _logger;
@@ -24,6 +24,8 @@ public class QuestionsService
 
         return new QuestionResponse()
         {
+            IdQuestion = question.Id,
+            TextQuestion = question.Text,
             IdCorrectAnswer = correctAnswer.Id,
             TextCorrectAnswer = correctAnswer.Text,
             IdFirstAnswer = notCorrectAnswers[0].Id,
