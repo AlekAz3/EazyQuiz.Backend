@@ -44,11 +44,11 @@ public class AuthController : Controller
     /// </summary>
     /// <param name="auth"></param>
     [HttpPost]
-    public async Task<string> GetUserByPassword([FromBody] UserAuth auth)
+    public async Task<IActionResult> GetUserByPassword([FromBody] UserAuth auth)
     {
         _log.LogInformation("Login {@User}", auth);
         var userResponse = await _userService.Authenticate(auth);
-        return JsonSerializer.Serialize(userResponse);
+        return Ok(userResponse);
     }
 
     /// <summary>

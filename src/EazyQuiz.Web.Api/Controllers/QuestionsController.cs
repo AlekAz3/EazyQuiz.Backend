@@ -31,12 +31,11 @@ public class QuestionsController : Controller
     /// Получить вопрос с ответом
     /// </summary>
     [HttpGet]
-    public async Task<string> GetQuestion()
+    public async Task<IActionResult> GetQuestion()
     {
-        var result = await _questionsService.GetQuestion();
-        _log.LogInformation("GetQuestion");
-        return JsonSerializer.Serialize(result);
+        return Ok(await _questionsService.GetQuestion());
     }
+
     [HttpPost]
     public async Task<IActionResult> PostUserAnswer([FromBody] UserAnswer answer)
     {

@@ -172,17 +172,19 @@ public class ApiProvider : IDisposable, IApiProvider
     /// </summary>
     /// <param name="token"></param>
     /// <returns></returns>
-    public async Task<QuestionResponse> GetQuestion(string token)
+    public QuestionResponse GetQuestion(string token)
     {
         var request = new HttpRequestMessage
         {
             Method = HttpMethod.Get,
             RequestUri = new Uri($"{_baseAdress}/api/Questions/GetQuestion"),
         };
+        request.Headers.TryAddWithoutValidation("Accept", "application/json");
+        request.Headers.TryAddWithoutValidation("Authorization", $"Bearer {token}");
 
-        var response = await _client.SendAsync(request);
+        var response = _client.SendAsync(request).Result;
 
-        var responseBody = await response.Content.ReadAsStringAsync();
+        var responseBody = response.Content.ReadAsStringAsync().Result;
 
         return JsonSerializer.Deserialize<QuestionResponse>(responseBody) ?? new QuestionResponse();
     }

@@ -41,7 +41,7 @@ public class QuestionsService : IQuestionsService
     {
         var user = new UsersAnswers()
         {
-            Id = GetUserAnswer(),
+            Id = GetUserAnswerCount(),
             IdAnswer = answer.IdAnswer,
             IdQuestion = answer.IdQuestion,
             IdUser = answer.IdUser
@@ -53,11 +53,11 @@ public class QuestionsService : IQuestionsService
 
     private int GetQuestionCount()
     {
-        return _dataContext.Question.Count();
+        return _dataContext.Question.Count() + 1;
     }
 
-    private int GetUserAnswer()
+    private int GetUserAnswerCount()
     {
-        return _dataContext.UserAnswer.Count();
+        return _dataContext.UserAnswer.Count() + 1;
     }
 }

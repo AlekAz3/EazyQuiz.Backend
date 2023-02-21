@@ -1,3 +1,7 @@
+using EazyQuiz.Models.DTO;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
 namespace EazyQuiz.Desktop.Admin;
 public partial class Panel : Form
 {
@@ -23,7 +27,7 @@ public partial class Panel : Form
 
     private void button1_Click(object sender, EventArgs e)
     {
-        var question = _apiProvider.GetQuestion(_userToken.User.Token).Result;
+        var question = _apiProvider.GetQuestion(_userToken.User.Token);
         MessageBox.Show(question.TextQuestion);
 
     }
