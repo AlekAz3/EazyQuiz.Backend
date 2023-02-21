@@ -2,6 +2,7 @@ using EazyQuiz.Abstractions;
 using EazyQuiz.Cryptography;
 using EazyQuiz.Models.DTO;
 using Microsoft.Extensions.Configuration;
+using System.Net.Http.Headers;
 using System.Net.Mime;
 using System.Text;
 using System.Text.Json;
@@ -164,6 +165,28 @@ public class ApiProvider : IDisposable, IApiProvider
             return true;
         }
         return false;
+    }
+
+    /// <summary>
+    /// Получить вопрос и ответы с сервера
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public QuestionResponse GetQuestion(string token)
+    {
+        var request = new HttpRequestMessage
+        {
+            Method = HttpMethod.Get,
+            RequestUri = new Uri($"{_baseAdress}/api/Questions/GetQuestion"),
+        };
+        request.Headers.TryAddWithoutValidation("Accept", "application/json");
+        request.Headers.TryAddWithoutValidation("Authorization", $"Bearer {token}");
+
+        var response = _client.SendAsync(request).Result;
+
+        var responseBody = response.Content.ReadAsStringAsync().Result;
+
+        return JsonSerializer.Deserialize<QuestionResponse>(responseBody) ?? new QuestionResponse();
     }
 
     public void Dispose()

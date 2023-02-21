@@ -1,3 +1,4 @@
+using Microsoft.OpenApi.Models;
 using Serilog;
 
 namespace EazyQuiz.Web.Api;
@@ -22,10 +23,11 @@ public class Program
         builder.Services.AddControllers();
         builder.Services.AddDbContext<DataContext>();
         builder.Services.AddScoped<IUserService, UserService>();
-
+        builder.Services.AddScoped<IQuestionsService, QuestionsService>();
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+
         builder.Services.AddAuth(builder.Configuration); //Добавление JWT
+        builder.Services.AddSwaggerWithAuth();
 
 
         var app = builder.Build();
