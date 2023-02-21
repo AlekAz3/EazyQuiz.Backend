@@ -106,7 +106,8 @@ public class UserService : IUserService
             PasswordHash = Encoding.UTF8.GetBytes(user.Password!.PasswordHash),
             PasswordSalt = Encoding.UTF8.GetBytes(user.Password!.PasswordSalt),
             Points = 0,
-            Username = user.Username
+            Username = user.Username,
+            RegistrationTime = DateTime.Now
         };
         await _dataContext.User.AddAsync(newUser);
         await _dataContext.SaveChangesAsync();

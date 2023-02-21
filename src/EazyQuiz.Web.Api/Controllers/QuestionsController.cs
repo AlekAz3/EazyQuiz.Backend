@@ -1,7 +1,6 @@
 using EazyQuiz.Models.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 
 namespace EazyQuiz.Web.Api;
 /// <summary>
@@ -16,15 +15,9 @@ public class QuestionsController : Controller
     /// </summary>
     private readonly IQuestionsService _questionsService;
 
-    /// <summary>
-    /// <inheritdoc cref="ILogger{TCategoryName}"/>
-    /// </summary>
-    private readonly ILogger<QuestionsController> _log;
-
-    public QuestionsController(IQuestionsService questionsService, ILogger<QuestionsController> logger)
+    public QuestionsController(IQuestionsService questionsService)
     {
         _questionsService = questionsService;
-        _log = logger;
     }
 
     /// <summary>

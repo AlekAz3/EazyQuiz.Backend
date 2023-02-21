@@ -44,8 +44,17 @@ public class QuestionsService : IQuestionsService
             Id = GetUserAnswerCount(),
             IdAnswer = answer.IdAnswer,
             IdQuestion = answer.IdQuestion,
-            IdUser = answer.IdUser
+            IdUser = answer.IdUser,
+            AnswerTime = DateTime.Now
         };
+
+        if (_dataContext.Answer.Find(answer.IdAnswer).IsCorrect)
+        {
+            var a = await _dataContext.User.FindAsync(answer.IdUser);
+            a.Points++;
+            _dataContext.Entry(a).State = EntityState.Modified;
+        }
+
         _logger.LogInformation("User Answer Question {@User}", user);
         await _dataContext.UserAnswer.AddAsync(user);
         await _dataContext.SaveChangesAsync();
