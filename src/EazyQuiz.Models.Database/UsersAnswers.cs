@@ -26,4 +26,9 @@ public class UsersAnswers
     /// Ид вопроса
     /// </summary>
     public int IdQuestion { get; set; }
+
+    /// <summary>
+    /// Время ответа на вопрос
+    /// </summary>
+    public DateTime AnswerTime { get; set; }
 }

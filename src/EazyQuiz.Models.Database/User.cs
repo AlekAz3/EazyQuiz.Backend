@@ -41,6 +41,11 @@ public class User
     public string Country { get; set; } = string.Empty;
 
     /// <summary>
+    /// Время Регистрации
+    /// </summary>
+    public DateTime RegistrationTime { get; set; }
+
+    /// <summary>
     /// Пароль Хэш
     /// </summary>
     [JsonIgnore]
