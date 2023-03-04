@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EazyQuiz.Models.Database;
+
 /// <summary>
 /// Ответы пользователей
 /// </summary>

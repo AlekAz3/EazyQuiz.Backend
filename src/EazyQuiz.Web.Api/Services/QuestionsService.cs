@@ -52,7 +52,7 @@ public class QuestionsService : IQuestionsService
         {
             var a = await _dataContext.User.FindAsync(answer.IdUser);
             a.Points++;
-            _dataContext.Entry(a).State = EntityState.Modified;
+            _dataContext.Update(a);
         }
 
         _logger.LogInformation("User Answer Question {@User}", user);
