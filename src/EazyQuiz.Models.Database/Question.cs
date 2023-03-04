@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EazyQuiz.Models.Database;
+
 /// <summary>
 /// Описание обьекта вопроса
 /// </summary>

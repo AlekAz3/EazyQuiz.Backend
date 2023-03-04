@@ -1,4 +1,3 @@
-using Microsoft.OpenApi.Models;
 using Serilog;
 
 namespace EazyQuiz.Web.Api;

@@ -33,11 +33,6 @@ public class UserService : IUserService
         _log = logger;
     }
 
-    /// <summary>
-    /// Проверка на наличие игрока в базе 
-    /// </summary>
-    /// <param name="auth"><inheritdoc cref="UserAuth"/></param>
-    /// <returns>Объект<see cref="UserResponse"/></returns>
     public async Task<UserResponse> Authenticate(UserAuth auth)
     {
         var user = await _dataContext.User.FirstOrDefaultAsync(x => x.Username == auth.Username);
@@ -61,10 +56,6 @@ public class UserService : IUserService
 
     }
 
-    /// <summary>
-    /// Возвращает список всех игроков
-    /// </summary>
-    /// <returns>Список пользователей</returns>
     public async Task<IEnumerable<User>> GetAll()
     {
         var user = await _dataContext.User.ToListAsync();
@@ -73,12 +64,6 @@ public class UserService : IUserService
 
     }
 
-    /// <summary>
-    /// Получение игрока по Ид
-    /// </summary>
-    /// <param name="id">Ид</param>
-    /// <returns><see cref="User"/></returns>
-    /// <exception cref="ArgumentException">Игрок не найден</exception>
     public async Task<User> GetById(int id)
     {
         var user = await _dataContext.User.FirstOrDefaultAsync(x => x.Id == id);
@@ -89,10 +74,6 @@ public class UserService : IUserService
         return user;
     }
 
-    /// <summary>
-    /// Запись нового пользователя в БД
-    /// </summary>
-    /// <param name="user">Инфа об игроке в <see cref="UserRegister"/></param>
     public async Task RegisterNewUser(UserRegister user)
     {
         _log.LogInformation("Register {@User}", user);
@@ -113,20 +94,11 @@ public class UserService : IUserService
         await _dataContext.SaveChangesAsync();
     }
 
-    /// <summary>
-    /// Получение последнего Ид
-    /// </summary>
-    /// <returns>Ид</returns>
     private int GetLastId()
     {
         return _dataContext.User.Select(x => x.Id).Count() + 1;
     }
 
-    /// <summary>
-    /// Генерация JWT токена
-    /// </summary>
-    /// <param name="user">Объект игрока</param>
-    /// <returns>Строка JWT токена</returns>
     private string GenerateJwtToken(User user)
     {
         if (user == null)
@@ -149,12 +121,7 @@ public class UserService : IUserService
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
-    /// <summary>
-    /// Получение соли игрока по его нику из БД
-    /// </summary>
-    /// <param name="userName">Ник игрока</param>
-    /// <returns>Соль</returns>
-    /// <exception cref="Exception">Игрок не найден</exception>
+
     public async Task<string> GetUserSalt(string userName)
     {
         byte[] user = await _dataContext.User.Where(x => userName == x.Username).Select(x => x.PasswordSalt).FirstOrDefaultAsync();
@@ -167,11 +134,7 @@ public class UserService : IUserService
         return Encoding.UTF8.GetString(user);
     }
 
-    /// <summary>
-    /// Запрос к базе на проверку существующего ника
-    /// </summary>
-    /// <param name="userName">Ник</param>
-    /// <returns>true - если ник НЕ уникален</returns>
+
     public async Task<bool> CheckUniqueUsername(string userName)
     {
         var checkUser = await _dataContext.User.FirstOrDefaultAsync(x => x.Username == userName);
