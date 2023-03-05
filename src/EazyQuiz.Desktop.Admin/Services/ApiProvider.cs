@@ -172,7 +172,7 @@ public class ApiProvider : IDisposable, IApiProvider
     /// </summary>
     /// <param name="token"></param>
     /// <returns></returns>
-    public QuestionResponse GetQuestion(string token)
+    public QuestionWithAnswers GetQuestion(string token)
     {
         var request = new HttpRequestMessage
         {
@@ -186,7 +186,7 @@ public class ApiProvider : IDisposable, IApiProvider
 
         var responseBody = response.Content.ReadAsStringAsync().Result;
 
-        return JsonSerializer.Deserialize<QuestionResponse>(responseBody) ?? new QuestionResponse();
+        return JsonSerializer.Deserialize<QuestionWithAnswers>(responseBody) ?? new QuestionWithAnswers();
     }
 
     public void Dispose()

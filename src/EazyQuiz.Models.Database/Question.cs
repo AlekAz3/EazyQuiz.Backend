@@ -13,7 +13,7 @@ public class Question
     /// Ид
     /// </summary>
     [Key]
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     /// <summary>
     /// Тест вопроса

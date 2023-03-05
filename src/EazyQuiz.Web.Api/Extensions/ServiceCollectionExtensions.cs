@@ -25,6 +25,13 @@ public static class ServiceCollectionExtensions
             });
     }
 
+
+    public static void AddAutoMapper(this IServiceCollection services)
+    {
+        services.AddAutoMapper(typeof(UserAuthProfile), typeof(UserAnswerProfile));
+    }
+
+
     public static void AddSwaggerWithAuth(this IServiceCollection services)
     {
         services.AddSwaggerGen(c =>

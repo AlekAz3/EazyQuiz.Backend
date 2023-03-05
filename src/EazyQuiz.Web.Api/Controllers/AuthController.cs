@@ -1,7 +1,5 @@
-using EazyQuiz.Models.Database;
 using EazyQuiz.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 
 namespace EazyQuiz.Web.Api;
 /// <summary>
@@ -19,9 +17,9 @@ public class AuthController : Controller
     /// <summary>
     /// <inheritdoc cref="IUserService"/>
     /// </summary>
-    private readonly IUserService _userService;
+    private readonly UserService _userService;
 
-    public AuthController(ILogger<AuthController> logger, IUserService userService)
+    public AuthController(ILogger<AuthController> logger, UserService userService)
     {
         _log = logger;
         _userService = userService;
@@ -48,6 +46,10 @@ public class AuthController : Controller
     {
         _log.LogInformation("Login {@User}", auth);
         var userResponse = await _userService.Authenticate(auth);
+        if (userResponse == null)
+        {
+            return NotFound();
+        }
         return Ok(userResponse);
     }
 
@@ -56,13 +58,15 @@ public class AuthController : Controller
     /// </summary>
     /// <param name="userName">Ник</param>
     [HttpGet]
-    public async Task<string> GetUserSalt(string userName)
+    public async Task<IActionResult> GetUserSalt(string userName)
     {
         string userSalt = await _userService.GetUserSalt(userName);
-
-        return userSalt;
+        if (userSalt == "")
+        {
+            return NotFound();
+        }
+        return Ok(userSalt);
     }
-
 
     /// <summary>
     /// Проверка уникальности ника
@@ -70,8 +74,8 @@ public class AuthController : Controller
     /// <param name="userName">Ник</param>
     /// <returns>true - если ник НЕ уникален</returns>
     [HttpGet]
-    public async Task<bool> CheckUniqueUsername(string userName)
+    public async Task<IActionResult> CheckUniqueUsername(string userName)
     {
-        return await _userService.CheckUniqueUsername(userName);
+        return Ok(await _userService.CheckUniqueUsername(userName));
     }
 }

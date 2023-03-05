@@ -11,22 +11,22 @@ public class UsersAnswers
     /// <summary>
     /// Ид
     /// </summary>
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     /// <summary>
     /// Ид Юзера
     /// </summary>
-    public int IdUser { get; set; }
+    public Guid UserId { get; set; }
 
     /// <summary>
     /// Ид Ответа 
     /// </summary>
-    public int IdAnswer { get; set; }
+    public Guid AnswerId { get; set; }
 
     /// <summary>
     /// Ид вопроса
     /// </summary>
-    public int IdQuestion { get; set; }
+    public Guid QuestionId { get; set; }
 
     /// <summary>
     /// Время ответа на вопрос

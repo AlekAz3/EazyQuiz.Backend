@@ -13,9 +13,9 @@ public class QuestionsController : Controller
     /// <summary>
     /// <inheritdoc cref="QuestionsService"/>
     /// </summary>
-    private readonly IQuestionsService _questionsService;
+    private readonly QuestionsService _questionsService;
 
-    public QuestionsController(IQuestionsService questionsService)
+    public QuestionsController(QuestionsService questionsService)
     {
         _questionsService = questionsService;
     }

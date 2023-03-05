@@ -12,7 +12,7 @@ public class Answers
     /// <summary>
     /// Ид вопроса
     /// </summary>
-    [Key] public int Id { get; set; }
+    [Key] public Guid Id { get; set; }
 
     /// <summary>
     /// Текст ответа на вопрос
@@ -27,5 +27,5 @@ public class Answers
     /// <summary>
     /// Ид вопроса
     /// </summary>
-    public int IdQuestion { get; set; }
+    public Guid QuestionId { get; set; }
 }
