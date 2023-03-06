@@ -1,9 +1,7 @@
 using EazyQuiz.Abstractions;
 using EazyQuiz.Cryptography;
-using EazyQuiz.Extensions;
 using EazyQuiz.Models.DTO;
 using Microsoft.Extensions.Configuration;
-using System.Net.Http.Headers;
 using System.Net.Mime;
 using System.Text;
 using System.Text.Json;
@@ -45,7 +43,6 @@ public class ApiProvider : IDisposable, IApiProvider
     public UserResponse Authtenticate(string username, string password)
     {
         var salt = GetUserSaltByUsername(username);
-
 
         var hashPassword = PasswordHash.HashWithCurrentSalt(password, salt);
 
@@ -93,21 +90,16 @@ public class ApiProvider : IDisposable, IApiProvider
 
         var response = Task.Run(() => { return _client.SendAsync(request); }).Result;
 
-        if (response.IsSuccessStatusCode)
+        var responseBody = Task.Run(() =>
         {
-            var responseBody = Task.Run(() =>
-            {
-                return response.Content.ReadAsStringAsync();
-            }).Result;
+            return response.Content.ReadAsStringAsync();
+        }).Result;
 
-
-            if (responseBody == null)
-            {
-                throw new ArgumentNullException(paramName: nameof(userName));
-            }
-            return responseBody;
+        if (responseBody == null)
+        {
+            throw new ArgumentNullException(paramName: nameof(userName));
         }
-        return "";
+        return responseBody;
     }
 
     /// <summary>
@@ -196,9 +188,22 @@ public class ApiProvider : IDisposable, IApiProvider
         return JsonSerializer.Deserialize<QuestionWithAnswers>(responseBody) ?? new QuestionWithAnswers();
     }
 
+    public async Task SendNewQuestion(QuestionWithoutId quws)
+    {
+        string json = JsonSerializer.Serialize(quws);
+
+        var request = new HttpRequestMessage
+        {
+            Method = HttpMethod.Post,
+            RequestUri = new Uri($"{_baseAdress}/api/Questions/Add"),
+            Content = new StringContent(json, Encoding.UTF8, MediaTypeNames.Application.Json),
+        };
+        var response = await _client.SendAsync(request);
+    }
     public void Dispose()
     {
         _client.Dispose();
         GC.SuppressFinalize(this);
     }
+
 }

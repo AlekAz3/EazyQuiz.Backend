@@ -32,11 +32,11 @@ partial class Panel
             this.IsFirstAnswerCorrect = new System.Windows.Forms.RadioButton();
             this.FirstAnswerInput = new System.Windows.Forms.RichTextBox();
             this.SecondAnswerInput = new System.Windows.Forms.RichTextBox();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.IsSecondAnswerCorrect = new System.Windows.Forms.RadioButton();
             this.ThirdAnswerInput = new System.Windows.Forms.RichTextBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.IsThirdAnswerCorrect = new System.Windows.Forms.RadioButton();
             this.ForthAnswerInput = new System.Windows.Forms.RichTextBox();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.IsForthAnswerCorrect = new System.Windows.Forms.RadioButton();
             this.Send = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -82,15 +82,15 @@ partial class Panel
             this.SecondAnswerInput.TabIndex = 7;
             this.SecondAnswerInput.Text = "";
             // 
-            // radioButton4
+            // IsSecondAnswerCorrect
             // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(27, 265);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(14, 13);
-            this.radioButton4.TabIndex = 6;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.UseVisualStyleBackColor = true;
+            this.IsSecondAnswerCorrect.AutoSize = true;
+            this.IsSecondAnswerCorrect.Location = new System.Drawing.Point(27, 265);
+            this.IsSecondAnswerCorrect.Name = "IsSecondAnswerCorrect";
+            this.IsSecondAnswerCorrect.Size = new System.Drawing.Size(14, 13);
+            this.IsSecondAnswerCorrect.TabIndex = 6;
+            this.IsSecondAnswerCorrect.TabStop = true;
+            this.IsSecondAnswerCorrect.UseVisualStyleBackColor = true;
             // 
             // ThirdAnswerInput
             // 
@@ -101,15 +101,15 @@ partial class Panel
             this.ThirdAnswerInput.TabIndex = 9;
             this.ThirdAnswerInput.Text = "";
             // 
-            // radioButton1
+            // IsThirdAnswerCorrect
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(27, 374);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(14, 13);
-            this.radioButton1.TabIndex = 8;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.IsThirdAnswerCorrect.AutoSize = true;
+            this.IsThirdAnswerCorrect.Location = new System.Drawing.Point(27, 374);
+            this.IsThirdAnswerCorrect.Name = "IsThirdAnswerCorrect";
+            this.IsThirdAnswerCorrect.Size = new System.Drawing.Size(14, 13);
+            this.IsThirdAnswerCorrect.TabIndex = 8;
+            this.IsThirdAnswerCorrect.TabStop = true;
+            this.IsThirdAnswerCorrect.UseVisualStyleBackColor = true;
             // 
             // ForthAnswerInput
             // 
@@ -120,15 +120,15 @@ partial class Panel
             this.ForthAnswerInput.TabIndex = 11;
             this.ForthAnswerInput.Text = "";
             // 
-            // radioButton2
+            // IsForthAnswerCorrect
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(27, 467);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(14, 13);
-            this.radioButton2.TabIndex = 10;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.IsForthAnswerCorrect.AutoSize = true;
+            this.IsForthAnswerCorrect.Location = new System.Drawing.Point(27, 467);
+            this.IsForthAnswerCorrect.Name = "IsForthAnswerCorrect";
+            this.IsForthAnswerCorrect.Size = new System.Drawing.Size(14, 13);
+            this.IsForthAnswerCorrect.TabIndex = 10;
+            this.IsForthAnswerCorrect.TabStop = true;
+            this.IsForthAnswerCorrect.UseVisualStyleBackColor = true;
             // 
             // Send
             // 
@@ -203,11 +203,11 @@ partial class Panel
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Send);
             this.Controls.Add(this.ForthAnswerInput);
-            this.Controls.Add(this.radioButton2);
+            this.Controls.Add(this.IsForthAnswerCorrect);
             this.Controls.Add(this.ThirdAnswerInput);
-            this.Controls.Add(this.radioButton1);
+            this.Controls.Add(this.IsThirdAnswerCorrect);
             this.Controls.Add(this.SecondAnswerInput);
-            this.Controls.Add(this.radioButton4);
+            this.Controls.Add(this.IsSecondAnswerCorrect);
             this.Controls.Add(this.FirstAnswerInput);
             this.Controls.Add(this.IsFirstAnswerCorrect);
             this.Controls.Add(this.QuestionInput);
@@ -224,11 +224,11 @@ partial class Panel
     private RadioButton IsFirstAnswerCorrect;
     private RichTextBox FirstAnswerInput;
     private RichTextBox SecondAnswerInput;
-    private RadioButton radioButton4;
+    private RadioButton IsSecondAnswerCorrect;
     private RichTextBox ThirdAnswerInput;
-    private RadioButton radioButton1;
+    private RadioButton IsThirdAnswerCorrect;
     private RichTextBox ForthAnswerInput;
-    private RadioButton radioButton2;
+    private RadioButton IsForthAnswerCorrect;
     private Button Send;
     private Label label1;
     private Label label2;

@@ -25,7 +25,7 @@ public class QuestionsService
         int skipper = rand.Next(0, _dataContext.Question.Count());
         var question = _dataContext.Question
             .AsNoTracking()
-            .OrderBy(x => Guid.NewGuid())
+            .OrderBy(x => x.Id)
             .Skip(skipper)
             .Take(1)
             .FirstOrDefault();
@@ -63,6 +63,7 @@ public class QuestionsService
 
     internal async Task AddQuestion(QuestionWithoutId question)
     {
+        _logger.LogInformation("New Question {@Ques}", question);
         var questionId = Guid.NewGuid();
         var questionEntity = new Question()
         {
@@ -77,6 +78,7 @@ public class QuestionsService
                 QuestionId = questionId
             });
         _dataContext.Question.Add(questionEntity);
+        await _dataContext.SaveChangesAsync();
         _dataContext.Answer.AddRange(answerEntities);
         await _dataContext.SaveChangesAsync();
     }
