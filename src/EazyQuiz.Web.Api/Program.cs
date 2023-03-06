@@ -19,7 +19,12 @@ public class Program
         builder.Logging.AddSerilog(logger);
 
 
-        builder.Services.AddControllers();
+        builder.Services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+            });
+
         builder.Services.AddDbContext<DataContext>();
         builder.Services.AddScoped<UserService>();
         builder.Services.AddScoped<QuestionsService>();
@@ -35,7 +40,7 @@ public class Program
         app.UseSwagger();
         app.UseSwaggerUI();
 
-
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         //app.UseHttpsRedirection();
 
         app.UseAuthentication();

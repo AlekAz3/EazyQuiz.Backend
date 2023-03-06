@@ -42,6 +42,8 @@ public class AuthController : Controller
     /// </summary>
     /// <param name="auth"></param>
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserResponse))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetUserByPassword([FromBody] UserAuth auth)
     {
         _log.LogInformation("Login {@User}", auth);
@@ -58,6 +60,8 @@ public class AuthController : Controller
     /// </summary>
     /// <param name="userName">Ник</param>
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetUserSalt(string userName)
     {
         string userSalt = await _userService.GetUserSalt(userName);
@@ -65,7 +69,7 @@ public class AuthController : Controller
         {
             return NotFound();
         }
-        return Ok(userSalt);
+        return new OkObjectResult(userSalt);
     }
 
     /// <summary>
@@ -74,6 +78,7 @@ public class AuthController : Controller
     /// <param name="userName">Ник</param>
     /// <returns>true - если ник НЕ уникален</returns>
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(bool))]
     public async Task<IActionResult> CheckUniqueUsername(string userName)
     {
         return Ok(await _userService.CheckUniqueUsername(userName));

@@ -38,8 +38,8 @@ public static class ServiceCollectionExtensions
         {
             c.SwaggerDoc("v1", new OpenApiInfo
             {
-                Title = "Jwt Token",
-                Version = "v1"
+                Title = "EazyQuiz",
+                Version = "v0.1.0"
             });
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
             {

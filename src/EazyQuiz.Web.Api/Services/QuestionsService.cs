@@ -20,8 +20,21 @@ public class QuestionsService
 
     public async Task<QuestionWithAnswers> GetQuestion()
     {
-        var question = _dataContext.Question.Find(new Random().Next(1, GetQuestionCount()));
-        var answerList = await _dataContext.Answer.Where(a => a.QuestionId == question.Id).ToListAsync();
+        var rand = new Random();
+
+        int skipper = rand.Next(0, _dataContext.Question.Count());
+        var question = _dataContext.Question
+            .AsNoTracking()
+            .OrderBy(x => Guid.NewGuid())
+            .Skip(skipper)
+            .Take(1)
+            .FirstOrDefault();
+
+        var answerList = await _dataContext.Answer
+            .AsNoTracking()
+            .Where(a => a.QuestionId == question.Id)
+            .ToListAsync();
+
         var a = new QuestionWithAnswers()
         {
             QuestionId = question.Id,

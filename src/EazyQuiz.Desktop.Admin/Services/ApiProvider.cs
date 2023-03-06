@@ -1,5 +1,6 @@
 using EazyQuiz.Abstractions;
 using EazyQuiz.Cryptography;
+using EazyQuiz.Extensions;
 using EazyQuiz.Models.DTO;
 using Microsoft.Extensions.Configuration;
 using System.Net.Http.Headers;
@@ -44,6 +45,7 @@ public class ApiProvider : IDisposable, IApiProvider
     public UserResponse Authtenticate(string username, string password)
     {
         var salt = GetUserSaltByUsername(username);
+
 
         var hashPassword = PasswordHash.HashWithCurrentSalt(password, salt);
 
@@ -91,16 +93,21 @@ public class ApiProvider : IDisposable, IApiProvider
 
         var response = Task.Run(() => { return _client.SendAsync(request); }).Result;
 
-        var responseBody = Task.Run(() =>
+        if (response.IsSuccessStatusCode)
         {
-            return response.Content.ReadAsStringAsync();
-        }).Result;
+            var responseBody = Task.Run(() =>
+            {
+                return response.Content.ReadAsStringAsync();
+            }).Result;
 
-        if (responseBody == null)
-        {
-            throw new ArgumentNullException(paramName: nameof(userName));
+
+            if (responseBody == null)
+            {
+                throw new ArgumentNullException(paramName: nameof(userName));
+            }
+            return responseBody;
         }
-        return responseBody;
+        return "";
     }
 
     /// <summary>
