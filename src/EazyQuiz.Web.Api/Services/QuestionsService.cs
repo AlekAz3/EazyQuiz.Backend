@@ -61,8 +61,23 @@ public class QuestionsService
         await _dataContext.SaveChangesAsync();
     }
 
-    private int GetQuestionCount()
+    internal async Task AddQuestion(QuestionWithoutId question)
     {
-        return _dataContext.Question.Count() + 1;
+        var questionId = Guid.NewGuid();
+        var questionEntity = new Question()
+        {
+            Id = questionId,
+            Text = question.Text
+        };
+        var answerEntities = question.Answers
+            .Select(x => new Answers()
+            {
+                Text = x.Text,
+                IsCorrect = x.IsCorrect,
+                QuestionId = questionId
+            });
+        _dataContext.Question.Add(questionEntity);
+        _dataContext.Answer.AddRange(answerEntities);
+        await _dataContext.SaveChangesAsync();
     }
 }

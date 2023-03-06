@@ -16,15 +16,11 @@ public partial class Panel : Form
 
     public void Open()
     {
-        StatusLabel.Text = $"{_userToken.User.UserName}\n{_userToken.User.Age}\n{_userToken.User.Country}";
-        TokenLabel.Text = _userToken.User.Token;
         Show();
     }
 
-    private void button1_Click(object sender, EventArgs e)
+    private void SendQuestionToServer(object sender, EventArgs e)
     {
-        var question = _apiProvider.GetQuestion(_userToken.User.Token);
-        MessageBox.Show(question.Text);
 
     }
 }
