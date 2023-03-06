@@ -1,3 +1,5 @@
+using System;
+
 namespace EazyQuiz.Models.DTO
 {
     /// <summary>
@@ -8,7 +10,7 @@ namespace EazyQuiz.Models.DTO
         /// <summary>
         /// Ид
         /// </summary>
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Ник
@@ -39,16 +41,5 @@ namespace EazyQuiz.Models.DTO
         /// JWT Токен
         /// </summary>
         public string? Token { get; set; }
-
-        public UserResponse(int id, string? userName, int age, string gender, int points, string? country, string? token)
-        {
-            Id = id;
-            UserName = userName;
-            Age = age;
-            Gender = gender;
-            Points = points;
-            Country = country;
-            Token = token;
-        }
     }
 }

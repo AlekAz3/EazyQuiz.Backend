@@ -19,25 +19,28 @@ public class Program
         builder.Logging.AddSerilog(logger);
 
 
-        builder.Services.AddControllers();
+        builder.Services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+            });
+
         builder.Services.AddDbContext<DataContext>();
-        builder.Services.AddScoped<IUserService, UserService>();
-        builder.Services.AddScoped<IQuestionsService, QuestionsService>();
+        builder.Services.AddScoped<UserService>();
+        builder.Services.AddScoped<QuestionsService>();
         builder.Services.AddEndpointsApiExplorer();
 
         builder.Services.AddAuth(builder.Configuration); //Добавление JWT
         builder.Services.AddSwaggerWithAuth();
 
+        builder.Services.AddAutoMapper();
 
         var app = builder.Build();
 
+        app.UseSwagger();
+        app.UseSwaggerUI();
 
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseSwagger();
-            app.UseSwaggerUI();
-        }
-
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         //app.UseHttpsRedirection();
 
         app.UseAuthentication();

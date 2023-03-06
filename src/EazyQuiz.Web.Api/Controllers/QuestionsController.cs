@@ -13,19 +13,23 @@ public class QuestionsController : Controller
     /// <summary>
     /// <inheritdoc cref="QuestionsService"/>
     /// </summary>
-    private readonly IQuestionsService _questionsService;
+    private readonly QuestionsService _questionsService;
+    private readonly ILogger<QuestionsController> _logger;
 
-    public QuestionsController(IQuestionsService questionsService)
+    public QuestionsController(QuestionsService questionsService, ILogger<QuestionsController> logger)
     {
         _questionsService = questionsService;
+        _logger = logger;
     }
 
     /// <summary>
     /// Получить вопрос с ответом
     /// </summary>
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(QuestionWithAnswers))]
     public async Task<IActionResult> GetQuestion()
     {
+        _logger.LogInformation("GetQuestion");
         return Ok(await _questionsService.GetQuestion());
     }
 

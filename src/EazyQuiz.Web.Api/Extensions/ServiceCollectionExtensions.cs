@@ -25,14 +25,21 @@ public static class ServiceCollectionExtensions
             });
     }
 
+
+    public static void AddAutoMapper(this IServiceCollection services)
+    {
+        services.AddAutoMapper(typeof(UserAuthProfile), typeof(UserAnswerProfile));
+    }
+
+
     public static void AddSwaggerWithAuth(this IServiceCollection services)
     {
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo
             {
-                Title = "Jwt Token",
-                Version = "v1"
+                Title = "EazyQuiz",
+                Version = "v0.1.0"
             });
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
             {

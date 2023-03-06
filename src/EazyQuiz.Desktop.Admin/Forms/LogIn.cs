@@ -54,12 +54,6 @@ public partial class LogIn : Form
 
         _userToken.User = _apiProvider.Authtenticate(username, password);
 
-        if (_userToken.User.Id == 0)
-        {
-            MessageBox.Show("Неверный логин/пароль", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return;
-        }
-
         _formFactory.Create<Panel>().Open();
     }
 
