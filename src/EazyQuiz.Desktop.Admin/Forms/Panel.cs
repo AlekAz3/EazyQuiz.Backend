@@ -1,3 +1,5 @@
+using EazyQuiz.Models.DTO;
+
 namespace EazyQuiz.Desktop.Admin;
 public partial class Panel : Form
 {
@@ -21,6 +23,9 @@ public partial class Panel : Form
 
     private void SendQuestionToServer(object sender, EventArgs e)
     {
-
+        var quws = new QuestionWithoutId()
+        {
+            Text = QuestionInput.Text,
+        }
     }
 }
