@@ -1,4 +1,3 @@
-using EazyQuiz.Models.Database;
 using EazyQuiz.Models.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,15 +22,12 @@ public class QuestionsController : Controller
         _logger = logger;
     }
 
-    /// <summary>
-    /// Получить вопрос с ответом
-    /// </summary>
     [HttpGet]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(QuestionWithAnswers))]
-    public async Task<IActionResult> GetQuestion()
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IReadOnlyCollection<QuestionWithAnswers>))]
+    public async Task<IActionResult> GetQuestions()
     {
-        _logger.LogInformation("GetQuestion");
-        return Ok(await _questionsService.GetQuestion());
+        _logger.LogInformation("Get 10 Question");
+        return Ok(await _questionsService.GetTenQuestions());
     }
 
     [HttpPost]

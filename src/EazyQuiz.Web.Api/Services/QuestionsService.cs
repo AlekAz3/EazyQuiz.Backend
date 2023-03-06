@@ -2,7 +2,6 @@ using AutoMapper;
 using EazyQuiz.Models.Database;
 using EazyQuiz.Models.DTO;
 using Microsoft.EntityFrameworkCore;
-
 namespace EazyQuiz.Web.Api;
 
 public class QuestionsService
@@ -18,33 +17,37 @@ public class QuestionsService
         _mapper = mapper;
     }
 
-    public async Task<QuestionWithAnswers> GetQuestion()
+    /// <summary>
+    /// Получить 10 вопросов с ответами 
+    /// </summary>
+    /// <returns>Коллекция вопросов</returns>
+    public async Task<IReadOnlyCollection<QuestionWithAnswers>> GetTenQuestions()
     {
-        var rand = new Random();
-
-        int skipper = rand.Next(0, _dataContext.Question.Count());
-        var question = _dataContext.Question
+        var questions = await _dataContext.Question
             .AsNoTracking()
-            .OrderBy(x => x.Id)
-            .Skip(skipper)
-            .Take(1)
-            .FirstOrDefault();
-
-        var answerList = await _dataContext.Answer
-            .AsNoTracking()
-            .Where(a => a.QuestionId == question.Id)
+            .OrderBy(x => EF.Functions.Random())
+            .Take(10)
             .ToListAsync();
 
-        var a = new QuestionWithAnswers()
+        var question = questions.Select(x => new QuestionWithAnswers()
         {
-            QuestionId = question.Id,
-            Text = question.Text,
-            Answers = answerList.Select(x => _mapper.Map<Answer>(x)).ToList()
-        };
-        _logger.LogInformation("{@A}", a);
-        return a;
+            QuestionId = x.Id,
+            Text = x.Text,
+            Answers = _dataContext.Answer
+                    .AsNoTracking()
+                    .Where(y => y.QuestionId == x.Id)
+                    .Select(x => _mapper.Map<Answer>(x))
+                    .ToList()
+        }).ToArray();
+
+        _logger.LogInformation("{@A}", question);
+
+        return question;
     }
 
+    /// <summary>
+    /// Записать ответ игрока в базу данных
+    /// </summary>
     public async Task WriteUserAnswer(UserAnswer answer)
     {
         var user = _mapper.Map<UsersAnswers>(answer);
@@ -61,6 +64,9 @@ public class QuestionsService
         await _dataContext.SaveChangesAsync();
     }
 
+    /// <summary>
+    /// Добавить вопрос в базу данных
+    /// </summary>
     internal async Task AddQuestion(QuestionWithoutId question)
     {
         _logger.LogInformation("New Question {@Ques}", question);
