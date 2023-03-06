@@ -1,3 +1,6 @@
+using EazyQuiz.Extensions;
+using EazyQuiz.Models.DTO;
+
 namespace EazyQuiz.Desktop.Admin;
 public partial class Panel : Form
 {
@@ -16,15 +19,50 @@ public partial class Panel : Form
 
     public void Open()
     {
-        StatusLabel.Text = $"{_userToken.User.UserName}\n{_userToken.User.Age}\n{_userToken.User.Country}";
-        TokenLabel.Text = _userToken.User.Token;
         Show();
     }
 
-    private void button1_Click(object sender, EventArgs e)
+    private async void SendQuestionToServer(object sender, EventArgs e)
     {
-        var question = _apiProvider.GetQuestion(_userToken.User.Token);
-        MessageBox.Show(question.Text);
+        if (QuestionInput.Text.IsNullOrEmpty() || FirstAnswerInput.Text.IsNullOrEmpty() || SecondAnswerInput.Text.IsNullOrEmpty() || ThirdAnswerInput.Text.IsNullOrEmpty() || ForthAnswerInput.Text.IsNullOrEmpty())
+        {
+            MessageBox.Show("Есть пустое поле", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
 
+        var quws = new QuestionWithoutId()
+        {
+            Text = QuestionInput.Text,
+            Answers = new List<AnswerWithoutId>()
+            {
+                new AnswerWithoutId()
+                {
+                    Text = FirstAnswerInput.Text,
+                    IsCorrect = IsFirstAnswerCorrect.Checked
+                },
+                new AnswerWithoutId()
+                {
+                    Text = SecondAnswerInput.Text,
+                    IsCorrect = IsSecondAnswerCorrect.Checked
+                },
+                new AnswerWithoutId()
+                {
+                    Text = ThirdAnswerInput.Text,
+                    IsCorrect = IsThirdAnswerCorrect.Checked
+                },
+                new AnswerWithoutId()
+                {
+                    Text = ForthAnswerInput.Text,
+                    IsCorrect = IsForthAnswerCorrect.Checked
+                },
+            }
+        };
+        await _apiProvider.SendNewQuestion(quws);
+        MessageBox.Show("Вопрос отправлен", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        QuestionInput.Text = "";
+        FirstAnswerInput.Text = "";
+        SecondAnswerInput.Text = "";
+        ThirdAnswerInput.Text = "";
+        ForthAnswerInput.Text = "";
     }
 }

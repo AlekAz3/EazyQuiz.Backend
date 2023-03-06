@@ -1,3 +1,4 @@
+using EazyQuiz.Models.Database;
 using EazyQuiz.Models.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -37,6 +38,14 @@ public class QuestionsController : Controller
     public async Task<IActionResult> PostUserAnswer([FromBody] UserAnswer answer)
     {
         await _questionsService.WriteUserAnswer(answer);
+        return Ok();
+    }
+
+    [HttpPost]
+    [AllowAnonymous]
+    public async Task<IActionResult> Add([FromBody] QuestionWithoutId question)
+    {
+        await _questionsService.AddQuestion(question);
         return Ok();
     }
 }
