@@ -5,4 +5,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EazyQuiz.Models.DTO\EazyQuiz.Models.DTO.csproj" />
+  </ItemGroup>
+
 </Project>

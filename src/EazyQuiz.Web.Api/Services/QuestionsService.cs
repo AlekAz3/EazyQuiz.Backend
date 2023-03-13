@@ -56,6 +56,7 @@ public class QuestionsService
         {
             var a = await _dataContext.User.FindAsync(answer.UserId);
             a.Points++;
+            user.IsCorrect = true;
             _dataContext.Update(a);
         }
 

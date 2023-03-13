@@ -1,4 +1,3 @@
-using EazyQuiz.Abstractions;
 using EazyQuiz.Cryptography;
 using EazyQuiz.Models.DTO;
 using Microsoft.Extensions.Configuration;
@@ -10,7 +9,7 @@ namespace EazyQuiz.Desktop.Admin;
 /// <summary>
 /// Работа с Апи EazyQuiz
 /// </summary>
-public class ApiProvider : IDisposable, IApiProvider
+public class ApiProvider : IDisposable
 {
     /// <summary>
     /// <inheritdoc cref="IConfiguration"/>

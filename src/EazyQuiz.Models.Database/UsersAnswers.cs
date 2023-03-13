@@ -32,4 +32,6 @@ public class UsersAnswers
     /// Время ответа на вопрос
     /// </summary>
     public DateTime AnswerTime { get; set; }
+
+    public bool IsCorrect { get; set; }
 }
