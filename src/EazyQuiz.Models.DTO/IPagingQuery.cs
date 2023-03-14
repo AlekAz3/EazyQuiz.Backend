@@ -1,16 +1,5 @@
-using System;
-
 namespace EazyQuiz.Models.DTO
 {
-    public class AnswersGetHistoryCommand : IPagingQuery
-    {
-        public Guid UserId { get; set; }
-
-        public int? PageNumber { get; set; }
-
-        public int? PageSize { get; set; }
-    }
-
     /// <summary>
     /// Параметры пагинации
     /// </summary>

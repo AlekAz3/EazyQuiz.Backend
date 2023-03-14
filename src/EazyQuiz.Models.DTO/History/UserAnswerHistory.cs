@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EazyQuiz.Models.DTO
 {
@@ -11,5 +7,6 @@ namespace EazyQuiz.Models.DTO
         public string QuestionText { get; set; }
         public string AnswerText { get; set; }
         public bool IsCorrect { get; set; }
+        public DateTime AnswerTime { get; set; }
     }
 }

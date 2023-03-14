@@ -1,11 +1,13 @@
+using EazyQuiz.Extensions;
 using EazyQuiz.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EazyQuiz.Web.Api;
+
 /// <summary>
 /// Контроллер Входа/Регистрации
 /// </summary>
-[Route("api/[controller]/[action]")]
+[Route("api/[controller]")]
 [ApiController]
 public class AuthController : Controller
 {
@@ -15,7 +17,7 @@ public class AuthController : Controller
     private readonly ILogger<AuthController> _log;
 
     /// <summary>
-    /// <inheritdoc cref="IUserService"/>
+    /// <inheritdoc cref="UserService"/>
     /// </summary>
     private readonly UserService _userService;
 
@@ -30,7 +32,7 @@ public class AuthController : Controller
     /// </summary>
     /// <param name="user">Логин и Пароль в <see cref="UserRegister"/></param>
     [HttpPost]
-    public async Task<IActionResult> RegisterNewPlayer(UserRegister user)
+    public async Task<IActionResult> RegisterNewPlayer([FromBody] UserRegister user)
     {
         await _userService.RegisterNewUser(user);
         _log.LogInformation("New User was created {@User}", user);
@@ -41,10 +43,10 @@ public class AuthController : Controller
     /// Вход в систему возвращает <see cref="UserResponse"/> с токеном JWT
     /// </summary>
     /// <param name="auth"></param>
-    [HttpPost]
+    [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetUserByPassword([FromBody] UserAuth auth)
+    public async Task<IActionResult> GetUserByPassword([FromQuery] UserAuth auth)
     {
         _log.LogInformation("Login {@User}", auth);
         var userResponse = await _userService.Authenticate(auth);
@@ -59,28 +61,16 @@ public class AuthController : Controller
     /// Получение соли по нику
     /// </summary>
     /// <param name="userName">Ник</param>
-    [HttpGet]
+    [HttpGet("{userName}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetUserSalt(string userName)
+    public async Task<IActionResult> GetUserSalt([FromRoute] string userName)
     {
         string userSalt = await _userService.GetUserSalt(userName);
-        if (userSalt == "")
+        if (userSalt.IsNullOrEmpty())
         {
             return NotFound();
         }
-        return new OkObjectResult(userSalt);
-    }
-
-    /// <summary>
-    /// Проверка уникальности ника
-    /// </summary>
-    /// <param name="userName">Ник</param>
-    /// <returns>true - если ник НЕ уникален</returns>
-    [HttpGet]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(bool))]
-    public async Task<IActionResult> CheckUniqueUsername(string userName)
-    {
-        return Ok(await _userService.CheckUniqueUsername(userName));
+        return Ok(userSalt);
     }
 }

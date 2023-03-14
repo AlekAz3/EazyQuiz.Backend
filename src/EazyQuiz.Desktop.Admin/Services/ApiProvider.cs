@@ -45,7 +45,11 @@ public class ApiProvider : IDisposable
 
         var hashPassword = PasswordHash.HashWithCurrentSalt(password, salt);
 
-        var userAuth = new UserAuth(username, new UserPassword(hashPassword, salt));
+        var userAuth = new UserAuth()
+        {
+            Username = username,
+            PasswordHash = hashPassword
+        };
 
         string json = JsonSerializer.Serialize(userAuth);
 
