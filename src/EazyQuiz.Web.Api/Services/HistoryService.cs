@@ -29,9 +29,9 @@ public class HistoryService
 
         var userAnswers = await _context.UserAnswer
             .AsNoTracking()
+            .OrderBy(x => x.AnswerTime)
             .Where(x => x.UserId == userId)
             .AddPagination(command)
-            .OrderBy(x => x.AnswerTime)
             .ToListAsync(token);
 
         var res = userAnswers.Select(x => new UserAnswerHistory()
