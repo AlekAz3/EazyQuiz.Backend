@@ -30,6 +30,7 @@ public class HistoryService
         var userAnswers = await _context.UserAnswer
             .AsNoTracking()
             .OrderBy(x => x.AnswerTime)
+            .Reverse()
             .Where(x => x.UserId == userId)
             .AddPagination(command)
             .ToListAsync(token);
