@@ -1,3 +1,4 @@
+using EazyQuiz.Web.Api.Services;
 using Serilog;
 
 namespace EazyQuiz.Web.Api;
@@ -28,6 +29,7 @@ public class Program
         builder.Services.AddDbContext<DataContext>();
         builder.Services.AddScoped<UserService>();
         builder.Services.AddScoped<QuestionsService>();
+        builder.Services.AddScoped<HistoryService>();
         builder.Services.AddEndpointsApiExplorer();
 
         builder.Services.AddAuth(builder.Configuration); //Добавление JWT

@@ -48,7 +48,7 @@ public class UserService
             return null;
         }
 
-        if (PasswordHash.Verify(Encoding.UTF8.GetBytes(auth.Password!.PasswordHash), user.PasswordHash))
+        if (PasswordHash.Verify(Encoding.UTF8.GetBytes(auth.PasswordHash), user.PasswordHash))
         {
             var userResponse = _mapper.Map<UserResponse>(user);
             userResponse.Token = GenerateJwtToken(user);

@@ -3,7 +3,9 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
+    <NoWarn>1591</NoWarn>
     <UserSecretsId>548b39d5-dc93-465f-b8a7-a4e61c62c4dd</UserSecretsId>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EazyQuiz.Cryptography\EazyQuiz.Cryptography.csproj" />
+    <ProjectReference Include="..\EazyQuiz.Extensions\EazyQuiz.Extensions.csproj" />
     <ProjectReference Include="..\EazyQuiz.Models.Database\EazyQuiz.Models.Database.csproj" />
   </ItemGroup>
 

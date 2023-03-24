@@ -11,16 +11,8 @@ namespace EazyQuiz.Models.DTO
         public string? Username { get; set; }
 
         /// <summary>
-        /// <inheritdoc cref="UserPassword"/>
+        /// Пароль
         /// </summary>
-        public UserPassword? Password { get; set; }
-
-        public UserAuth(string? username, UserPassword password)
-        {
-            Username = username;
-            Password = password;
-        }
-
-        public UserAuth() { }
+        public string PasswordHash { get; set; }
     }
 }

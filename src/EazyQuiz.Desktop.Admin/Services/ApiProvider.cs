@@ -1,4 +1,3 @@
-using EazyQuiz.Abstractions;
 using EazyQuiz.Cryptography;
 using EazyQuiz.Models.DTO;
 using Microsoft.Extensions.Configuration;
@@ -10,7 +9,7 @@ namespace EazyQuiz.Desktop.Admin;
 /// <summary>
 /// Работа с Апи EazyQuiz
 /// </summary>
-public class ApiProvider : IDisposable, IApiProvider
+public class ApiProvider : IDisposable
 {
     /// <summary>
     /// <inheritdoc cref="IConfiguration"/>
@@ -46,7 +45,11 @@ public class ApiProvider : IDisposable, IApiProvider
 
         var hashPassword = PasswordHash.HashWithCurrentSalt(password, salt);
 
-        var userAuth = new UserAuth(username, new UserPassword(hashPassword, salt));
+        var userAuth = new UserAuth()
+        {
+            Username = username,
+            PasswordHash = hashPassword
+        };
 
         string json = JsonSerializer.Serialize(userAuth);
 
