@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Json;
 
 namespace EazyQuiz.Desktop.Admin;
+
 /// <summary>
 /// Работа с Апи EazyQuiz
 /// </summary>
@@ -172,8 +173,6 @@ public class ApiProvider : IDisposable
     /// <summary>
     /// Получить вопрос и ответы с сервера
     /// </summary>
-    /// <param name="token"></param>
-    /// <returns></returns>
     public QuestionWithAnswers GetQuestion(string token)
     {
         var request = new HttpRequestMessage
@@ -191,6 +190,10 @@ public class ApiProvider : IDisposable
         return JsonSerializer.Deserialize<QuestionWithAnswers>(responseBody) ?? new QuestionWithAnswers();
     }
 
+    /// <summary>
+    /// Отправить на сервер новый вопрос
+    /// </summary>
+    /// <param name="quws">Вопрос в <see cref="QuestionWithoutId"/></param>
     public async Task SendNewQuestion(QuestionWithoutId quws)
     {
         string json = JsonSerializer.Serialize(quws);
@@ -203,10 +206,10 @@ public class ApiProvider : IDisposable
         };
         var response = await _client.SendAsync(request);
     }
+
     public void Dispose()
     {
         _client.Dispose();
         GC.SuppressFinalize(this);
     }
-
 }

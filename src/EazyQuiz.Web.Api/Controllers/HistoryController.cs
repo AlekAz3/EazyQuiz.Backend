@@ -1,14 +1,10 @@
 using EazyQuiz.Models.DTO;
 using EazyQuiz.Web.Api.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EazyQuiz.Web.Api.Controllers;
 
-[Route("api/[controller]")]
-[ApiController]
-[Authorize]
-public class HistoryController : Controller
+public class HistoryController : BaseController
 {
     private readonly HistoryService _service;
 

@@ -33,5 +33,8 @@ public class UsersAnswers
     /// </summary>
     public DateTime AnswerTime { get; set; }
 
+    /// <summary>
+    /// Правильный ответ
+    /// </summary>
     public bool IsCorrect { get; set; }
 }

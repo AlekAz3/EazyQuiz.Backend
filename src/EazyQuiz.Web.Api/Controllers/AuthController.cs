@@ -11,14 +11,10 @@ namespace EazyQuiz.Web.Api;
 [ApiController]
 public class AuthController : Controller
 {
-    /// <summary>
     /// <inheritdoc cref="ILogger{TCategoryName}"/>
-    /// </summary>
     private readonly ILogger<AuthController> _log;
 
-    /// <summary>
     /// <inheritdoc cref="UserService"/>
-    /// </summary>
     private readonly UserService _userService;
 
     public AuthController(ILogger<AuthController> logger, UserService userService)

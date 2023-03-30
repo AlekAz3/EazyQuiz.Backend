@@ -7,7 +7,6 @@ public class Program
 {
     public static void Main(string[] args)
     {
-
         var builder = WebApplication.CreateBuilder(args);
 
         var logger = new LoggerConfiguration()
@@ -47,7 +46,6 @@ public class Program
 
         app.UseAuthentication();
         app.UseAuthorization();
-
 
         app.MapControllers();
 

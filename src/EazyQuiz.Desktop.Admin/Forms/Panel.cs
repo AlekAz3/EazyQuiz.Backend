@@ -2,26 +2,32 @@ using EazyQuiz.Extensions;
 using EazyQuiz.Models.DTO;
 
 namespace EazyQuiz.Desktop.Admin;
+
+/// <summary>
+/// Панель для добавления вопросов 
+/// </summary>
 public partial class Panel : Form
 {
-    /// <summary>
-    /// <inheritdoc cref="UserToken/>
-    /// </summary>
-    private readonly UserToken _userToken;
+    /// <inheritdoc cref="ApiProvider"/>
     private readonly ApiProvider _apiProvider;
 
-    public Panel(UserToken userToken, ApiProvider apiProvider)
+    public Panel(ApiProvider apiProvider)
     {
-        _userToken = userToken;
         _apiProvider = apiProvider;
         InitializeComponent();
     }
 
+    /// <summary>
+    /// Открыть окно
+    /// </summary>
     public void Open()
     {
         Show();
     }
 
+    /// <summary>
+    /// Отправить вопрос на сервер 
+    /// </summary>
     private async void SendQuestionToServer(object sender, EventArgs e)
     {
         if (QuestionInput.Text.IsNullOrEmpty() || FirstAnswerInput.Text.IsNullOrEmpty() || SecondAnswerInput.Text.IsNullOrEmpty() || ThirdAnswerInput.Text.IsNullOrEmpty() || ForthAnswerInput.Text.IsNullOrEmpty())
@@ -30,7 +36,7 @@ public partial class Panel : Form
             return;
         }
 
-        var quws = new QuestionWithoutId()
+        var question = new QuestionWithoutId()
         {
             Text = QuestionInput.Text,
             Answers = new List<AnswerWithoutId>()
@@ -57,12 +63,16 @@ public partial class Panel : Form
                 },
             }
         };
-        await _apiProvider.SendNewQuestion(quws);
+        await _apiProvider.SendNewQuestion(question);
         MessageBox.Show("Вопрос отправлен", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        QuestionInput.Text = "";
-        FirstAnswerInput.Text = "";
-        SecondAnswerInput.Text = "";
-        ThirdAnswerInput.Text = "";
-        ForthAnswerInput.Text = "";
+
+        foreach (Control c in Controls)
+        {
+            if (c is RichTextBox)
+            {
+                c.Text = string.Empty;
+            }
+        }
+
     }
 }

@@ -3,17 +3,26 @@ using System.Collections.Generic;
 
 namespace EazyQuiz.Extensions
 {
+    /// <summary>
+    /// Расширения для <see cref="IList{T}"/>
+    /// </summary>
     public static class ListExtention
     {
-        private static Random rng = new Random();
+        private static Random _random = new Random();
 
+        /// <summary>
+        /// Перемешать коллекцию
+        /// </summary>
+        /// <typeparam name="T">Тип</typeparam>
+        /// <param name="list"></param>
+        /// <returns>Коллекция</returns>
         public static IList<T> Shuffle<T>(this IList<T> list)
         {
             int n = list.Count;
             while (n > 1)
             {
                 n--;
-                int k = rng.Next(n + 1);
+                int k = _random.Next(n + 1);
                 (list[n], list[k]) = (list[k], list[n]);
             }
             return list;

@@ -1,8 +1,9 @@
 using EazyQuiz.Models.DTO;
 
 namespace EazyQuiz.Desktop.Admin;
+
 /// <summary>
-/// Глобальный параметр  
+/// Глобальный параметр 
 /// </summary>
 public class UserToken
 {

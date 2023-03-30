@@ -6,8 +6,13 @@ namespace EazyQuiz.Web.Api;
 
 public class QuestionsService
 {
+    /// <inheritdoc cref="DataContext"/>
     private readonly DataContext _dataContext;
+
+    /// <inheritdoc cref="ILogger{TCategoryName}"/>
     private readonly ILogger<QuestionsService> _logger;
+
+    /// <inheritdoc cref="IMapper"/>
     private readonly IMapper _mapper;
 
     public QuestionsService(DataContext dataContext, ILogger<QuestionsService> logger, IMapper mapper)
@@ -29,7 +34,7 @@ public class QuestionsService
             .Take(10)
             .ToListAsync();
 
-        var question = questions.Select(x => new QuestionWithAnswers()
+        var questionsWithAnswers = questions.Select(x => new QuestionWithAnswers()
         {
             QuestionId = x.Id,
             Text = x.Text,
@@ -40,9 +45,9 @@ public class QuestionsService
                     .ToList()
         }).ToArray();
 
-        _logger.LogInformation("{@A}", question);
+        _logger.LogInformation("{@QuestionsWithAnswers}", questionsWithAnswers);
 
-        return question;
+        return questionsWithAnswers;
     }
 
     /// <summary>
@@ -70,7 +75,7 @@ public class QuestionsService
     /// </summary>
     internal async Task AddQuestion(QuestionWithoutId question)
     {
-        _logger.LogInformation("New Question {@Ques}", question);
+        _logger.LogInformation("New Question {@Question}", question);
         var questionId = Guid.NewGuid();
         var questionEntity = new Question()
         {

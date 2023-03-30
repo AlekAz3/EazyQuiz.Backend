@@ -3,6 +3,9 @@ using System.Linq;
 
 namespace EazyQuiz.Extensions
 {
+    /// <summary>
+    /// Класс расширений для <see cref="string"/>
+    /// </summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0090:Use 'new(...)'", Justification = "<net standart 2.1>")]
     public static class StringExtension
     {

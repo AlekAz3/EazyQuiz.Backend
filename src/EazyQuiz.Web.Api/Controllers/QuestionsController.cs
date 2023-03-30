@@ -3,17 +3,16 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EazyQuiz.Web.Api;
+
 /// <summary>
 /// Контроллер работы с вопросами
 /// </summary>
-[Route("api/[controller]/[action]")]
-[ApiController, Authorize]
-public class QuestionsController : Controller
+public class QuestionsController : BaseController
 {
-    /// <summary>
     /// <inheritdoc cref="QuestionsService"/>
-    /// </summary>
     private readonly QuestionsService _questionsService;
+
+    /// <inheritdoc cref="ILogger{TCategoryName}"/>
     private readonly ILogger<QuestionsController> _logger;
 
     public QuestionsController(QuestionsService questionsService, ILogger<QuestionsController> logger)
@@ -22,6 +21,9 @@ public class QuestionsController : Controller
         _logger = logger;
     }
 
+    /// <summary>
+    /// Получить коллекцию из 10ти вопросов 
+    /// </summary>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IReadOnlyCollection<QuestionWithAnswers>))]
     public async Task<IActionResult> GetQuestions()
@@ -30,6 +32,9 @@ public class QuestionsController : Controller
         return Ok(await _questionsService.GetTenQuestions());
     }
 
+    /// <summary>
+    /// Записать ответ пользователя в бд
+    /// </summary>
     [HttpPost]
     public async Task<IActionResult> PostUserAnswer([FromBody] UserAnswer answer)
     {
@@ -37,7 +42,10 @@ public class QuestionsController : Controller
         return Ok();
     }
 
-    [HttpPost]
+    /// <summary>
+    /// Добавить вопрос с админки
+    /// </summary>
+    [HttpPost(nameof(Add))]
     [AllowAnonymous]
     public async Task<IActionResult> Add([FromBody] QuestionWithoutId question)
     {

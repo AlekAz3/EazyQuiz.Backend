@@ -28,14 +28,10 @@ public class DataContext : DbContext
     /// </summary>
     public DbSet<UsersAnswers> UserAnswer { get; set; }
 
-    /// <summary>
     /// <inheritdoc cref="IConfiguration"/>
-    /// </summary>
     private readonly IConfiguration _config;
 
-    /// <summary>
     /// <inheritdoc cref="ILogger{TCategoryName}"/>
-    /// </summary>
     private readonly ILogger<DataContext> _log;
 
     public DataContext(IConfiguration config, ILogger<DataContext> logger)
