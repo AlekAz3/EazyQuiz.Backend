@@ -4,6 +4,9 @@ using System.Security.Cryptography;
 
 namespace EazyQuiz.Cryptography
 {
+    /// <summary>
+    /// Хеширование и проверки пароля
+    /// </summary>
     public class PasswordHash
     {
         /// <summary>

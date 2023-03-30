@@ -1,15 +1,15 @@
 using EazyQuiz.Models.DTO;
 using EazyQuiz.Web.Api.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EazyQuiz.Web.Api.Controllers;
 
-[Route("api/[controller]")]
-[ApiController]
-[Authorize]
-public class HistoryController : Controller
+/// <summary>
+/// Контроллер управления истории 
+/// </summary>
+public class HistoryController : BaseController
 {
+    /// <inheritdoc cref="HistoryService"/>
     private readonly HistoryService _service;
 
     public HistoryController(HistoryService service)
@@ -17,6 +17,13 @@ public class HistoryController : Controller
         _service = service;
     }
 
+    /// <summary>
+    /// Получить историю ответов по пагинации
+    /// </summary>
+    /// <param name="userId">Ид пользователя</param>
+    /// <param name="command">Параметры пагинации</param>
+    /// <param name="token">Токен отмены запроса</param>
+    /// <returns>Коллекцию ответов пользователя <see cref="UserAnswerHistory"/></returns>
     [HttpGet]
     public async Task<IActionResult> GetHistoryByFilter([FromQuery] Guid userId, [FromQuery] AnswersGetHistoryCommand command, CancellationToken token)
     {

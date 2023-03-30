@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EazyQuiz.Desktop.Admin;
+
 /// <summary>
 /// Реализация <inheritdoc cref="IFormFactory"/>
 /// </summary>

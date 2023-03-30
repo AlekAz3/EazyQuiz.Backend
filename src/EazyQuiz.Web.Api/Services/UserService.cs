@@ -88,18 +88,18 @@ public class UserService
 
     public async Task<string> GetUserSalt(string userName)
     {
-        byte[] user = await _dataContext.User
+        byte[] userSalt = await _dataContext.User
             .AsNoTracking()
             .Where(x => userName == x.Username)
             .Select(x => x.PasswordSalt)
             .FirstOrDefaultAsync();
 
-        if (user == null)
+        if (userSalt == null)
         {
             return "";
         }
-        _log.LogInformation("user {@User}", user);
-        return Encoding.UTF8.GetString(user);
+        _log.LogInformation("user salt {@User}", userSalt);
+        return Encoding.UTF8.GetString(userSalt);
     }
 
 

@@ -7,7 +7,6 @@ public class Program
 {
     public static void Main(string[] args)
     {
-
         var builder = WebApplication.CreateBuilder(args);
 
         var logger = new LoggerConfiguration()
@@ -16,9 +15,8 @@ public class Program
                 .WriteTo.Console()
                 .CreateLogger();
 
-        builder.Logging.ClearProviders();
-        builder.Logging.AddSerilog(logger);
-
+        builder.Logging.ClearProviders()
+            .AddSerilog(logger);
 
         builder.Services.AddControllers()
             .AddJsonOptions(options =>
@@ -26,28 +24,26 @@ public class Program
                 options.JsonSerializerOptions.PropertyNamingPolicy = null;
             });
 
-        builder.Services.AddDbContext<DataContext>();
-        builder.Services.AddScoped<UserService>();
-        builder.Services.AddScoped<QuestionsService>();
-        builder.Services.AddScoped<HistoryService>();
-        builder.Services.AddEndpointsApiExplorer();
-
-        builder.Services.AddAuth(builder.Configuration); //Добавление JWT
+        builder.Services.AddDbContext<DataContext>()
+             .AddScoped<UserService>()
+             .AddScoped<QuestionsService>()
+             .AddScoped<HistoryService>()
+             .AddEndpointsApiExplorer()
+             .AddAuth(builder.Configuration); //Добавление JWT
         builder.Services.AddSwaggerWithAuth();
 
         builder.Services.AddAutoMapper();
 
         var app = builder.Build();
 
-        app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwagger()
+           .UseSwaggerUI();
 
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         //app.UseHttpsRedirection();
 
-        app.UseAuthentication();
-        app.UseAuthorization();
-
+        app.UseAuthentication()
+           .UseAuthorization();
 
         app.MapControllers();
 

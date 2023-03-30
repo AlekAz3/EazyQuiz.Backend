@@ -2,6 +2,9 @@ using System;
 
 namespace EazyQuiz.Models.DTO
 {
+    /// <summary>
+    /// ДТО ответа пользователя на вопрос
+    /// </summary>
     public class UserAnswer
     {
         /// <summary>

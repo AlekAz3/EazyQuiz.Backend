@@ -7,7 +7,11 @@ namespace EazyQuiz.Web.Api;
 
 public static class ServiceCollectionExtensions
 {
-    public static void AddAuth(this IServiceCollection services, IConfiguration configuration)
+
+    /// <summary>
+    /// Добавление аутентификации 
+    /// </summary>
+    public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
@@ -23,16 +27,22 @@ public static class ServiceCollectionExtensions
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
                 };
             });
+        return services;
     }
 
-
-    public static void AddAutoMapper(this IServiceCollection services)
+    /// <summary>
+    /// Добавление профилей автомаппера
+    /// </summary>
+    public static IServiceCollection AddAutoMapper(this IServiceCollection services)
     {
-        services.AddAutoMapper(typeof(UserAuthProfile), typeof(UserAnswerProfile));
+        services.AddAutoMapper(typeof(MappingProfile));
+        return services;
     }
 
-
-    public static void AddSwaggerWithAuth(this IServiceCollection services)
+    /// <summary>
+    /// Добавление сваггера с аутентификацией 
+    /// </summary>
+    public static IServiceCollection AddSwaggerWithAuth(this IServiceCollection services)
     {
         services.AddSwaggerGen(c =>
         {
@@ -64,5 +74,6 @@ public static class ServiceCollectionExtensions
                 }
             });
         });
+        return services;
     }
 }

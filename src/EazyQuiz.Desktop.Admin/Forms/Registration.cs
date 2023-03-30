@@ -1,6 +1,10 @@
 using EazyQuiz.Extensions;
 
 namespace EazyQuiz.Desktop.Admin;
+
+/// <summary>
+/// Форма регистрации новых игроков
+/// </summary>
 public partial class Registration : Form
 {
     /// <summary>
