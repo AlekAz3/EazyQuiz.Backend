@@ -10,12 +10,12 @@ namespace EazyQuiz.Models.DTO
         /// <summary>
         /// Текст вопроса
         /// </summary>
-        public string QuestionText { get; set; }
+        public string QuestionText { get; set; } = string.Empty;
 
         /// <summary>
         /// Текст ответа пользователя
         /// </summary>
-        public string AnswerText { get; set; }
+        public string AnswerText { get; set; } = string.Empty;
 
         /// <summary>
         /// Правильность ответа пользователя

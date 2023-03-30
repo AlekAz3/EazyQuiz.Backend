@@ -9,9 +9,9 @@ public static class ServiceCollectionExtensions
 {
 
     /// <summary>
-    /// Добавление аутентификации 
+    /// Р”РѕР±Р°РІР»РµРЅРёРµ Р°СѓС‚РµРЅС‚РёС„РёРєР°С†РёРё 
     /// </summary>
-    public static void AddAuth(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
@@ -27,20 +27,22 @@ public static class ServiceCollectionExtensions
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
                 };
             });
+        return services;
     }
 
     /// <summary>
-    /// Добавление профилей автомаппера
+    /// Р”РѕР±Р°РІР»РµРЅРёРµ РїСЂРѕС„РёР»РµР№ Р°РІС‚РѕРјР°РїРїРµСЂР°
     /// </summary>
-    public static void AddAutoMapper(this IServiceCollection services)
+    public static IServiceCollection AddAutoMapper(this IServiceCollection services)
     {
         services.AddAutoMapper(typeof(MappingProfile));
+        return services;
     }
 
     /// <summary>
-    /// Добавление сваггера с аутентификацией 
+    /// Р”РѕР±Р°РІР»РµРЅРёРµ СЃРІР°РіРіРµСЂР° СЃ Р°СѓС‚РµРЅС‚РёС„РёРєР°С†РёРµР№ 
     /// </summary>
-    public static void AddSwaggerWithAuth(this IServiceCollection services)
+    public static IServiceCollection AddSwaggerWithAuth(this IServiceCollection services)
     {
         services.AddSwaggerGen(c =>
         {
@@ -72,5 +74,6 @@ public static class ServiceCollectionExtensions
                 }
             });
         });
+        return services;
     }
 }

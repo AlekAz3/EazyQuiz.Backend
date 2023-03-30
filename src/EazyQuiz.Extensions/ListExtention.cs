@@ -8,7 +8,9 @@ namespace EazyQuiz.Extensions
     /// </summary>
     public static class ListExtention
     {
-        private static Random _random = new Random();
+#pragma warning disable IDE0090 // Use 'new(...)'
+        private static readonly Random Random = new Random();
+#pragma warning restore IDE0090 // Use 'new(...)'
 
         /// <summary>
         /// Перемешать коллекцию
@@ -22,7 +24,7 @@ namespace EazyQuiz.Extensions
             while (n > 1)
             {
                 n--;
-                int k = _random.Next(n + 1);
+                int k = Random.Next(n + 1);
                 (list[n], list[k]) = (list[k], list[n]);
             }
             return list;
