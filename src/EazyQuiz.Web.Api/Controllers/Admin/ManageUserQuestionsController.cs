@@ -1,5 +1,4 @@
 using EazyQuiz.Models.DTO;
-using EazyQuiz.Models.DTO.UsersQuestion;
 using EazyQuiz.Web.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +14,7 @@ public class ManageUserQuestionsController : BaseController
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetByFilter([FromBody] UserQuestionFilter filter, CancellationToken token)
+    public async Task<IActionResult> GetByFilter([FromQuery] UserQuestionFilter filter, CancellationToken token)
     {
         var result = await _service.GetByFilter(filter, token);
         return Ok(result);

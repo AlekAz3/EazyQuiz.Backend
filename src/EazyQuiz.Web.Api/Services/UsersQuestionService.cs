@@ -2,7 +2,6 @@ using AutoMapper;
 using EazyQuiz.Extensions;
 using EazyQuiz.Models.Database;
 using EazyQuiz.Models.DTO;
-using EazyQuiz.Models.DTO.UsersQuestion;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -51,16 +50,16 @@ public class UsersQuestionService
         return new InputCountDTO<QuestionByUserResponse>(totalCount, result);
     }
 
-    public async Task<IReadOnlyCollection<QuestionByUserResponse>> GetByFilter(UserQuestionFilter filter, CancellationToken token)
+    public async Task<IReadOnlyCollection<UserQuestionResponse>> GetByFilter(UserQuestionFilter filter, CancellationToken token)
     {
         var data = await _context.UsersQuestions
             .AsNoTracking()
-            .Where(x => filter.UserId != null && x.UserId == filter.UserId)
-            .Where(x => !filter.Status.IsNullOrEmpty() && x.Status == filter.Status)
+            .Where(x => filter.Status.IsNullOrEmpty() || x.Status == filter.Status)
             .AddPagination(filter)
             .ToListAsync(token);
 
-        return data.Select(x => _mapper.Map<QuestionByUserResponse>(x)).ToList();
+        var kek = data.Select(x => _mapper.Map<UserQuestionResponse>(x)).ToList();
+        return kek;
     }
     public async Task UpdateUserQuestion(UpdateUserQuestion question, CancellationToken token)
     {

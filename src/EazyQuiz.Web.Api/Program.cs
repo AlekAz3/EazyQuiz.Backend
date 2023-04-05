@@ -1,4 +1,5 @@
 using EazyQuiz.Web.Api.Services;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace EazyQuiz.Web.Api;
@@ -31,6 +32,8 @@ public class Program
              .AddScoped<UsersQuestionService>()
              .AddEndpointsApiExplorer()
              .AddAuth(builder.Configuration); //Добавление JWT
+
+
         builder.Services.AddSwaggerWithAuth();
 
         builder.Services.AddAutoMapper();

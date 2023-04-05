@@ -1,6 +1,6 @@
 using System;
 
-namespace EazyQuiz.Models.DTO.UsersQuestion
+namespace EazyQuiz.Models.DTO
 {
     /// <summary>
     /// Просмотр пользователю своих предложенных вопросов

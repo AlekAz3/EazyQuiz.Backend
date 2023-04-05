@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EazyQuiz.Models.DTO.UsersQuestion
+namespace EazyQuiz.Models.DTO
 {
     public class UpdateUserQuestion
     {
