@@ -1,10 +1,9 @@
 namespace EazyQuiz.Models.DTO
 {
-
     /// <summary>
-    /// Команда для получения истории ответов
+    /// Команда для получения истории с пагинацией
     /// </summary>
-    public class AnswersGetHistoryCommand : IPagingQuery
+    public class GetHistoryCommand : IPagingQuery
     {
         public int? PageNumber { get; set; }
 

@@ -28,6 +28,7 @@ public class Program
              .AddScoped<UserService>()
              .AddScoped<QuestionsService>()
              .AddScoped<HistoryService>()
+             .AddScoped<UsersQuestionService>()
              .AddEndpointsApiExplorer()
              .AddAuth(builder.Configuration); //Добавление JWT
         builder.Services.AddSwaggerWithAuth();

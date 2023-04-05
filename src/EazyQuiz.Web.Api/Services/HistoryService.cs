@@ -20,7 +20,7 @@ public class HistoryService
     /// <param name="userId">Ид игрока</param>
     /// <param name="command">Параметры пагинации</param>
     /// <param name="token">Токен отмены запроса</param>
-    public async Task<InputCountDTO<UserAnswerHistory>> GetHistoryByFilter(Guid userId, AnswersGetHistoryCommand command, CancellationToken token)
+    public async Task<InputCountDTO<UserAnswerHistory>> GetHistoryByFilter(Guid userId, GetHistoryCommand command, CancellationToken token)
     {
         int totalCount = await _context.UserAnswer
             .AsNoTracking()
@@ -29,8 +29,7 @@ public class HistoryService
 
         var userAnswers = await _context.UserAnswer
             .AsNoTracking()
-            .OrderBy(x => x.AnswerTime)
-            .Reverse()
+            .OrderByDescending(x => x.AnswerTime)
             .Where(x => x.UserId == userId)
             .AddPagination(command)
             .ToListAsync(token);

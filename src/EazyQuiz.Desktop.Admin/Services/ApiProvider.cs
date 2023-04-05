@@ -40,9 +40,9 @@ public class ApiProvider : IDisposable
     /// <param name="username">Ник</param>
     /// <param name="password">Пароль</param>
     /// <exception cref="ArgumentException">Пользователь не найден</exception>
-    public UserResponse Authtenticate(string username, string password)
+    public async Task<UserResponse> Authtenticate(string username, string password)
     {
-        var salt = GetUserSaltByUsername(username);
+        var salt = await GetUserSaltByUsername(username);
 
         var hashPassword = PasswordHash.HashWithCurrentSalt(password, salt);
 
@@ -52,21 +52,15 @@ public class ApiProvider : IDisposable
             PasswordHash = hashPassword
         };
 
-        string json = JsonSerializer.Serialize(userAuth);
-
         var request = new HttpRequestMessage
         {
-            Method = HttpMethod.Post,
-            RequestUri = new Uri($"{_baseAdress}/api/Auth/GetUserByPassword"),
-            Content = new StringContent(json, Encoding.UTF8, MediaTypeNames.Application.Json),
+            Method = HttpMethod.Get,
+            RequestUri = new Uri($"{_baseAdress}/api/Auth?Username={userAuth.Username}&PasswordHash={userAuth.PasswordHash}"),
         };
 
-        var response = Task.Run(() => { return _client.SendAsync(request); }).Result;
+        var response = await _client.SendAsync(request);
 
-        var responseBody = Task.Run(() =>
-        {
-            return response.Content.ReadAsStringAsync();
-        }).Result;
+        var responseBody = await response.Content.ReadAsStringAsync();
 
         var userResponse = JsonSerializer.Deserialize<UserResponse>(responseBody);
 
@@ -84,20 +78,17 @@ public class ApiProvider : IDisposable
     /// <param name="userName">Ник</param>
     /// <returns>Соль</returns>
     /// <exception cref="Exception">Соль не найдена</exception>
-    public string GetUserSaltByUsername(string userName)
+    public async Task<string> GetUserSaltByUsername(string userName)
     {
         var request = new HttpRequestMessage
         {
             Method = HttpMethod.Get,
-            RequestUri = new Uri($"{_baseAdress}/api/Auth/GetUserSalt?userName={userName}"),
+            RequestUri = new Uri($"{_baseAdress}/api/Auth/{userName}"),
         };
 
-        var response = Task.Run(() => { return _client.SendAsync(request); }).Result;
+        var response = await _client.SendAsync(request);
 
-        var responseBody = Task.Run(() =>
-        {
-            return response.Content.ReadAsStringAsync();
-        }).Result;
+        var responseBody = await response.Content.ReadAsStringAsync();
 
         if (responseBody == null)
         {
@@ -130,7 +121,7 @@ public class ApiProvider : IDisposable
         var request = new HttpRequestMessage
         {
             Method = HttpMethod.Post,
-            RequestUri = new Uri($"{_baseAdress}/api/Auth/RegisterNewPlayer"),
+            RequestUri = new Uri($"{_baseAdress}/api/Auth"),
             Content = new StringContent(json, Encoding.UTF8, MediaTypeNames.Application.Json),
         };
 
@@ -143,20 +134,17 @@ public class ApiProvider : IDisposable
     /// <param name="userName">Ник</param>
     /// <returns>true - если ник НЕ уникален</returns>
     /// <exception cref="ArgumentNullException">Нулл</exception>
-    public bool CheckUsername(string userName)
+    public async Task<bool> CheckUsername(string userName)
     {
         var request = new HttpRequestMessage
         {
             Method = HttpMethod.Get,
-            RequestUri = new Uri($"{_baseAdress}/api/Auth/CheckUniqueUsername?userName={userName}"),
+            RequestUri = new Uri($"{_baseAdress}/api/Auth/{userName}"),
         };
 
-        var response = Task.Run(() => { return _client.SendAsync(request); }).Result;
+        var response = await _client.SendAsync(request);
 
-        var responseBody = Task.Run(() =>
-        {
-            return response.Content.ReadAsStringAsync();
-        }).Result;
+        var responseBody = await response.Content.ReadAsStringAsync();
 
         if (responseBody == null)
         {
@@ -173,7 +161,7 @@ public class ApiProvider : IDisposable
     /// <summary>
     /// Получить вопрос и ответы с сервера
     /// </summary>
-    public QuestionWithAnswers GetQuestion(string token)
+    public async Task<QuestionWithAnswers> GetQuestion(string token)
     {
         var request = new HttpRequestMessage
         {
@@ -183,9 +171,9 @@ public class ApiProvider : IDisposable
         request.Headers.TryAddWithoutValidation("Accept", "application/json");
         request.Headers.TryAddWithoutValidation("Authorization", $"Bearer {token}");
 
-        var response = _client.SendAsync(request).Result;
+        var response = await _client.SendAsync(request);
 
-        var responseBody = response.Content.ReadAsStringAsync().Result;
+        var responseBody = await response.Content.ReadAsStringAsync();
 
         return JsonSerializer.Deserialize<QuestionWithAnswers>(responseBody) ?? new QuestionWithAnswers();
     }

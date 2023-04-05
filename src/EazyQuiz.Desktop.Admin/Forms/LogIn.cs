@@ -31,7 +31,7 @@ public partial class LogIn : Form
     }
 
     /// Действия при нажатии кнопки "Вход"
-    private void EnterButtonClick(object sender, EventArgs e)
+    private async void EnterButtonClick(object sender, EventArgs e)
     {
         string username = UsernameInput.Text;
         string password = PasswordInput.Text;
@@ -42,7 +42,7 @@ public partial class LogIn : Form
             return;
         }
 
-        _userToken.User = _apiProvider.Authtenticate(username, password);
+        _userToken.User = await _apiProvider.Authtenticate(username, password);
 
         _formFactory.Create<Panel>().Open();
     }

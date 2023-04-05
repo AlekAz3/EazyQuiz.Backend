@@ -44,7 +44,7 @@ public class User
     /// <summary>
     /// Время Регистрации
     /// </summary>
-    public DateTime RegistrationTime { get; set; }
+    public DateTimeOffset RegistrationTime { get; set; }
 
     /// <summary>
     /// Пароль Хэш

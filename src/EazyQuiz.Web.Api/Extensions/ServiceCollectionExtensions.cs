@@ -53,7 +53,7 @@ public static class ServiceCollectionExtensions
             });
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
             {
-                Name = "Authorization",
+                Name = "Bearer",
                 Type = SecuritySchemeType.ApiKey,
                 Scheme = "Bearer",
                 BearerFormat = "JWT",

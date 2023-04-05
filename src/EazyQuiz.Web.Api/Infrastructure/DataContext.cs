@@ -28,6 +28,11 @@ public class DataContext : DbContext
     /// </summary>
     public DbSet<UsersAnswers> UserAnswer { get; set; }
 
+    /// <summary>
+    /// Таблица UsersQuesions
+    /// </summary>
+    public DbSet<UsersQuesions> UsersQuestions { get; set; }
+
     /// <inheritdoc cref="IConfiguration"/>
     private readonly IConfiguration _config;
 
