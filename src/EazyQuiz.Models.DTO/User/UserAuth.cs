@@ -13,6 +13,6 @@ namespace EazyQuiz.Models.DTO
         /// <summary>
         /// Пароль
         /// </summary>
-        public string PasswordHash { get; set; }
+        public string? PasswordHash { get; set; }
     }
 }

@@ -23,6 +23,11 @@ public class UsersQuestionService
         _mapper = mapper;
     }
 
+    /// <summary>
+    /// Добавить предложенный вопрос от пользователя
+    /// </summary>
+    /// <param name="questionByUser">Вопрос с ответом от пользователя</param>
+    /// <param name="token">Токен отмены</param>
     public async Task AddNewUserQuestionToQueue(AddQuestionByUser questionByUser, CancellationToken token)
     {
         var question = _mapper.Map<UsersQuesions>(questionByUser);
@@ -30,6 +35,13 @@ public class UsersQuestionService
         await _context.SaveChangesAsync(token);
     }
 
+    /// <summary>
+    /// Получить коллекцию предложенных пользователем вопросов
+    /// </summary>
+    /// <param name="userId">Ид пользователя</param>
+    /// <param name="command">Параметры фильтрации</param>
+    /// <param name="token">Токен отмены запроса</param>
+    /// <returns>Коллекция вопросов</returns>
     public async Task<InputCountDTO<QuestionByUserResponse>> GetUsersQuestions(Guid userId, GetHistoryCommand command, CancellationToken token)
     {
         int totalCount = await _context.UsersQuestions
@@ -49,6 +61,13 @@ public class UsersQuestionService
         return new InputCountDTO<QuestionByUserResponse>(totalCount, result);
     }
 
+    /// <summary>
+    /// Получить коллекцию предложенных вопросов от пользователей 
+    /// </summary>
+    /// <param name="filter">Фильтр</param>
+    /// <param name="token">Токен отмены запросы</param>
+    /// <returns>Коллекция вопросов</returns>
+    /// <remarks>Используется для админки</remarks>
     public async Task<IReadOnlyCollection<UserQuestionResponse>> GetByFilter(UserQuestionFilter filter, CancellationToken token)
     {
         var data = await _context.UsersQuestions
@@ -60,6 +79,12 @@ public class UsersQuestionService
         var kek = data.Select(x => _mapper.Map<UserQuestionResponse>(x)).ToList();
         return kek;
     }
+
+    /// <summary>
+    /// Обновить статус предложенного вопроса от пользователя
+    /// </summary>
+    /// <param name="question">Вопрос</param>
+    /// <param name="token">Токен отмены запроса</param>
     public async Task UpdateUserQuestion(UpdateUserQuestion question, CancellationToken token)
     {
         var data = await _context.UsersQuestions
@@ -70,15 +95,9 @@ public class UsersQuestionService
             data.Status = question.Status;
         }
 
-        if (!question.QuestionText.IsNullOrEmpty())
-        {
-            data.QuestionText = question.QuestionText;
-        }
+        data.LastUpdate = DateTimeOffset.Now;
 
-        if (!question.AnswerText.IsNullOrEmpty())
-        {
-            data.AnswerText = question.AnswerText;
-        }
+        _context.Update(data);
 
         await _context.SaveChangesAsync(token);
     }

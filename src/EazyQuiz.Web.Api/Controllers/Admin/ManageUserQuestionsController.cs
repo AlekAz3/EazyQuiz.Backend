@@ -21,7 +21,7 @@ public class ManageUserQuestionsController : BaseController
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateUserQuestion(UpdateUserQuestion question, CancellationToken token)
+    public async Task<IActionResult> UpdateUserQuestion([FromBody] UpdateUserQuestion question, CancellationToken token)
     {
         await _service.UpdateUserQuestion(question, token);
         return Ok();

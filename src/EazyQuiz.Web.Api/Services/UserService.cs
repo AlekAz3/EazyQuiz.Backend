@@ -11,7 +11,7 @@ using System.Text;
 namespace EazyQuiz.Web.Api;
 
 /// <summary>
-/// Класс реальзующий <inheritdoc cref="IUserService"/>
+/// Класс реальзующий <inheritdoc cref="UserService"/>
 /// </summary>
 public class UserService
 {
