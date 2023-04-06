@@ -31,7 +31,7 @@ public class UsersAnswers
     /// <summary>
     /// Время ответа на вопрос
     /// </summary>
-    public DateTime AnswerTime { get; set; }
+    public DateTimeOffset AnswerTime { get; set; }
 
     /// <summary>
     /// Правильный ответ

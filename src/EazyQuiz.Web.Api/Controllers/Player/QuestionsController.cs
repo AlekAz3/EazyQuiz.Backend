@@ -1,5 +1,4 @@
 using EazyQuiz.Models.DTO;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EazyQuiz.Web.Api;
@@ -46,7 +45,6 @@ public class QuestionsController : BaseController
     /// Добавить вопрос с админки
     /// </summary>
     [HttpPost(nameof(Add))]
-    [AllowAnonymous]
     public async Task<IActionResult> Add([FromBody] QuestionWithoutId question)
     {
         await _questionsService.AddQuestion(question);

@@ -11,21 +11,20 @@ using System.Text;
 namespace EazyQuiz.Web.Api;
 
 /// <summary>
-/// Класс реальзующий <inheritdoc cref="IUserService"/>
+/// Класс реальзующий <inheritdoc cref="UserService"/>
 /// </summary>
 public class UserService
 {
-    /// <summary>
     /// <inheritdoc cref="DataContext"/>
-    /// </summary>
     private readonly DataContext _dataContext;
 
-    /// <summary>
     /// <inheritdoc cref="IConfiguration"/>
-    /// </summary>
     private readonly IConfiguration _config;
 
+    /// <inheritdoc cref="ILogger{TCategoryName}"/>
     private readonly ILogger<UserService> _log;
+
+    /// <inheritdoc cref="IMapper"/>
     private readonly IMapper _mapper;
 
     public UserService(DataContext dataContext, IConfiguration config, ILogger<UserService> logger, IMapper mapper)

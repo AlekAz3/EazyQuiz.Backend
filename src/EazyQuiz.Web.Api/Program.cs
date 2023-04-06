@@ -28,8 +28,11 @@ public class Program
              .AddScoped<UserService>()
              .AddScoped<QuestionsService>()
              .AddScoped<HistoryService>()
+             .AddScoped<UsersQuestionService>()
              .AddEndpointsApiExplorer()
              .AddAuth(builder.Configuration); //Добавление JWT
+
+
         builder.Services.AddSwaggerWithAuth();
 
         builder.Services.AddAutoMapper();
@@ -40,7 +43,8 @@ public class Program
            .UseSwaggerUI();
 
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-        //app.UseHttpsRedirection();
+
+        app.UseHttpsRedirection();
 
         app.UseAuthentication()
            .UseAuthorization();

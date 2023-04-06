@@ -13,7 +13,11 @@ public static class ServiceCollectionExtensions
     /// </summary>
     public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
             .AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -53,7 +57,7 @@ public static class ServiceCollectionExtensions
             });
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
             {
-                Name = "Authorization",
+                Name = "Bearer",
                 Type = SecuritySchemeType.ApiKey,
                 Scheme = "Bearer",
                 BearerFormat = "JWT",

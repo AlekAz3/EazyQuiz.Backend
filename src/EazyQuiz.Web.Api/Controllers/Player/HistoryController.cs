@@ -2,7 +2,7 @@ using EazyQuiz.Models.DTO;
 using EazyQuiz.Web.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EazyQuiz.Web.Api.Controllers;
+namespace EazyQuiz.Web.Api;
 
 /// <summary>
 /// Контроллер управления истории 
@@ -25,7 +25,7 @@ public class HistoryController : BaseController
     /// <param name="token">Токен отмены запроса</param>
     /// <returns>Коллекцию ответов пользователя <see cref="UserAnswerHistory"/></returns>
     [HttpGet]
-    public async Task<IActionResult> GetHistoryByFilter([FromQuery] Guid userId, [FromQuery] AnswersGetHistoryCommand command, CancellationToken token)
+    public async Task<IActionResult> GetHistoryByFilter([FromQuery] Guid userId, [FromQuery] GetHistoryCommand command, CancellationToken token)
     {
         var list = await _service.GetHistoryByFilter(userId, command, token);
         return Ok(list);

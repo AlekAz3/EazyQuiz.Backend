@@ -28,6 +28,11 @@ public class DataContext : DbContext
     /// </summary>
     public DbSet<UsersAnswers> UserAnswer { get; set; }
 
+    /// <summary>
+    /// Таблица UsersQuesions
+    /// </summary>
+    public DbSet<UsersQuesions> UsersQuestions { get; set; }
+
     /// <inheritdoc cref="IConfiguration"/>
     private readonly IConfiguration _config;
 
@@ -44,6 +49,6 @@ public class DataContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         string connectionString = _config.GetConnectionString(nameof(DataContext));
-        optionsBuilder.UseNpgsql(connectionString);
+        optionsBuilder.UseNpgsql(connectionString, x => x.MigrationsAssembly(typeof(DataContext).Assembly.ToString()));
     }
 }

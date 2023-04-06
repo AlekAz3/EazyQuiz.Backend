@@ -25,6 +25,6 @@ namespace EazyQuiz.Models.DTO
         /// <summary>
         /// Время ответа пользователя 
         /// </summary>
-        public DateTime AnswerTime { get; set; }
+        public DateTimeOffset AnswerTime { get; set; }
     }
 }
