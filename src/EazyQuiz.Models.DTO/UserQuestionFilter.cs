@@ -1,5 +1,3 @@
-using System;
-
 namespace EazyQuiz.Models.DTO
 {
     public class UserQuestionFilter : IPagingQuery

@@ -1,5 +1,4 @@
 using EazyQuiz.Web.Api.Services;
-using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace EazyQuiz.Web.Api;

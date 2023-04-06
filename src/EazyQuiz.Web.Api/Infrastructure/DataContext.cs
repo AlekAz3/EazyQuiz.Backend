@@ -1,8 +1,5 @@
 using EazyQuiz.Models.Database;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Principal;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EazyQuiz.Web.Api;
 

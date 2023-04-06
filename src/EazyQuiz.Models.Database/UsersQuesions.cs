@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EazyQuiz.Models.Database;
 
@@ -11,7 +10,8 @@ public class UsersQuesions
     /// <summary>
     /// Ид
     /// </summary>
-    [Key] public Guid Id { get; set; }
+    [Key]
+    public Guid Id { get; set; }
 
     /// <summary>
     /// Ид пользователя

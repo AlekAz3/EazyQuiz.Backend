@@ -2,7 +2,6 @@ using AutoMapper;
 using EazyQuiz.Extensions;
 using EazyQuiz.Models.Database;
 using EazyQuiz.Models.DTO;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EazyQuiz.Web.Api.Services;
