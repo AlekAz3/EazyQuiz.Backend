@@ -29,8 +29,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EazyQuiz.Extensioons.Tests"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EazyQuiz.Models.DTO", "src\EazyQuiz.Models.DTO\EazyQuiz.Models.DTO.csproj", "{256026B3-AE03-4D86-93D6-1844D06F9F1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EazyQuiz.Data.Migrations", "src\EazyQuiz.Data.Migrations\EazyQuiz.Data.Migrations.csproj", "{9983537A-F526-408A-938B-6C5359FB2029}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,10 +67,6 @@ Global
 		{256026B3-AE03-4D86-93D6-1844D06F9F1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{256026B3-AE03-4D86-93D6-1844D06F9F1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{256026B3-AE03-4D86-93D6-1844D06F9F1D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9983537A-F526-408A-938B-6C5359FB2029}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9983537A-F526-408A-938B-6C5359FB2029}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9983537A-F526-408A-938B-6C5359FB2029}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9983537A-F526-408A-938B-6C5359FB2029}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,7 +80,6 @@ Global
 		{274A66C1-7332-41D4-BF51-39C12E1570DC} = {81641BF6-C80C-44C6-AAF2-7D2C7D9EB690}
 		{699931C8-9403-46B9-85CE-3D5B40BFC7AF} = {81641BF6-C80C-44C6-AAF2-7D2C7D9EB690}
 		{256026B3-AE03-4D86-93D6-1844D06F9F1D} = {967205FC-A1B0-4295-A62F-9B6587647FAA}
-		{9983537A-F526-408A-938B-6C5359FB2029} = {967205FC-A1B0-4295-A62F-9B6587647FAA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E9DF3BFA-6A82-4069-A936-4C737D9C7A18}

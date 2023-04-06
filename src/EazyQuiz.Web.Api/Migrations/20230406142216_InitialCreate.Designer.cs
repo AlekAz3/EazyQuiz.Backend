@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EazyQuiz.Web.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230405155019_create")]
-    partial class create
+    [Migration("20230406142216_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

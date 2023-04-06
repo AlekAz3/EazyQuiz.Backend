@@ -43,7 +43,8 @@ public class Program
            .UseSwaggerUI();
 
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-        //app.UseHttpsRedirection();
+
+        app.UseHttpsRedirection();
 
         app.UseAuthentication()
            .UseAuthorization();
