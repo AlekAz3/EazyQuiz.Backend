@@ -50,11 +50,11 @@ public class User
     /// Пароль Хэш
     /// </summary>
     [JsonIgnore]
-    public byte[]? PasswordHash { get; set; }
+    public string? PasswordHash { get; set; }
 
     /// <summary>
     /// Соль пароля
     /// </summary>
     [JsonIgnore]
-    public byte[]? PasswordSalt { get; set; }
+    public string? PasswordSalt { get; set; }
 }
