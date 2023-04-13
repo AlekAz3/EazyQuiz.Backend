@@ -61,7 +61,7 @@ public class UserService
 
     public async Task RegisterNewUser(UserRegister user)
     {
-        v_log.LogInformation("Register {@User}", user);
+        _log.LogInformation("Register {@User}", user);
         var newUser = _mapper.Map<User>(user);
 
         await _dataContext.User.AddAsync(newUser);
