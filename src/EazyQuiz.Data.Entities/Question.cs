@@ -19,6 +19,11 @@ public class Question
     /// Тест вопроса
     /// </summary>
     public string? Text { get; set; }
+
+    public Guid ThemeId { get; set; }
+
+    public Theme? Theme { get; set; }
+
     public ICollection<Answers> Answers { get; set; } = new List<Answers>();
     public ICollection<UsersAnswers> UsersAnswers { get; set; } = new List<UsersAnswers>();
 }

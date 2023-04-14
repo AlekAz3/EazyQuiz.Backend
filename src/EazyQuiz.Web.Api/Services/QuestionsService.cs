@@ -2,6 +2,7 @@ using AutoMapper;
 using EazyQuiz.Data.Entities;
 using EazyQuiz.Models.DTO;
 using Microsoft.EntityFrameworkCore;
+
 namespace EazyQuiz.Web.Api;
 
 public class QuestionsService
@@ -22,29 +23,6 @@ public class QuestionsService
         _mapper = mapper;
     }
 
-    /// <summary>
-    /// Получить 10 вопросов с ответами 
-    /// </summary>
-    /// <returns>Коллекция вопросов</returns>
-    public async Task<IReadOnlyCollection<QuestionWithAnswers>> GetTenQuestions()
-    {
-        var questions = await _dataContext.Question
-            .AsNoTracking()
-            .OrderBy(x => EF.Functions.Random())
-            .Take(10)
-            .ToListAsync();
-
-        var questionsWithAnswers = questions.Select(x => new QuestionWithAnswers()
-        {
-            QuestionId = x.Id,
-            Text = x.Text,
-            Answers = x.Answers.Select(x => _mapper.Map<Answer>(x)).ToList()
-        }).ToArray();
-
-        _logger.LogInformation("{@QuestionsWithAnswers}", questionsWithAnswers);
-
-        return questionsWithAnswers;
-    }
 
     /// <summary>
     /// Записать ответ игрока в базу данных
@@ -69,7 +47,7 @@ public class QuestionsService
     /// <summary>
     /// Добавить вопрос в базу данных
     /// </summary>
-    internal async Task AddQuestion(QuestionWithoutId question)
+    public async Task AddQuestion(QuestionWithoutId question)
     {
         _logger.LogInformation("New Question {@Question}", question);
         var questionId = Guid.NewGuid();
@@ -77,6 +55,7 @@ public class QuestionsService
         {
             Id = questionId,
             Text = question.Text,
+            ThemeId = question.ThemeId,
             Answers = question.Answers.Select(x => new Answers()
             {
                 Text = x.Text,
@@ -86,5 +65,25 @@ public class QuestionsService
         };
         _dataContext.Add(questionEntity);
         await _dataContext.SaveChangesAsync();
+    }
+
+    public async Task<IReadOnlyCollection<QuestionWithAnswers>> GetQuestionsByFilter(GetQuestionCommand command, CancellationToken token)
+    {
+        var questions = await _dataContext.Question
+            .Where(x => x.ThemeId == command.ThemeId)
+            .OrderBy(x => EF.Functions.Random())
+            .Take(command.Count)
+            .ToListAsync(token);
+
+        var questionsWithAnswers = questions.Select(x => new QuestionWithAnswers()
+        {
+            QuestionId = x.Id,
+            Text = x.Text,
+            Answers = x.Answers.Select(x => _mapper.Map<Answer>(x)).ToList()
+        }).ToArray();
+
+        _logger.LogInformation("{@QuestionsWithAnswers}", questions);
+
+        return questionsWithAnswers;
     }
 }

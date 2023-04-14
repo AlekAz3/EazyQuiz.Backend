@@ -20,15 +20,11 @@ public class QuestionsController : BaseController
         _logger = logger;
     }
 
-    /// <summary>
-    /// Получить коллекцию из 10ти вопросов 
-    /// </summary>
     [HttpGet]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IReadOnlyCollection<QuestionWithAnswers>))]
-    public async Task<IActionResult> GetQuestions()
+    public async Task<IActionResult> GetQuestionByFilter([FromQuery] GetQuestionCommand command, CancellationToken token)
     {
-        _logger.LogInformation("Get 10 Question");
-        return Ok(await _questionsService.GetTenQuestions());
+        var questions = await _questionsService.GetQuestionsByFilter(command, token);
+        return Ok(questions);
     }
 
     /// <summary>

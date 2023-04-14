@@ -33,6 +33,9 @@ public class DataContext : DbContext
     /// </summary>
     public DbSet<UsersQuesions> UsersQuestions { get; set; }
 
+
+    public DbSet<Theme> Themes { get; set; }
+
     /// <inheritdoc cref="IConfiguration"/>
     private readonly IConfiguration _config;
 
@@ -43,7 +46,6 @@ public class DataContext : DbContext
     {
         _config = config;
         _log = logger;
-        Database.EnsureCreated();
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
