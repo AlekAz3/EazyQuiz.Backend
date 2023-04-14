@@ -1,5 +1,5 @@
 using AutoMapper;
-using EazyQuiz.Models.Database;
+using EazyQuiz.Data.Entities;
 using EazyQuiz.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 namespace EazyQuiz.Web.Api;
@@ -38,11 +38,7 @@ public class QuestionsService
         {
             QuestionId = x.Id,
             Text = x.Text,
-            Answers = _dataContext.Answer
-                    .AsNoTracking()
-                    .Where(y => y.QuestionId == x.Id)
-                    .Select(x => _mapper.Map<Answer>(x))
-                    .ToList()
+            Answers = x.Answers.Select(x => _mapper.Map<Answer>(x)).ToList()
         }).ToArray();
 
         _logger.LogInformation("{@QuestionsWithAnswers}", questionsWithAnswers);
@@ -80,18 +76,15 @@ public class QuestionsService
         var questionEntity = new Question()
         {
             Id = questionId,
-            Text = question.Text
-        };
-        var answerEntities = question.Answers
-            .Select(x => new Answers()
+            Text = question.Text,
+            Answers = question.Answers.Select(x => new Answers()
             {
                 Text = x.Text,
                 IsCorrect = x.IsCorrect,
                 QuestionId = questionId
-            });
-        _dataContext.Question.Add(questionEntity);
-        await _dataContext.SaveChangesAsync();
-        _dataContext.Answer.AddRange(answerEntities);
+            }).ToList(),
+        };
+        _dataContext.Add(questionEntity);
         await _dataContext.SaveChangesAsync();
     }
 }

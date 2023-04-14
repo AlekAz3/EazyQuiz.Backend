@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EazyQuiz.Models.Database;
+namespace EazyQuiz.Data.Entities;
 
 /// <summary>
 /// Описание обьекта ответа
@@ -28,4 +28,7 @@ public class Answers
     /// Ид вопроса
     /// </summary>
     public Guid QuestionId { get; set; }
+
+    public Question? Question { get; set; }
+    public ICollection<UsersAnswers> UsersAnswers { get; set; } = new List<UsersAnswers>();
 }

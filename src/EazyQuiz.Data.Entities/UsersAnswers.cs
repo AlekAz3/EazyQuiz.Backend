@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EazyQuiz.Models.Database;
+namespace EazyQuiz.Data.Entities;
 
 /// <summary>
 /// Ответы пользователей
@@ -37,4 +37,8 @@ public class UsersAnswers
     /// Правильный ответ
     /// </summary>
     public bool IsCorrect { get; set; }
+
+    public User User { get; set; }
+    public Answers Answer { get; set; }
+    public Question Question { get; set; }
 }

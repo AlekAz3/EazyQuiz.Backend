@@ -1,6 +1,6 @@
 using AutoMapper;
+using EazyQuiz.Data.Entities;
 using EazyQuiz.Extensions;
-using EazyQuiz.Models.Database;
 using EazyQuiz.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 

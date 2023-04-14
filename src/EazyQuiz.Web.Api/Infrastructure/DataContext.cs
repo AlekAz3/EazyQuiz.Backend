@@ -1,4 +1,4 @@
-using EazyQuiz.Models.Database;
+using EazyQuiz.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace EazyQuiz.Web.Api;
@@ -50,5 +50,10 @@ public class DataContext : DbContext
     {
         string connectionString = _config.GetConnectionString(nameof(DataContext));
         optionsBuilder.UseNpgsql(connectionString);
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(Data.AssemblyMarker).Assembly);
     }
 }

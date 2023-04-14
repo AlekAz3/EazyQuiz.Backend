@@ -1,6 +1,6 @@
 using AutoMapper;
 using EazyQuiz.Cryptography;
-using EazyQuiz.Models.Database;
+using EazyQuiz.Data.Entities;
 using EazyQuiz.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;

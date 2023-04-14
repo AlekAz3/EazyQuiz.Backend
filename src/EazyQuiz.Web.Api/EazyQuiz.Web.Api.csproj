@@ -26,8 +26,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EazyQuiz.Cryptography\EazyQuiz.Cryptography.csproj" />
+    <ProjectReference Include="..\EazyQuiz.Data.Entities\EazyQuiz.Data.Entities.csproj" />
+    <ProjectReference Include="..\EazyQuiz.Data\EazyQuiz.Data.csproj" />
     <ProjectReference Include="..\EazyQuiz.Extensions\EazyQuiz.Extensions.csproj" />
-    <ProjectReference Include="..\EazyQuiz.Models.Database\EazyQuiz.Models.Database.csproj" />
   </ItemGroup>
 
 </Project>

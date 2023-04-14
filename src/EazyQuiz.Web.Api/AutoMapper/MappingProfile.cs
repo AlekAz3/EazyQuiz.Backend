@@ -1,5 +1,5 @@
 using AutoMapper;
-using EazyQuiz.Models.Database;
+using EazyQuiz.Data.Entities;
 using EazyQuiz.Models.DTO;
 using System.Text;
 
