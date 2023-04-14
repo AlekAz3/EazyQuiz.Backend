@@ -47,7 +47,7 @@ public class UserService
             return null;
         }
 
-        if (PasswordHash.Verify(Encoding.UTF8.GetBytes(auth.PasswordHash), user.PasswordHash))
+        if (auth.PasswordHash.Replace(' ', '+') == user.PasswordHash)
         {
             var userResponse = _mapper.Map<UserResponse>(user);
             userResponse.Token = GenerateJwtToken(user);
@@ -87,7 +87,7 @@ public class UserService
 
     public async Task<string> GetUserSalt(string userName)
     {
-        byte[] userSalt = await _dataContext.User
+        string userSalt = await _dataContext.User
             .AsNoTracking()
             .Where(x => userName == x.Username)
             .Select(x => x.PasswordSalt)
@@ -98,19 +98,6 @@ public class UserService
             return "";
         }
         _log.LogInformation("user salt {@User}", userSalt);
-        return Encoding.UTF8.GetString(userSalt);
-    }
-
-
-    public async Task<bool> CheckUniqueUsername(string userName)
-    {
-        var checkUser = await _dataContext.User
-            .AsNoTracking()
-            .FirstOrDefaultAsync(x => x.Username == userName);
-        if (checkUser == null)
-        {
-            return false;
-        }
-        return true;
+        return userSalt;
     }
 }

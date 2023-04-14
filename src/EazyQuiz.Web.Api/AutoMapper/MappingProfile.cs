@@ -20,8 +20,8 @@ public class MappingProfile : Profile
             .ForMember(x => x.AnswerText, opt => opt.MapFrom(src => src.Text));
 
         CreateMap<UserRegister, User>()
-            .ForMember(x => x.PasswordHash, opt => opt.MapFrom(src => Encoding.UTF8.GetBytes(src.Password.PasswordHash)))
-            .ForMember(x => x.PasswordSalt, opt => opt.MapFrom(src => Encoding.UTF8.GetBytes(src.Password.PasswordSalt)))
+            .ForMember(x => x.PasswordHash, opt => opt.MapFrom(src => src.Password.PasswordHash))
+            .ForMember(x => x.PasswordSalt, opt => opt.MapFrom(src => src.Password.PasswordSalt))
             .ForMember(x => x.RegistrationTime, opt => opt.MapFrom(src => DateTimeOffset.Now));
         CreateMap<User, UserResponse>();
 
@@ -31,6 +31,5 @@ public class MappingProfile : Profile
         CreateMap<AddQuestionByUser, UsersQuesions>()
             .ForMember(x => x.LastUpdate, opt => opt.MapFrom(opt => DateTimeOffset.Now))
             .ForMember(x => x.Status, opt => opt.MapFrom(opt => "Новый"));
-
     }
 }

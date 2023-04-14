@@ -49,6 +49,6 @@ public class DataContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         string connectionString = _config.GetConnectionString(nameof(DataContext));
-        optionsBuilder.UseNpgsql(connectionString, x => x.MigrationsAssembly(typeof(DataContext).Assembly.ToString()));
+        optionsBuilder.UseNpgsql(connectionString);
     }
 }
