@@ -1,7 +1,6 @@
 using AutoMapper;
 using EazyQuiz.Data.Entities;
 using EazyQuiz.Models.DTO;
-using System.Text;
 
 namespace EazyQuiz.Web.Api;
 

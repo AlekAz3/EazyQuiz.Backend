@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EazyQuiz.Data;
 
-
 public class UserAnswersEntityConfigurations : IEntityTypeConfiguration<UsersAnswers>
 {
     public void Configure(EntityTypeBuilder<UsersAnswers> builder)
