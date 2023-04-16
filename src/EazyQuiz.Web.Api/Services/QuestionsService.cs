@@ -68,20 +68,23 @@ public class QuestionsService
 
     public async Task<IReadOnlyCollection<QuestionWithAnswers>> GetQuestionsByFilter(GetQuestionCommand command, CancellationToken token)
     {
-        var questions = await _dataContext.Question
-            .Where(x => x.ThemeId == command.ThemeId)
+        var questionss = _dataContext.Question
+            .AsNoTracking()
+            .Where(x => command.ThemeId == null || x.ThemeId == command.ThemeId)
             .OrderBy(x => EF.Functions.Random())
-            .Take(command.Count)
-            .ToListAsync(token);
+            .Take(command.Count ?? 10)
+            .Include(x => x.Answers);
 
+        var questions = await questionss.ToListAsync(token);
+
+        _logger.LogInformation("{@QuestionsWithAnswers}", questionss.ToQueryString());
+        //_logger.LogInformation("{@QuestionsWithAnswers}", questions);
         var questionsWithAnswers = questions.Select(x => new QuestionWithAnswers()
         {
             QuestionId = x.Id,
             Text = x.Text,
-            Answers = x.Answers.Select(x => _mapper.Map<Answer>(x)).ToList()
+            Answers = x.Answers.Select(x => _mapper.Map<Answer>(x)).ToList(),
         }).ToArray();
-
-        _logger.LogInformation("{@QuestionsWithAnswers}", questions);
 
         return questionsWithAnswers;
     }

@@ -31,6 +31,8 @@ public class HistoryService
             .AsNoTracking()
             .OrderByDescending(x => x.AnswerTime)
             .Where(x => x.UserId == userId)
+            .Include(x => x.Answer)
+            .Include(x => x.Question)
             .AddPagination(command)
             .ToListAsync(token);
 
@@ -40,7 +42,7 @@ public class HistoryService
             AnswerText = x.Answer.Text,
             IsCorrect = x.IsCorrect,
             AnswerTime = x.AnswerTime,
-        }) ;
+        });
 
         return new InputCountDTO<UserAnswerHistory>(totalCount, res);
     }

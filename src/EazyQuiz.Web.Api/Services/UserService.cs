@@ -34,6 +34,10 @@ public class UserService
         _mapper = mapper;
     }
 
+    /// <summary>
+    /// Аутентифицировать пользователя
+    /// </summary>
+    /// <param name="auth">Логин и пароль в <see cref="UserAuth"/></param>
     public async Task<UserResponse> Authenticate(UserAuth auth)
     {
         var user = await _dataContext.User
