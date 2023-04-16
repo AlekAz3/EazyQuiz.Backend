@@ -53,7 +53,7 @@ public static class ServiceCollectionExtensions
             c.SwaggerDoc("v1", new OpenApiInfo
             {
                 Title = "EazyQuiz",
-                Version = "v0.3.1"
+                Version = "v0.4.0"
             });
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
             {
