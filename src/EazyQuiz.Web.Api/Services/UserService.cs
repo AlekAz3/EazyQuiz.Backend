@@ -1,5 +1,4 @@
 using AutoMapper;
-using EazyQuiz.Cryptography;
 using EazyQuiz.Data.Entities;
 using EazyQuiz.Models.DTO;
 using Microsoft.EntityFrameworkCore;
@@ -59,6 +58,9 @@ public class UserService
         return null;
     }
 
+    /// <summary>
+    /// Записать в бд информацию о новом пользователе
+    /// </summary>
     public async Task RegisterNewUser(UserRegister user)
     {
         _log.LogInformation("Register {@User}", user);
@@ -68,6 +70,9 @@ public class UserService
         await _dataContext.SaveChangesAsync();
     }
 
+    /// <summary>
+    /// Сгенерировать JWT токен 
+    /// </summary>
     private string GenerateJwtToken(User user)
     {
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
@@ -85,6 +90,9 @@ public class UserService
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
+    /// <summary>
+    /// Получить "Соль" пользователя
+    /// </summary>
     public async Task<string> GetUserSalt(string userName)
     {
         string userSalt = await _dataContext.User

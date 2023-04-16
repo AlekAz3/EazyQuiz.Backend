@@ -23,7 +23,6 @@ public class QuestionsService
         _mapper = mapper;
     }
 
-
     /// <summary>
     /// Записать ответ игрока в базу данных
     /// </summary>

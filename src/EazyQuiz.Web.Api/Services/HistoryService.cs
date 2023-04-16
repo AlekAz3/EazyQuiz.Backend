@@ -36,11 +36,11 @@ public class HistoryService
 
         var res = userAnswers.Select(x => new UserAnswerHistory()
         {
-            QuestionText = _context.Question.AsNoTracking().First(q => q.Id == x.QuestionId).Text,
-            AnswerText = _context.Answer.AsNoTracking().First(a => a.Id == x.AnswerId).Text,
+            QuestionText = x.Question.Text,
+            AnswerText = x.Answer.Text,
             IsCorrect = x.IsCorrect,
             AnswerTime = x.AnswerTime,
-        });
+        }) ;
 
         return new InputCountDTO<UserAnswerHistory>(totalCount, res);
     }
