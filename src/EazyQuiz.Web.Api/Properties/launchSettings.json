@@ -9,12 +9,22 @@
     }
   },
   "profiles": {
-    "EazyQuiz.Web.Api": {
+    "EazyQuiz.Web.Api (Work)": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:7273;http://10.61.140.42:5274",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "EazyQuiz.Web.Api (Home)": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:7273;http://192.168.1.90:5274",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

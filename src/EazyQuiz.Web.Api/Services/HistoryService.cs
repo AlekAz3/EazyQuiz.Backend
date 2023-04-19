@@ -31,13 +31,15 @@ public class HistoryService
             .AsNoTracking()
             .OrderByDescending(x => x.AnswerTime)
             .Where(x => x.UserId == userId)
+            .Include(x => x.Answer)
+            .Include(x => x.Question)
             .AddPagination(command)
             .ToListAsync(token);
 
         var res = userAnswers.Select(x => new UserAnswerHistory()
         {
-            QuestionText = _context.Question.AsNoTracking().First(q => q.Id == x.QuestionId).Text,
-            AnswerText = _context.Answer.AsNoTracking().First(a => a.Id == x.AnswerId).Text,
+            QuestionText = x.Question.Text,
+            AnswerText = x.Answer.Text,
             IsCorrect = x.IsCorrect,
             AnswerTime = x.AnswerTime,
         });

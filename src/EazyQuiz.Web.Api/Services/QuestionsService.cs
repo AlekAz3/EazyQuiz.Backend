@@ -1,7 +1,8 @@
 using AutoMapper;
-using EazyQuiz.Models.Database;
+using EazyQuiz.Data.Entities;
 using EazyQuiz.Models.DTO;
 using Microsoft.EntityFrameworkCore;
+
 namespace EazyQuiz.Web.Api;
 
 public class QuestionsService
@@ -20,34 +21,6 @@ public class QuestionsService
         _dataContext = dataContext;
         _logger = logger;
         _mapper = mapper;
-    }
-
-    /// <summary>
-    /// Получить 10 вопросов с ответами 
-    /// </summary>
-    /// <returns>Коллекция вопросов</returns>
-    public async Task<IReadOnlyCollection<QuestionWithAnswers>> GetTenQuestions()
-    {
-        var questions = await _dataContext.Question
-            .AsNoTracking()
-            .OrderBy(x => EF.Functions.Random())
-            .Take(10)
-            .ToListAsync();
-
-        var questionsWithAnswers = questions.Select(x => new QuestionWithAnswers()
-        {
-            QuestionId = x.Id,
-            Text = x.Text,
-            Answers = _dataContext.Answer
-                    .AsNoTracking()
-                    .Where(y => y.QuestionId == x.Id)
-                    .Select(x => _mapper.Map<Answer>(x))
-                    .ToList()
-        }).ToArray();
-
-        _logger.LogInformation("{@QuestionsWithAnswers}", questionsWithAnswers);
-
-        return questionsWithAnswers;
     }
 
     /// <summary>
@@ -73,25 +46,46 @@ public class QuestionsService
     /// <summary>
     /// Добавить вопрос в базу данных
     /// </summary>
-    internal async Task AddQuestion(QuestionWithoutId question)
+    public async Task AddQuestion(QuestionWithoutId question)
     {
         _logger.LogInformation("New Question {@Question}", question);
         var questionId = Guid.NewGuid();
         var questionEntity = new Question()
         {
             Id = questionId,
-            Text = question.Text
-        };
-        var answerEntities = question.Answers
-            .Select(x => new Answers()
+            Text = question.Text,
+            ThemeId = question.ThemeId,
+            Answers = question.Answers.Select(x => new Answers()
             {
                 Text = x.Text,
                 IsCorrect = x.IsCorrect,
                 QuestionId = questionId
-            });
-        _dataContext.Question.Add(questionEntity);
+            }).ToList(),
+        };
+        _dataContext.Add(questionEntity);
         await _dataContext.SaveChangesAsync();
-        _dataContext.Answer.AddRange(answerEntities);
-        await _dataContext.SaveChangesAsync();
+    }
+
+    public async Task<IReadOnlyCollection<QuestionWithAnswers>> GetQuestionsByFilter(GetQuestionCommand command, CancellationToken token)
+    {
+        var questionss = _dataContext.Question
+            .AsNoTracking()
+            .Where(x => command.ThemeId == null || x.ThemeId == command.ThemeId)
+            .OrderBy(x => EF.Functions.Random())
+            .Take(command.Count ?? 10)
+            .Include(x => x.Answers);
+
+        var questions = await questionss.ToListAsync(token);
+
+        _logger.LogInformation("{@QuestionsWithAnswers}", questionss.ToQueryString());
+        //_logger.LogInformation("{@QuestionsWithAnswers}", questions);
+        var questionsWithAnswers = questions.Select(x => new QuestionWithAnswers()
+        {
+            QuestionId = x.Id,
+            Text = x.Text,
+            Answers = x.Answers.Select(x => _mapper.Map<Answer>(x)).ToList(),
+        }).ToArray();
+
+        return questionsWithAnswers;
     }
 }

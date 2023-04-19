@@ -1,8 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
 
-namespace EazyQuiz.Models.Database;
+namespace EazyQuiz.Data.Entities;
 
 /// <summary>
 /// Описание пользователя
@@ -49,12 +48,14 @@ public class User
     /// <summary>
     /// Пароль Хэш
     /// </summary>
-    [JsonIgnore]
     public string? PasswordHash { get; set; }
 
     /// <summary>
     /// Соль пароля
     /// </summary>
-    [JsonIgnore]
     public string? PasswordSalt { get; set; }
+
+    public ICollection<UsersAnswers> UsersAnswers { get; set; } = new List<UsersAnswers>();
+
+    public ICollection<UsersQuesions> UsersQuesions { get; set; } = new List<UsersQuesions>();
 }

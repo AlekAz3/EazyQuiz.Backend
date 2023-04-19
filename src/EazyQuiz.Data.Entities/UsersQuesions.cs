@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace EazyQuiz.Models.Database;
+namespace EazyQuiz.Data.Entities;
 
 /// <summary>
 /// Временное хранение предложенных вопросов от пользователей
@@ -37,4 +37,6 @@ public class UsersQuesions
     /// Последнее обновление
     /// </summary>
     public DateTimeOffset LastUpdate { get; set; }
+
+    public User User { get; set; }
 }

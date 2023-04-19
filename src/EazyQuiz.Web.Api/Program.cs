@@ -29,6 +29,7 @@ public class Program
              .AddScoped<QuestionsService>()
              .AddScoped<HistoryService>()
              .AddScoped<UsersQuestionService>()
+             .AddScoped<ThemesService>()
              .AddEndpointsApiExplorer()
              .AddAuth(builder.Configuration); //Добавление JWT
 

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EazyQuiz.Web.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230413130724_byteToString")]
-    partial class byteToString
+    [Migration("20230414132955_InitalCreate")]
+    partial class InitalCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,7 @@ namespace EazyQuiz.Web.Api.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("EazyQuiz.Models.Database.Answers", b =>
+            modelBuilder.Entity("EazyQuiz.Data.Entities.Answers", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -42,10 +42,12 @@ namespace EazyQuiz.Web.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("QuestionId");
+
                     b.ToTable("Answers");
                 });
 
-            modelBuilder.Entity("EazyQuiz.Models.Database.Question", b =>
+            modelBuilder.Entity("EazyQuiz.Data.Entities.Question", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -59,7 +61,7 @@ namespace EazyQuiz.Web.Api.Migrations
                     b.ToTable("Questions");
                 });
 
-            modelBuilder.Entity("EazyQuiz.Models.Database.User", b =>
+            modelBuilder.Entity("EazyQuiz.Data.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -95,9 +97,23 @@ namespace EazyQuiz.Web.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("03009ee9-c62d-4340-9106-59177d3dff8f"),
+                            Age = 0,
+                            Country = "",
+                            Gender = "",
+                            PasswordHash = "H3rq06vpbbJMWds6JlG4BeH4egt3bEm/wVUdqpwBqyBDjSxbB+PHUp9vb/gdM6B4wqql3B/FU888P7GQ9nXDag==",
+                            PasswordSalt = "ELiNWv7oU1w/a4Wph9boQGdnx2ADiSF9Q0WUI5C0od4=",
+                            Points = 0,
+                            RegistrationTime = new DateTimeOffset(new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            Username = "Dev"
+                        });
                 });
 
-            modelBuilder.Entity("EazyQuiz.Models.Database.UsersAnswers", b =>
+            modelBuilder.Entity("EazyQuiz.Data.Entities.UsersAnswers", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -120,10 +136,16 @@ namespace EazyQuiz.Web.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AnswerId");
+
+                    b.HasIndex("QuestionId");
+
+                    b.HasIndex("UserId");
+
                     b.ToTable("UsersAnswers");
                 });
 
-            modelBuilder.Entity("EazyQuiz.Models.Database.UsersQuesions", b =>
+            modelBuilder.Entity("EazyQuiz.Data.Entities.UsersQuesions", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -149,7 +171,77 @@ namespace EazyQuiz.Web.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("UsersQuestions");
+                });
+
+            modelBuilder.Entity("EazyQuiz.Data.Entities.Answers", b =>
+                {
+                    b.HasOne("EazyQuiz.Data.Entities.Question", "Question")
+                        .WithMany("Answers")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Question");
+                });
+
+            modelBuilder.Entity("EazyQuiz.Data.Entities.UsersAnswers", b =>
+                {
+                    b.HasOne("EazyQuiz.Data.Entities.Answers", "Answer")
+                        .WithMany("UsersAnswers")
+                        .HasForeignKey("AnswerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EazyQuiz.Data.Entities.Question", "Question")
+                        .WithMany("UsersAnswers")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EazyQuiz.Data.Entities.User", "User")
+                        .WithMany("UsersAnswers")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Answer");
+
+                    b.Navigation("Question");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("EazyQuiz.Data.Entities.UsersQuesions", b =>
+                {
+                    b.HasOne("EazyQuiz.Data.Entities.User", "User")
+                        .WithMany("UsersQuesions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("EazyQuiz.Data.Entities.Answers", b =>
+                {
+                    b.Navigation("UsersAnswers");
+                });
+
+            modelBuilder.Entity("EazyQuiz.Data.Entities.Question", b =>
+                {
+                    b.Navigation("Answers");
+
+                    b.Navigation("UsersAnswers");
+                });
+
+            modelBuilder.Entity("EazyQuiz.Data.Entities.User", b =>
+                {
+                    b.Navigation("UsersAnswers");
+
+                    b.Navigation("UsersQuesions");
                 });
 #pragma warning restore 612, 618
         }

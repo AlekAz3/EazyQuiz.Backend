@@ -1,7 +1,6 @@
 using AutoMapper;
-using EazyQuiz.Models.Database;
+using EazyQuiz.Data.Entities;
 using EazyQuiz.Models.DTO;
-using System.Text;
 
 namespace EazyQuiz.Web.Api;
 
@@ -27,6 +26,8 @@ public class MappingProfile : Profile
 
         CreateMap<QuestionByUserResponse, UsersQuesions>().ReverseMap();
         CreateMap<UserQuestionResponse, UsersQuesions>().ReverseMap();
+
+        CreateMap<Theme, ThemeResponse>();
 
         CreateMap<AddQuestionByUser, UsersQuesions>()
             .ForMember(x => x.LastUpdate, opt => opt.MapFrom(opt => DateTimeOffset.Now))
