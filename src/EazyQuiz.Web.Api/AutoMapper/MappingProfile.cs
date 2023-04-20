@@ -21,7 +21,7 @@ public class MappingProfile : Profile
         CreateMap<UserRegister, User>()
             .ForMember(x => x.PasswordHash, opt => opt.MapFrom(src => src.Password.PasswordHash))
             .ForMember(x => x.PasswordSalt, opt => opt.MapFrom(src => src.Password.PasswordSalt))
-            .ForMember(x => x.RegistrationTime, opt => opt.MapFrom(src => DateTimeOffset.Now));
+            .ForMember(x => x.LastActiveTime, opt => opt.MapFrom(src => DateTimeOffset.Now));
         CreateMap<User, UserResponse>();
 
         CreateMap<QuestionByUserResponse, UsersQuesions>().ReverseMap();

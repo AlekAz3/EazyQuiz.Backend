@@ -4,7 +4,7 @@ using EazyQuiz.Extensions;
 using EazyQuiz.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 
-namespace EazyQuiz.Web.Api.Services;
+namespace EazyQuiz.Web.Api;
 
 /// <summary>
 /// Сервис по работе с предложенными вопросами от пользователей 
@@ -76,8 +76,8 @@ public class UsersQuestionService
             .AddPagination(filter)
             .ToListAsync(token);
 
-        var kek = data.Select(x => _mapper.Map<UserQuestionResponse>(x)).ToList();
-        return kek;
+        var response = data.Select(x => _mapper.Map<UserQuestionResponse>(x)).ToList();
+        return response;
     }
 
     /// <summary>
@@ -85,7 +85,7 @@ public class UsersQuestionService
     /// </summary>
     /// <param name="question">Вопрос</param>
     /// <param name="token">Токен отмены запроса</param>
-    public async Task UpdateUserQuestion(UpdateUserQuestion question, CancellationToken token)
+    public async Task<UserQuestionResponse> UpdateUserQuestion(UpdateUserQuestion question, CancellationToken token)
     {
         var data = await _context.UsersQuestions
             .Where(x => x.Id == question.Id).SingleOrDefaultAsync(token);
@@ -100,5 +100,9 @@ public class UsersQuestionService
         _context.Update(data);
 
         await _context.SaveChangesAsync(token);
+
+        var response = _mapper.Map<UserQuestionResponse>(data);
+        return response;
     }
+
 }

@@ -2,7 +2,7 @@ using EazyQuiz.Extensions;
 using EazyQuiz.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 
-namespace EazyQuiz.Web.Api.Services;
+namespace EazyQuiz.Web.Api;
 
 public class HistoryService
 {

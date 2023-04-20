@@ -38,6 +38,11 @@ namespace EazyQuiz.Models.DTO
         public string? Country { get; set; }
 
         /// <summary>
+        /// Роль
+        /// </summary>
+        public string? Role { get; set; } = null!;
+
+        /// <summary>
         /// JWT Токен
         /// </summary>
         public string? Token { get; set; }

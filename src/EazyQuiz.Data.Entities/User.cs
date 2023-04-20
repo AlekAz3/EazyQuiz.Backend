@@ -21,9 +21,9 @@ public class User
     public string Username { get; set; } = string.Empty;
 
     /// <summary>
-    /// Почта
+    /// Возраст
     /// </summary>
-    public int Age { get; set; }
+    public DateTimeOffset BirthDate { get; set; }
 
     /// <summary>
     /// Пол
@@ -41,9 +41,14 @@ public class User
     public string Country { get; set; } = string.Empty;
 
     /// <summary>
-    /// Время Регистрации
+    /// Время последней активности
     /// </summary>
-    public DateTimeOffset RegistrationTime { get; set; }
+    public DateTimeOffset LastActiveTime { get; set; }
+
+    /// <summary>
+    /// Роль
+    /// </summary>
+    public string Role { get; set; } = string.Empty;
 
     /// <summary>
     /// Пароль Хэш

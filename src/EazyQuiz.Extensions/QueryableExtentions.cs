@@ -15,20 +15,10 @@ namespace EazyQuiz.Extensions
         {
             if (command.PageNumber >= 0 && command.PageSize > 0)
             {
-                return AddPagination(query, command.PageNumber.Value, command.PageSize.Value);
+                query.Skip(command.PageSize.Value * command.PageNumber.Value).Take(command.PageSize.Value);
             }
 
             return query;
-        }
-
-        /// <summary>
-        /// Добавляет пагинацию для IQueryable
-        /// </summary>
-        /// <param name="query">Исходный IQueryable</param>
-        /// <returns>Новый IQueryable с пагинацией</returns>
-        private static IQueryable<T> AddPagination<T>(this IQueryable<T> query, int pageNumber, int pageSize)
-        {
-            return query.Skip(pageSize * pageNumber).Take(pageSize);
         }
     }
 }

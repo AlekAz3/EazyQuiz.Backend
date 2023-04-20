@@ -38,5 +38,6 @@ public class UsersQuesions
     /// </summary>
     public DateTimeOffset LastUpdate { get; set; }
 
-    public User User { get; set; }
+    /// <inheritdoc cref="User"/>
+    public User User { get; set; } = null!;
 }

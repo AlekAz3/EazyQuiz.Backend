@@ -30,5 +30,10 @@ namespace EazyQuiz.Models.DTO
         /// Страна проживания
         /// </summary>
         public string Country { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Роль
+        /// </summary>
+        public string Role { get; set; } = string.Empty;
     }
 }

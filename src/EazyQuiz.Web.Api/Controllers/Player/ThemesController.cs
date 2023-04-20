@@ -1,4 +1,3 @@
-using EazyQuiz.Web.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EazyQuiz.Web.Api;
