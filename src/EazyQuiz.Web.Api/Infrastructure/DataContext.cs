@@ -29,9 +29,9 @@ public class DataContext : DbContext
     public DbSet<UsersAnswers> UserAnswer { get; set; }
 
     /// <summary>
-    /// Таблица UsersQuesions
+    /// Таблица UsersQuestions
     /// </summary>
-    public DbSet<UsersQuesions> UsersQuestions { get; set; }
+    public DbSet<UsersQuestions> UsersQuestions { get; set; }
 
 
     public DbSet<Theme> Themes { get; set; }

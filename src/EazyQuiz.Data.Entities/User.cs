@@ -62,5 +62,5 @@ public class User
 
     public ICollection<UsersAnswers> UsersAnswers { get; set; } = new List<UsersAnswers>();
 
-    public ICollection<UsersQuesions> UsersQuesions { get; set; } = new List<UsersQuesions>();
+    public ICollection<UsersQuestions> UsersQuestions { get; set; } = new List<UsersQuestions>();
 }

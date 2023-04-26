@@ -24,12 +24,12 @@ public class MappingProfile : Profile
             .ForMember(x => x.LastActiveTime, opt => opt.MapFrom(src => DateTimeOffset.Now));
         CreateMap<User, UserResponse>();
 
-        CreateMap<QuestionByUserResponse, UsersQuesions>().ReverseMap();
-        CreateMap<UserQuestionResponse, UsersQuesions>().ReverseMap();
+        CreateMap<QuestionByUserResponse, UsersQuestions>().ReverseMap();
+        CreateMap<UserQuestionResponse, UsersQuestions>().ReverseMap();
 
         CreateMap<Theme, ThemeResponse>();
 
-        CreateMap<AddQuestionByUser, UsersQuesions>()
+        CreateMap<AddQuestionByUser, UsersQuestions>()
             .ForMember(x => x.LastUpdate, opt => opt.MapFrom(opt => DateTimeOffset.Now))
             .ForMember(x => x.Status, opt => opt.MapFrom(opt => "Новый"));
     }

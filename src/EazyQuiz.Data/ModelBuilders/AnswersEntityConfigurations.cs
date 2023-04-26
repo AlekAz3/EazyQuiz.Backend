@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EazyQuiz.Data;
 
+/// <summary>
+/// Конфигурация сущности <see cref="Answers"/>
+/// </summary>
 public class AnswersEntityConfigurations : IEntityTypeConfiguration<Answers>
 {
     public void Configure(EntityTypeBuilder<Answers> builder)

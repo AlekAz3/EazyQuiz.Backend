@@ -30,7 +30,7 @@ public class UsersQuestionService
     /// <param name="token">Токен отмены</param>
     public async Task AddNewUserQuestionToQueue(AddQuestionByUser questionByUser, CancellationToken token)
     {
-        var question = _mapper.Map<UsersQuesions>(questionByUser);
+        var question = _mapper.Map<UsersQuestions>(questionByUser);
         await _context.UsersQuestions.AddAsync(question, token);
         await _context.SaveChangesAsync(token);
     }
