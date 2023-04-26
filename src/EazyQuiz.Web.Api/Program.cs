@@ -1,4 +1,3 @@
-using EazyQuiz.Web.Api.Services;
 using Serilog;
 
 namespace EazyQuiz.Web.Api;
@@ -45,7 +44,11 @@ public class Program
 
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
-        //app.UseHttpsRedirection();
+        if (app.Environment.IsProduction())
+        {
+            app.UseHttpsRedirection();
+        }
+
 
         app.UseAuthentication()
            .UseAuthorization();
