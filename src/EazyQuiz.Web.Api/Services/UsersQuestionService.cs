@@ -3,6 +3,7 @@ using EazyQuiz.Data.Entities;
 using EazyQuiz.Extensions;
 using EazyQuiz.Models.DTO;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace EazyQuiz.Web.Api;
 
@@ -51,12 +52,14 @@ public class UsersQuestionService
 
         var usersQuestions = await _context.UsersQuestions
             .AsNoTracking()
-            .OrderByDescending(x => x.LastUpdate)
             .Where(x => x.UserId == userId)
+            .OrderByDescending(x => x.LastUpdate)
+            //.Skip(command.PageSize.Value * command.PageNumber.Value)
+            //.Take(command.PageSize.Value)
             .AddPagination(command)
             .ToListAsync(token);
 
-        var result = usersQuestions.Select(x => _mapper.Map<QuestionByUserResponse>(x));
+        var result = usersQuestions.Select(_mapper.Map<QuestionByUserResponse>);
 
         return new InputCountDTO<QuestionByUserResponse>(totalCount, result);
     }
@@ -73,10 +76,12 @@ public class UsersQuestionService
         var data = await _context.UsersQuestions
             .AsNoTracking()
             .Where(x => filter.Status.IsNullOrEmpty() || x.Status == filter.Status)
+            //.Skip(filter.PageSize.Value * filter.PageNumber.Value)
+            //.Take(filter.PageSize.Value)
             .AddPagination(filter)
             .ToListAsync(token);
 
-        var response = data.Select(x => _mapper.Map<UserQuestionResponse>(x)).ToList();
+        var response = data.Select(_mapper.Map<UserQuestionResponse>).ToList();
         return response;
     }
 

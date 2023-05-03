@@ -15,7 +15,7 @@ namespace EazyQuiz.Extensions
         {
             if (command.PageNumber >= 0 && command.PageSize > 0)
             {
-                query.Skip(command.PageSize.Value * command.PageNumber.Value).Take(command.PageSize.Value);
+                return query.Skip(command.PageSize.Value * command.PageNumber.Value).Take(command.PageSize.Value);
             }
 
             return query;

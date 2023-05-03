@@ -12,7 +12,7 @@ public class Program
         .ReadFrom.Configuration(builder.Configuration) //Использование Serilog
         .Enrich.FromLogContext()
                 .WriteTo.Console()
-                .WriteTo.File($@"..\logs\{DateTimeOffset.Now:dd-MM-yyyy}\log.txt", rollingInterval: RollingInterval.Hour)
+                .WriteTo.File($@".\logs\{DateTimeOffset.Now:dd-MM-yyyy}\log.txt", rollingInterval: RollingInterval.Hour)
                 .CreateLogger();
 
         builder.Logging.ClearProviders()
@@ -45,7 +45,7 @@ public class Program
 
         app.UseSwagger()
            .UseSwaggerUI();
-        
+
         if (app.Environment.IsProduction())
         {
             app.UseHttpsRedirection();
