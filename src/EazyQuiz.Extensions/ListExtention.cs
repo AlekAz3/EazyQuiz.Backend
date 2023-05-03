@@ -8,9 +8,7 @@ namespace EazyQuiz.Extensions
     /// </summary>
     public static class ListExtention
     {
-#pragma warning disable IDE0090 // Use 'new(...)'
         private static readonly Random Random = new Random();
-#pragma warning restore IDE0090 // Use 'new(...)'
 
         /// <summary>
         /// Перемешать коллекцию

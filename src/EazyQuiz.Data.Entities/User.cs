@@ -21,16 +21,6 @@ public class User
     public string Username { get; set; } = string.Empty;
 
     /// <summary>
-    /// Возраст
-    /// </summary>
-    public DateTimeOffset BirthDate { get; set; }
-
-    /// <summary>
-    /// Пол
-    /// </summary>
-    public string Gender { get; set; } = string.Empty;
-
-    /// <summary>
     /// Счёт
     /// </summary>
     public int Points { get; set; }
@@ -60,7 +50,7 @@ public class User
     /// </summary>
     public string? PasswordSalt { get; set; }
 
-    public ICollection<UsersAnswers> UsersAnswers { get; set; } = new List<UsersAnswers>();
+    public ICollection<UsersAnswer> UsersAnswers { get; set; } = new List<UsersAnswer>();
 
     public ICollection<UsersQuestions> UsersQuestions { get; set; } = new List<UsersQuestions>();
 }

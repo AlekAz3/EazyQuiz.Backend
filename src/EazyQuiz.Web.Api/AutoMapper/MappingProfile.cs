@@ -11,10 +11,10 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        CreateMap<UserAnswer, UsersAnswers>()
+        CreateMap<UserAnswer, UsersAnswer>()
             .ForMember(x => x.AnswerTime, opt => opt.MapFrom(src => DateTimeOffset.Now));
 
-        CreateMap<Answers, Answer>()
+        CreateMap<Answer, AnswerDTO>()
             .ForMember(x => x.AnswerId, opt => opt.MapFrom(src => src.Id))
             .ForMember(x => x.AnswerText, opt => opt.MapFrom(src => src.Text));
 
@@ -32,5 +32,7 @@ public class MappingProfile : Profile
         CreateMap<AddQuestionByUser, UsersQuestions>()
             .ForMember(x => x.LastUpdate, opt => opt.MapFrom(opt => DateTimeOffset.Now))
             .ForMember(x => x.Status, opt => opt.MapFrom(opt => "Новый"));
+
+        CreateMap<User, PublicUserInfo>().ReverseMap();
     }
 }

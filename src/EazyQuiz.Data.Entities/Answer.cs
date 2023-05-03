@@ -7,7 +7,7 @@ namespace EazyQuiz.Data.Entities;
 /// Описание обьекта ответа
 /// </summary>
 [Table("Answers")]
-public class Answers
+public class Answer
 {
     /// <summary>
     /// Ид вопроса
@@ -30,5 +30,5 @@ public class Answers
     public Guid QuestionId { get; set; }
 
     public Question? Question { get; set; }
-    public ICollection<UsersAnswers> UsersAnswers { get; set; } = new List<UsersAnswers>();
+    public ICollection<UsersAnswer> UsersAnswers { get; set; } = new List<UsersAnswer>();
 }

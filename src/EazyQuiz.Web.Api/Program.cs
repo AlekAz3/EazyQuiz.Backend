@@ -12,6 +12,7 @@ public class Program
         .ReadFrom.Configuration(builder.Configuration) //Использование Serilog
         .Enrich.FromLogContext()
                 .WriteTo.Console()
+                .WriteTo.File($@"..\logs\{DateTimeOffset.Now:dd-MM-yyyy}\log.txt", rollingInterval: RollingInterval.Hour)
                 .CreateLogger();
 
         builder.Logging.ClearProviders()
@@ -29,6 +30,7 @@ public class Program
              .AddScoped<HistoryService>()
              .AddScoped<UsersQuestionService>()
              .AddScoped<ThemesService>()
+             .AddScoped<LeaderboardService>()
              .AddEndpointsApiExplorer()
              .AddAuth(builder.Configuration); //Добавление JWT
 
@@ -39,11 +41,11 @@ public class Program
 
         var app = builder.Build();
 
-        app.UseSwagger()
-           .UseSwaggerUI();
-
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
+        app.UseSwagger()
+           .UseSwaggerUI();
+        
         if (app.Environment.IsProduction())
         {
             app.UseHttpsRedirection();

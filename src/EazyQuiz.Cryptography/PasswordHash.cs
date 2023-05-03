@@ -60,17 +60,6 @@ namespace EazyQuiz.Cryptography
         }
 
         /// <summary>
-        /// Сравнение хэшей
-        /// </summary>
-        /// <param name="inputHash">Первый хэш</param>
-        /// <param name="hash2">Второй хэш</param>
-        /// <returns>true если равны</returns>
-        public static bool Verify(byte[] inputHash, byte[] hash2)
-        {
-            return CryptographicOperations.FixedTimeEquals(inputHash, hash2);
-        }
-
-        /// <summary>
         /// Генерация Соли
         /// </summary>
         /// <returns>Соль</returns>

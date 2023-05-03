@@ -6,7 +6,7 @@ namespace EazyQuiz.Data.Entities;
 /// Ответы пользователей
 /// </summary>
 [Table("UsersAnswers")]
-public class UsersAnswers
+public class UsersAnswer
 {
     /// <summary>
     /// Ид
@@ -39,6 +39,6 @@ public class UsersAnswers
     public bool IsCorrect { get; set; }
 
     public User User { get; set; }
-    public Answers Answer { get; set; }
+    public Answer Answer { get; set; }
     public Question Question { get; set; }
 }

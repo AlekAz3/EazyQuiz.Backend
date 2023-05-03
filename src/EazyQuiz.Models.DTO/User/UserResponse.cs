@@ -18,16 +18,6 @@ namespace EazyQuiz.Models.DTO
         public string? UserName { get; set; }
 
         /// <summary>
-        /// Возраст
-        /// </summary>
-        public int Age { get; set; }
-
-        /// <summary>
-        /// Пол
-        /// </summary>
-        public string Gender { get; set; } = string.Empty;
-
-        /// <summary>
         /// Счёт
         /// </summary>
         public int Points { get; set; }

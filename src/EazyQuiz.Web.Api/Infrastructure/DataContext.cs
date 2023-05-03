@@ -21,12 +21,12 @@ public class DataContext : DbContext
     /// <summary>
     /// Таблица Answers
     /// </summary>
-    public DbSet<Answers> Answer { get; set; }
+    public DbSet<Answer> Answer { get; set; }
 
     /// <summary>
     /// Таблица UsersAnswers
     /// </summary>
-    public DbSet<UsersAnswers> UserAnswer { get; set; }
+    public DbSet<UsersAnswer> UserAnswer { get; set; }
 
     /// <summary>
     /// Таблица UsersQuestions

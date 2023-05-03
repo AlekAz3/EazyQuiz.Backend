@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace EazyQuiz.Data;
 
 /// <summary>
-/// Конфигурация сущности <see cref="UsersAnswers"/>
+/// Конфигурация сущности <see cref="UsersAnswer"/>
 /// </summary>
-public class UserAnswersEntityConfigurations : IEntityTypeConfiguration<UsersAnswers>
+public class UserAnswersEntityConfigurations : IEntityTypeConfiguration<UsersAnswer>
 {
-    public void Configure(EntityTypeBuilder<UsersAnswers> builder)
+    public void Configure(EntityTypeBuilder<UsersAnswer> builder)
     {
         builder.HasOne(a => a.User)
             .WithMany(x => x.UsersAnswers)

@@ -28,18 +28,19 @@ public class QuestionsService
     /// </summary>
     public async Task WriteUserAnswer(UserAnswer answer)
     {
-        var user = _mapper.Map<UsersAnswers>(answer);
+        var userAnswer = _mapper.Map<UsersAnswer>(answer);
 
-        if (_dataContext.Answer.Find(answer.AnswerId).IsCorrect)
+        if ((await _dataContext.Answer.FindAsync(answer.AnswerId)).IsCorrect)
         {
-            var a = await _dataContext.User.FindAsync(answer.UserId);
-            a.Points++;
-            user.IsCorrect = true;
-            _dataContext.Update(a);
+            var player = await _dataContext.User.FindAsync(answer.UserId);
+            player.Points++;
+            player.LastActiveTime = DateTime.UtcNow;
+            userAnswer.IsCorrect = true;
+            _dataContext.Update(player);
         }
 
-        _logger.LogInformation("User Answer Question {@User}", user);
-        await _dataContext.UserAnswer.AddAsync(user);
+        _logger.LogInformation("User Answer Question {@User}", userAnswer);
+        await _dataContext.UserAnswer.AddAsync(userAnswer);
         await _dataContext.SaveChangesAsync();
     }
 
@@ -55,7 +56,7 @@ public class QuestionsService
             Id = questionId,
             Text = question.Text,
             ThemeId = question.ThemeId,
-            Answers = question.Answers.Select(x => new Answers()
+            Answers = question.Answers.Select(x => new Answer()
             {
                 Text = x.Text,
                 IsCorrect = x.IsCorrect,
@@ -72,18 +73,18 @@ public class QuestionsService
             .AsNoTracking()
             .Where(x => command.ThemeId == null || x.ThemeId == command.ThemeId)
             .OrderBy(x => EF.Functions.Random())
-            .Take(command.Count ?? 10)
+            .Take(command.Count)
             .Include(x => x.Answers);
 
         var questions = await questionss.ToListAsync(token);
 
         _logger.LogInformation("{@QuestionsWithAnswers}", questionss.ToQueryString());
-        //_logger.LogInformation("{@QuestionsWithAnswers}", questions);
+
         var questionsWithAnswers = questions.Select(x => new QuestionWithAnswers()
         {
             QuestionId = x.Id,
             Text = x.Text,
-            Answers = x.Answers.Select(x => _mapper.Map<Answer>(x)).ToList(),
+            Answers = x.Answers.Select(x => _mapper.Map<AnswerDTO>(x)).ToList(),
         }).ToArray();
 
         return questionsWithAnswers;

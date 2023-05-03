@@ -5,7 +5,7 @@ namespace EazyQuiz.Models.DTO
     /// <summary>
     /// ДТО ответа на вопрос
     /// </summary>
-    public class Answer
+    public class AnswerDTO
     {
         /// <summary>
         /// Ид
