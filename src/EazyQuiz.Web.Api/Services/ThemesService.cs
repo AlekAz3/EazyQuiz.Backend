@@ -30,7 +30,7 @@ public class ThemesService
     public async Task<IReadOnlyCollection<ThemeResponse>> GetAll(CancellationToken token)
     {
         var themes = await _context.Themes.ToListAsync(token);
-        return themes.Select(x => _mapper.Map<ThemeResponse>(x)).ToList();
+        return themes.Select(_mapper.Map<ThemeResponse>).ToList();
     }
 
     /// <summary>

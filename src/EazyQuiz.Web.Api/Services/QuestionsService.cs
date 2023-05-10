@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EazyQuiz.Web.Api;
 
+/// <summary>
+/// Сервис управляющий вопросами
+/// </summary>
 public class QuestionsService
 {
     /// <inheritdoc cref="DataContext"/>

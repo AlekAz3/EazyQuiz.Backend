@@ -16,7 +16,7 @@ public class LeaderboardController : BaseController
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetByFilter([FromRoute] LeaderboardRequest filter, CancellationToken token)
+    public async Task<IActionResult> GetByFilter([FromQuery] LeaderboardRequest filter, CancellationToken token)
     {
         var users = await _service.GetByFilter(filter, token);
         _log.LogInformation("Get Leaderboard");
@@ -24,10 +24,10 @@ public class LeaderboardController : BaseController
     }
 
     [HttpGet("user")]
-    public async Task<IActionResult> GetUser(CancellationToken token)
+    public async Task<IActionResult> GetUser([FromQuery] string country, CancellationToken token)
     {
         var userId = Guid.Parse(User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
-        var score = await _service.GetCurrentUserScore(userId, token);
+        var score = await _service.GetCurrentUserScore(userId, country, token);
         _log.LogInformation("GetCurrentUserScore {UserId}, {Score}", userId, score);
         return Ok(score);
     }

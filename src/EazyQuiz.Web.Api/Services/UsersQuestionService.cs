@@ -3,7 +3,6 @@ using EazyQuiz.Data.Entities;
 using EazyQuiz.Extensions;
 using EazyQuiz.Models.DTO;
 using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace EazyQuiz.Web.Api;
 

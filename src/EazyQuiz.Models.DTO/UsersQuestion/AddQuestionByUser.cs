@@ -1,4 +1,3 @@
-using System;
 namespace EazyQuiz.Models.DTO
 {
     /// <summary>
