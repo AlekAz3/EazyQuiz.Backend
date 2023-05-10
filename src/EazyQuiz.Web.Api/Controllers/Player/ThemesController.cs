@@ -3,9 +3,12 @@ using System.Security.Claims;
 
 namespace EazyQuiz.Web.Api;
 
-
+/// <summary>
+/// Контроллер управляющий темами вопросов
+/// </summary>
 public class ThemesController : BaseController
 {
+    /// <inheritdoc cref="ThemesService"/>
     private readonly ThemesService _service;
 
     public ThemesController(ThemesService service)
@@ -13,6 +16,11 @@ public class ThemesController : BaseController
         _service = service;
     }
 
+    /// <summary>
+    /// Получить коллекцию всех тем 
+    /// </summary>
+    /// <param name="token">Токен отмены запроса</param>
+    /// <returns>Коллекция тем </returns>
     [HttpGet]
     public async Task<IActionResult> GetThemes(CancellationToken token)
     {
@@ -20,6 +28,12 @@ public class ThemesController : BaseController
         return Ok(themes);
     }
 
+    /// <summary>
+    /// Добавить новую тему 
+    /// </summary>
+    /// <param name="name">Название темы </param>
+    /// <param name="token">Токен отмены запроса</param>
+    /// <remarks>Только для администратора</remarks>
     [HttpPost]
     public async Task<IActionResult> AddTheme([FromBody] string name, CancellationToken token)
     {

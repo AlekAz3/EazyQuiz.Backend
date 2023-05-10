@@ -2,6 +2,9 @@ using System;
 
 namespace EazyQuiz.Models.DTO
 {
+    /// <summary>
+    /// Обновить состояние вопроса пользователя 
+    /// </summary>
     public class UpdateUserQuestion
     {
         /// <summary>

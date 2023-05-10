@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace EazyQuiz.Models.DTO
 {
+    /// <summary>
+    /// Данные для отображения с общим количеством
+    /// </summary>
     public class InputCountDTO<T>
     {
         /// <summary>

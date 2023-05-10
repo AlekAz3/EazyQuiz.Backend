@@ -5,6 +5,9 @@ using System.Text;
 
 namespace EazyQuiz.Web.Api;
 
+/// <summary>
+/// Набор расширений для <see cref="IServiceCollection"/>
+/// </summary>
 public static class ServiceCollectionExtensions
 {
 

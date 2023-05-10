@@ -21,6 +21,12 @@ public class QuestionsController : BaseController
         _logger = logger;
     }
 
+    /// <summary>
+    /// Получить коллекцию вопросов по фильтру
+    /// </summary>
+    /// <param name="command">Фильтр</param>
+    /// <param name="token">Токен отмены запроса</param>
+    /// <returns>Коллекция вопросов с ответами</returns>
     [HttpGet]
     public async Task<IActionResult> GetQuestionByFilter([FromQuery] GetQuestionCommand command, CancellationToken token)
     {
@@ -43,6 +49,7 @@ public class QuestionsController : BaseController
     /// <summary>
     /// Добавить вопрос с админки
     /// </summary>
+    /// <remarks>Унести в другое место</remarks>
     [HttpPost(nameof(Add))]
     public async Task<IActionResult> Add([FromBody] QuestionWithoutId question)
     {

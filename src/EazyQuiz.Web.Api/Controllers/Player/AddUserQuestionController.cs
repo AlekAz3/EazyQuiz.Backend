@@ -9,6 +9,7 @@ namespace EazyQuiz.Web.Api;
 /// </summary>
 public class AddUserQuestionController : BaseController
 {
+    /// <inheritdoc cref="UsersQuestionService"/>
     private readonly UsersQuestionService _service;
 
     public AddUserQuestionController(UsersQuestionService service)
@@ -16,14 +17,25 @@ public class AddUserQuestionController : BaseController
         _service = service;
     }
 
+    /// <summary>
+    /// Добавить новый предложенный вопрос от пользователя в очередь
+    /// </summary>
+    /// <param name="questionByUser">Предложенный вопрос от пользователя</param>
+    /// <param name="token">Токен отмены запроса</param>
     [HttpPost]
-    public async Task AddNewUserQuestionToQueue([FromBody] AddQuestionByUser questionByUser, CancellationToken token)
+    public async Task<IActionResult> AddNewUserQuestionToQueue([FromBody] AddQuestionByUser questionByUser, CancellationToken token)
     {
         var userId = Guid.Parse(User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
         await _service.AddNewUserQuestionToQueue(userId, questionByUser, token);
-        Ok();
+        return Ok();
     }
 
+    /// <summary>
+    /// Получить историю предложенных игроком вопросов по фильтру
+    /// </summary>
+    /// <param name="command">Фильтр</param>
+    /// <param name="token">Токен отмены запроса</param>
+    /// <returns>Коллекция предложенных вопросов</returns>
     [HttpGet]
     public async Task<IActionResult> GetHistoryByFilter([FromQuery] GetHistoryCommand command, CancellationToken token)
     {

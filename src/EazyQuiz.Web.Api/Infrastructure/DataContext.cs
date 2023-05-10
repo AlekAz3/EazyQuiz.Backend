@@ -33,7 +33,9 @@ public class DataContext : DbContext
     /// </summary>
     public DbSet<UsersQuestions> UsersQuestions { get; set; }
 
-
+    /// <summary>
+    /// Таблица Themes
+    /// </summary>
     public DbSet<Theme> Themes { get; set; }
 
     /// <inheritdoc cref="IConfiguration"/>
