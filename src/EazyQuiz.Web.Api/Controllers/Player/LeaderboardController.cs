@@ -1,5 +1,6 @@
 using EazyQuiz.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace EazyQuiz.Web.Api;
 
@@ -15,16 +16,17 @@ public class LeaderboardController : BaseController
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetByFilter([FromQuery] LeaderboardRequest filter, CancellationToken token)
+    public async Task<IActionResult> GetByFilter([FromRoute] LeaderboardRequest filter, CancellationToken token)
     {
         var users = await _service.GetByFilter(filter, token);
         _log.LogInformation("Get Leaderboard");
         return Ok(users);
     }
 
-    [HttpGet("{userId}")]
-    public async Task<IActionResult> GetByFilter([FromRoute] Guid userId, CancellationToken token)
+    [HttpGet("user")]
+    public async Task<IActionResult> GetUser(CancellationToken token)
     {
+        var userId = Guid.Parse(User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
         var score = await _service.GetCurrentUserScore(userId, token);
         _log.LogInformation("GetCurrentUserScore {UserId}, {Score}", userId, score);
         return Ok(score);

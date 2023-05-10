@@ -14,6 +14,9 @@ namespace EazyQuiz.Models.DTO
         /// </summary>
         public string Text { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Ид темы
+        /// </summary>
         public Guid ThemeId { get; set; }
 
         /// <summary>

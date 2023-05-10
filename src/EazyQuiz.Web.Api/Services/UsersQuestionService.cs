@@ -27,11 +27,13 @@ public class UsersQuestionService
     /// <summary>
     /// Добавить предложенный вопрос от пользователя
     /// </summary>
+    /// <param name="userId">Ид пользователя</param>
     /// <param name="questionByUser">Вопрос с ответом от пользователя</param>
     /// <param name="token">Токен отмены</param>
-    public async Task AddNewUserQuestionToQueue(AddQuestionByUser questionByUser, CancellationToken token)
+    public async Task AddNewUserQuestionToQueue(Guid userId, AddQuestionByUser questionByUser, CancellationToken token)
     {
         var question = _mapper.Map<UsersQuestions>(questionByUser);
+        question.UserId = userId;
         await _context.UsersQuestions.AddAsync(question, token);
         await _context.SaveChangesAsync(token);
     }
@@ -54,8 +56,6 @@ public class UsersQuestionService
             .AsNoTracking()
             .Where(x => x.UserId == userId)
             .OrderByDescending(x => x.LastUpdate)
-            //.Skip(command.PageSize.Value * command.PageNumber.Value)
-            //.Take(command.PageSize.Value)
             .AddPagination(command)
             .ToListAsync(token);
 
@@ -76,8 +76,6 @@ public class UsersQuestionService
         var data = await _context.UsersQuestions
             .AsNoTracking()
             .Where(x => filter.Status.IsNullOrEmpty() || x.Status == filter.Status)
-            //.Skip(filter.PageSize.Value * filter.PageNumber.Value)
-            //.Take(filter.PageSize.Value)
             .AddPagination(filter)
             .ToListAsync(token);
 

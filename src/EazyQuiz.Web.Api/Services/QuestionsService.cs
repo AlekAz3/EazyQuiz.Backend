@@ -26,13 +26,13 @@ public class QuestionsService
     /// <summary>
     /// Записать ответ игрока в базу данных
     /// </summary>
-    public async Task WriteUserAnswer(UserAnswer answer)
+    public async Task WriteUserAnswer(Guid userId, UserAnswer answer)
     {
         var userAnswer = _mapper.Map<UsersAnswer>(answer);
-
+        userAnswer.UserId = userId;
         if ((await _dataContext.Answer.FindAsync(answer.AnswerId)).IsCorrect)
         {
-            var player = await _dataContext.User.FindAsync(answer.UserId);
+            var player = await _dataContext.User.FindAsync(userId);
             player.Points++;
             player.LastActiveTime = DateTime.UtcNow;
             userAnswer.IsCorrect = true;

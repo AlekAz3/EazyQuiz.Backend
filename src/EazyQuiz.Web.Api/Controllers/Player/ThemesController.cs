@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace EazyQuiz.Web.Api;
 
@@ -22,6 +23,11 @@ public class ThemesController : BaseController
     [HttpPost]
     public async Task<IActionResult> AddTheme([FromBody] string name, CancellationToken token)
     {
+        var role = User.Claims.First(x => x.Type == ClaimTypes.Role).Value;
+        if (role != "Admin")
+        {
+            return BadRequest();
+        }
         await _service.AddTheme(name, token);
         return Ok();
     }

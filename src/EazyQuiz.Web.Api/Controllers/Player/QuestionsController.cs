@@ -1,5 +1,6 @@
 using EazyQuiz.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace EazyQuiz.Web.Api;
 
@@ -33,7 +34,9 @@ public class QuestionsController : BaseController
     [HttpPost]
     public async Task<IActionResult> PostUserAnswer([FromBody] UserAnswer answer)
     {
-        await _questionsService.WriteUserAnswer(answer);
+        var userId = Guid.Parse(User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
+
+        await _questionsService.WriteUserAnswer(userId, answer);
         return Ok();
     }
 
@@ -43,6 +46,11 @@ public class QuestionsController : BaseController
     [HttpPost(nameof(Add))]
     public async Task<IActionResult> Add([FromBody] QuestionWithoutId question)
     {
+        var role = User.Claims.First(x => x.Type == ClaimTypes.Role).Value;
+        if (role != "Admin")
+        {
+            return BadRequest();
+        }
         await _questionsService.AddQuestion(question);
         return Ok();
     }

@@ -7,11 +7,6 @@ namespace EazyQuiz.Models.DTO
     public class AddQuestionByUser
     {
         /// <summary>
-        /// Ид пользователя
-        /// </summary>
-        public Guid UserId { get; set; }
-
-        /// <summary>
         /// Текст вопроса
         /// </summary>
         public string QuestionText { get; set; } = string.Empty;

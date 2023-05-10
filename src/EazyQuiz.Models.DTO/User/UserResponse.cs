@@ -8,11 +8,6 @@ namespace EazyQuiz.Models.DTO
     public class UserResponse
     {
         /// <summary>
-        /// Ид
-        /// </summary>
-        public Guid Id { get; set; }
-
-        /// <summary>
         /// Ник
         /// </summary>
         public string? UserName { get; set; }
@@ -26,11 +21,6 @@ namespace EazyQuiz.Models.DTO
         /// Страна
         /// </summary>
         public string? Country { get; set; }
-
-        /// <summary>
-        /// Роль
-        /// </summary>
-        public string? Role { get; set; } = null!;
 
         /// <summary>
         /// JWT Токен
