@@ -29,7 +29,9 @@ public class ThemesService
     /// <returns>Коллекция тем </returns>
     public async Task<IReadOnlyCollection<ThemeResponse>> GetAll(CancellationToken token)
     {
-        var themes = await _context.Themes.ToListAsync(token);
+        var themes = await _context.Themes
+            .AsNoTracking()
+            .ToListAsync(token);
         return themes.Select(_mapper.Map<ThemeResponse>).ToList();
     }
 

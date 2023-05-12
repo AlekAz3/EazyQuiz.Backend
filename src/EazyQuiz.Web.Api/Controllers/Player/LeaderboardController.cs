@@ -12,26 +12,21 @@ public class LeaderboardController : BaseController
     /// <inheritdoc cref="LeaderboardService"/>
     private readonly LeaderboardService _service;
 
-    /// <inheritdoc cref="ILogger{TCategoryName}"/>
-    private readonly ILogger<LeaderboardController> _log;
-
-    public LeaderboardController(LeaderboardService service, ILogger<LeaderboardController> log)
+    public LeaderboardController(LeaderboardService service)
     {
         _service = service;
-        _log = log;
     }
 
     /// <summary>
     /// Получить таблицу лидеров по фильтру
     /// </summary>
     /// <param name="filter">Фильтр</param>
-    /// <param name="token">Токен отмены запрса</param>
+    /// <param name="token">Токен отмены запроса</param>
     /// <returns>Коллекция пользователей</returns>
     [HttpGet]
     public async Task<IActionResult> GetByFilter([FromQuery] LeaderboardRequest filter, CancellationToken token)
     {
         var users = await _service.GetByFilter(filter, token);
-        _log.LogInformation("Get Leaderboard");
         return Ok(users);
     }
 
@@ -46,7 +41,6 @@ public class LeaderboardController : BaseController
     {
         var userId = Guid.Parse(User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
         var score = await _service.GetCurrentUserScore(userId, country, token);
-        _log.LogInformation("GetCurrentUserScore {UserId}, {Score}", userId, score);
         return Ok(score);
     }
 }

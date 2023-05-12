@@ -59,6 +59,7 @@ public class QuestionsController : BaseController
             return BadRequest();
         }
         await _questionsService.AddQuestion(question);
+        _logger.LogInformation("Новый вопрос: \"{QuestionText}\", был добавлен в базу данных", question.Text);
         return Ok();
     }
 }

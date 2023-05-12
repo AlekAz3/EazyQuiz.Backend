@@ -20,17 +20,13 @@ public class UserService
     /// <inheritdoc cref="IConfiguration"/>
     private readonly IConfiguration _config;
 
-    /// <inheritdoc cref="ILogger{TCategoryName}"/>
-    private readonly ILogger<UserService> _log;
-
     /// <inheritdoc cref="IMapper"/>
     private readonly IMapper _mapper;
 
-    public UserService(DataContext dataContext, IConfiguration config, ILogger<UserService> logger, IMapper mapper)
+    public UserService(DataContext dataContext, IConfiguration config, IMapper mapper)
     {
         _dataContext = dataContext;
         _config = config;
-        _log = logger;
         _mapper = mapper;
     }
 
@@ -46,7 +42,6 @@ public class UserService
 
         if (user == null)
         {
-            _log.LogInformation("{@User} not found", auth);
             return null;
         }
 
@@ -55,10 +50,8 @@ public class UserService
             var userResponse = _mapper.Map<UserResponse>(user);
             userResponse.Token = GenerateJwtToken(user);
 
-            _log.LogInformation("{@User} auth", userResponse);
             return userResponse;
         }
-        _log.LogInformation("Wrong password", auth);
         return null;
     }
 
@@ -67,7 +60,6 @@ public class UserService
     /// </summary>
     public async Task RegisterNewUser(UserRegister user)
     {
-        _log.LogInformation("Register {@User}", user);
         var newUser = _mapper.Map<User>(user);
 
         await _dataContext.User.AddAsync(newUser);
@@ -84,7 +76,6 @@ public class UserService
         var claims = new[]
         {
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Name, user.Username),
             new Claim(ClaimTypes.Role, user.Role)
         };
         var token = new JwtSecurityToken(_config["Jwt:Issuer"],
@@ -111,7 +102,6 @@ public class UserService
         {
             return "";
         }
-        _log.LogInformation("user salt {@User}", userSalt);
         return userSalt;
     }
 }

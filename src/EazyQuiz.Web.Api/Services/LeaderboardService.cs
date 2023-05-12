@@ -29,16 +29,16 @@ public class LeaderboardService
     /// <returns>Коллекция пользователей</returns>
     internal async Task<IReadOnlyCollection<PublicUserInfo>> GetByFilter(LeaderboardRequest filter, CancellationToken token)
     {
-        var query = _context.User.AsQueryable();
-        if (filter.Country is not null)
-        {
-            query = query.Where(x => x.Country == filter.Country);
-        }
-        query = query.OrderByDescending(x => x.Points).Take(filter.Count);
-        var users = await query.ToListAsync(token);
+        var users = await _context.User
+            .AsNoTracking()
+            .Where(x => x.Role == "Player")
+            .Where(x => filter.Country == null || x.Country == filter.Country)
+            .OrderByDescending(x => x.Points)
+            .Take(filter.Count)
+            .ToListAsync(token);
 
-        var result = users.Select(_mappper.Map<PublicUserInfo>).ToList();
-        return result;
+        return users.Select(_mappper.Map<PublicUserInfo>)
+            .ToList();
     }
 
     /// <summary>
@@ -51,6 +51,8 @@ public class LeaderboardService
     internal async Task<int> GetCurrentUserScore(Guid userId, string country, CancellationToken token)
     {
         var users = await _context.User
+            .AsNoTracking()
+            .Where(x => x.Role == "Player")
             .Where(x => country == null || x.Country == country)
             .OrderByDescending(x => x.Points)
             .ToListAsync(token);

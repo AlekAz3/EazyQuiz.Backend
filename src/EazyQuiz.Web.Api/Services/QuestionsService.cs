@@ -13,16 +13,12 @@ public class QuestionsService
     /// <inheritdoc cref="DataContext"/>
     private readonly DataContext _dataContext;
 
-    /// <inheritdoc cref="ILogger{TCategoryName}"/>
-    private readonly ILogger<QuestionsService> _logger;
-
     /// <inheritdoc cref="IMapper"/>
     private readonly IMapper _mapper;
 
-    public QuestionsService(DataContext dataContext, ILogger<QuestionsService> logger, IMapper mapper)
+    public QuestionsService(DataContext dataContext, IMapper mapper)
     {
         _dataContext = dataContext;
-        _logger = logger;
         _mapper = mapper;
     }
 
@@ -42,7 +38,6 @@ public class QuestionsService
             _dataContext.Update(player);
         }
 
-        _logger.LogInformation("User Answer Question {@User}", userAnswer);
         await _dataContext.UserAnswer.AddAsync(userAnswer);
         await _dataContext.SaveChangesAsync();
     }
@@ -52,7 +47,6 @@ public class QuestionsService
     /// </summary>
     public async Task AddQuestion(QuestionWithoutId question)
     {
-        _logger.LogInformation("New Question {@Question}", question);
         var questionId = Guid.NewGuid();
         var questionEntity = new Question()
         {
@@ -70,6 +64,12 @@ public class QuestionsService
         await _dataContext.SaveChangesAsync();
     }
 
+    /// <summary>
+    /// Получить коллекцию вопросов по фильтру
+    /// </summary>
+    /// <param name="command">Фильтр</param>
+    /// <param name="token">Токен отмены запроса</param>
+    /// <returns>Коллекция вопросов с ответами</returns>
     public async Task<IReadOnlyCollection<QuestionWithAnswers>> GetQuestionsByFilter(GetQuestionCommand command, CancellationToken token)
     {
         var questionss = _dataContext.Question
@@ -81,13 +81,11 @@ public class QuestionsService
 
         var questions = await questionss.ToListAsync(token);
 
-        _logger.LogInformation("{@QuestionsWithAnswers}", questionss.ToQueryString());
-
         var questionsWithAnswers = questions.Select(x => new QuestionWithAnswers()
         {
             QuestionId = x.Id,
             Text = x.Text,
-            Answers = x.Answers.Select(x => _mapper.Map<AnswerDTO>(x)).ToList(),
+            Answers = x.Answers.Select(_mapper.Map<AnswerDTO>).ToList(),
         }).ToArray();
 
         return questionsWithAnswers;

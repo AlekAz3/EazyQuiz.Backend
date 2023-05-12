@@ -41,13 +41,9 @@ public class DataContext : DbContext
     /// <inheritdoc cref="IConfiguration"/>
     private readonly IConfiguration _config;
 
-    /// <inheritdoc cref="ILogger{TCategoryName}"/>
-    private readonly ILogger<DataContext> _log;
-
-    public DataContext(IConfiguration config, ILogger<DataContext> logger)
+    public DataContext(IConfiguration config)
     {
         _config = config;
-        _log = logger;
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

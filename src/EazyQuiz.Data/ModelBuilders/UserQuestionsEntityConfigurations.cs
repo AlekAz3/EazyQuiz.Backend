@@ -7,7 +7,7 @@ namespace EazyQuiz.Data;
 /// <summary>
 /// Конфигурация сущности <see cref="UsersQuestions"/>
 /// </summary>
-public class UserQuestionsEntityConfigurations : IEntityTypeConfiguration<UsersQuestions>
+internal class UserQuestionsEntityConfigurations : IEntityTypeConfiguration<UsersQuestions>
 {
     public void Configure(EntityTypeBuilder<UsersQuestions> builder)
     {

@@ -11,9 +11,13 @@ public class ThemesController : BaseController
     /// <inheritdoc cref="ThemesService"/>
     private readonly ThemesService _service;
 
-    public ThemesController(ThemesService service)
+    /// <inheritdoc cref="ILogger{TCategoryName}"/>
+    private readonly ILogger<ThemesController> _logger;
+
+    public ThemesController(ThemesService service, ILogger<ThemesController> logger)
     {
         _service = service;
+        _logger = logger;
     }
 
     /// <summary>
@@ -31,18 +35,19 @@ public class ThemesController : BaseController
     /// <summary>
     /// Добавить новую тему 
     /// </summary>
-    /// <param name="name">Название темы </param>
+    /// <param name="themeName">Название темы </param>
     /// <param name="token">Токен отмены запроса</param>
     /// <remarks>Только для администратора</remarks>
     [HttpPost]
-    public async Task<IActionResult> AddTheme([FromBody] string name, CancellationToken token)
+    public async Task<IActionResult> AddTheme([FromBody] string themeName, CancellationToken token)
     {
         var role = User.Claims.First(x => x.Type == ClaimTypes.Role).Value;
         if (role != "Admin")
         {
             return BadRequest();
         }
-        await _service.AddTheme(name, token);
+        await _service.AddTheme(themeName, token);
+        _logger.LogInformation("Была добавлена новая тема: {ThemeName}", themeName);
         return Ok();
     }
 }
