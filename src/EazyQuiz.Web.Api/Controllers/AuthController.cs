@@ -57,7 +57,7 @@ public class AuthController : Controller
     /// Получение соли по нику
     /// </summary>
     /// <param name="username">Ник</param>
-    [HttpGet("{userName}")]
+    [HttpGet("{username}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetUserSalt([FromRoute] string username)

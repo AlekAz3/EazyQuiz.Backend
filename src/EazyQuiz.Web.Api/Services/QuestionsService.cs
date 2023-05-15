@@ -45,7 +45,7 @@ public class QuestionsService
     /// <summary>
     /// Добавить вопрос в базу данных
     /// </summary>
-    public async Task AddQuestion(QuestionWithoutId question)
+    public async Task AddQuestion(QuestionInputDTO question)
     {
         var questionId = Guid.NewGuid();
         var questionEntity = new Question()

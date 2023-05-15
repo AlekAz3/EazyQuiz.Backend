@@ -7,7 +7,7 @@ namespace EazyQuiz.Models.DTO
     /// Вопрос без Ид
     /// </summary>
     /// <remarks>Переименовать, используется для добавления вопросов</remarks>
-    public class QuestionWithoutId
+    public class QuestionInputDTO
     {
         /// <summary>
         /// Текст вопроса
@@ -22,6 +22,6 @@ namespace EazyQuiz.Models.DTO
         /// <summary>
         /// Коллекция ответов
         /// </summary>
-        public IReadOnlyCollection<AnswerWithoutId> Answers { get; set; } = Array.Empty<AnswerWithoutId>();
+        public IReadOnlyCollection<AnswerInputDTO> Answers { get; set; } = Array.Empty<AnswerInputDTO>();
     }
 }

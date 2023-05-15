@@ -51,7 +51,7 @@ public class QuestionsController : BaseController
     /// </summary>
     /// <remarks>Унести в другое место</remarks>
     [HttpPost(nameof(Add))]
-    public async Task<IActionResult> Add([FromBody] QuestionWithoutId question)
+    public async Task<IActionResult> Add([FromBody] QuestionInputDTO question)
     {
         var role = User.Claims.First(x => x.Type == ClaimTypes.Role).Value;
         if (role != "Admin")
