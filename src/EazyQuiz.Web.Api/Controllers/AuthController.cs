@@ -31,7 +31,7 @@ public class AuthController : Controller
     public async Task<IActionResult> RegisterNewPlayer([FromBody] UserRegister user)
     {
         await _userService.RegisterNewUser(user);
-        _log.LogInformation("New User was created {@User}", user);
+        _log.LogInformation("Был зарегистрирован новый игрок с ником: {Username}", user.Username);
         return Ok();
     }
 
@@ -44,27 +44,28 @@ public class AuthController : Controller
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetUserByPassword([FromQuery] UserAuth auth)
     {
-        _log.LogInformation("Login {@User}", auth);
         var userResponse = await _userService.Authenticate(auth);
         if (userResponse == null)
         {
             return NotFound();
         }
+        _log.LogInformation("Игрок {Username} зашел в игру", auth.Username);
         return Ok(userResponse);
     }
 
     /// <summary>
     /// Получение соли по нику
     /// </summary>
-    /// <param name="userName">Ник</param>
-    [HttpGet("{userName}")]
+    /// <param name="username">Ник</param>
+    [HttpGet("{username}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetUserSalt([FromRoute] string userName)
+    public async Task<IActionResult> GetUserSalt([FromRoute] string username)
     {
-        string userSalt = await _userService.GetUserSalt(userName);
+        string userSalt = await _userService.GetUserSalt(username);
         if (userSalt.IsNullOrEmpty())
         {
+            _log.LogInformation("Игрок с ником {Username} не был найден", username);
             return NotFound();
         }
         return Ok(userSalt);

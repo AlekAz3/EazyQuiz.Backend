@@ -11,26 +11,28 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        CreateMap<UserAnswer, UsersAnswers>()
+        CreateMap<UserAnswer, UsersAnswer>()
             .ForMember(x => x.AnswerTime, opt => opt.MapFrom(src => DateTimeOffset.Now));
 
-        CreateMap<Answers, Answer>()
+        CreateMap<Answer, AnswerDTO>()
             .ForMember(x => x.AnswerId, opt => opt.MapFrom(src => src.Id))
             .ForMember(x => x.AnswerText, opt => opt.MapFrom(src => src.Text));
 
         CreateMap<UserRegister, User>()
             .ForMember(x => x.PasswordHash, opt => opt.MapFrom(src => src.Password.PasswordHash))
             .ForMember(x => x.PasswordSalt, opt => opt.MapFrom(src => src.Password.PasswordSalt))
-            .ForMember(x => x.RegistrationTime, opt => opt.MapFrom(src => DateTimeOffset.Now));
+            .ForMember(x => x.LastActiveTime, opt => opt.MapFrom(src => DateTimeOffset.Now));
         CreateMap<User, UserResponse>();
 
-        CreateMap<QuestionByUserResponse, UsersQuesions>().ReverseMap();
-        CreateMap<UserQuestionResponse, UsersQuesions>().ReverseMap();
+        CreateMap<QuestionByUserResponse, UsersQuestions>().ReverseMap();
+        CreateMap<UserQuestionResponse, UsersQuestions>().ReverseMap();
 
         CreateMap<Theme, ThemeResponse>();
 
-        CreateMap<AddQuestionByUser, UsersQuesions>()
+        CreateMap<AddQuestionByUser, UsersQuestions>()
             .ForMember(x => x.LastUpdate, opt => opt.MapFrom(opt => DateTimeOffset.Now))
             .ForMember(x => x.Status, opt => opt.MapFrom(opt => "Новый"));
+
+        CreateMap<User, PublicUserInfo>().ReverseMap();
     }
 }

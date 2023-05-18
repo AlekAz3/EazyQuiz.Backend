@@ -4,7 +4,7 @@ using EazyQuiz.Extensions;
 using EazyQuiz.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 
-namespace EazyQuiz.Web.Api.Services;
+namespace EazyQuiz.Web.Api;
 
 /// <summary>
 /// Сервис по работе с предложенными вопросами от пользователей 
@@ -26,11 +26,13 @@ public class UsersQuestionService
     /// <summary>
     /// Добавить предложенный вопрос от пользователя
     /// </summary>
+    /// <param name="userId">Ид пользователя</param>
     /// <param name="questionByUser">Вопрос с ответом от пользователя</param>
     /// <param name="token">Токен отмены</param>
-    public async Task AddNewUserQuestionToQueue(AddQuestionByUser questionByUser, CancellationToken token)
+    public async Task AddNewUserQuestionToQueue(Guid userId, AddQuestionByUser questionByUser, CancellationToken token)
     {
-        var question = _mapper.Map<UsersQuesions>(questionByUser);
+        var question = _mapper.Map<UsersQuestions>(questionByUser);
+        question.UserId = userId;
         await _context.UsersQuestions.AddAsync(question, token);
         await _context.SaveChangesAsync(token);
     }
@@ -51,12 +53,12 @@ public class UsersQuestionService
 
         var usersQuestions = await _context.UsersQuestions
             .AsNoTracking()
-            .OrderByDescending(x => x.LastUpdate)
             .Where(x => x.UserId == userId)
+            .OrderByDescending(x => x.LastUpdate)
             .AddPagination(command)
             .ToListAsync(token);
 
-        var result = usersQuestions.Select(x => _mapper.Map<QuestionByUserResponse>(x));
+        var result = usersQuestions.Select(_mapper.Map<QuestionByUserResponse>);
 
         return new InputCountDTO<QuestionByUserResponse>(totalCount, result);
     }
@@ -76,8 +78,8 @@ public class UsersQuestionService
             .AddPagination(filter)
             .ToListAsync(token);
 
-        var kek = data.Select(x => _mapper.Map<UserQuestionResponse>(x)).ToList();
-        return kek;
+        var response = data.Select(_mapper.Map<UserQuestionResponse>).ToList();
+        return response;
     }
 
     /// <summary>
@@ -85,7 +87,7 @@ public class UsersQuestionService
     /// </summary>
     /// <param name="question">Вопрос</param>
     /// <param name="token">Токен отмены запроса</param>
-    public async Task UpdateUserQuestion(UpdateUserQuestion question, CancellationToken token)
+    public async Task<UserQuestionResponse> UpdateUserQuestion(UpdateUserQuestion question, CancellationToken token)
     {
         var data = await _context.UsersQuestions
             .Where(x => x.Id == question.Id).SingleOrDefaultAsync(token);
@@ -100,5 +102,9 @@ public class UsersQuestionService
         _context.Update(data);
 
         await _context.SaveChangesAsync(token);
+
+        var response = _mapper.Map<UserQuestionResponse>(data);
+        return response;
     }
+
 }

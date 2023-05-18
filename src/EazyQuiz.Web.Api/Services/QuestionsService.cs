@@ -5,57 +5,55 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EazyQuiz.Web.Api;
 
+/// <summary>
+/// Сервис управляющий вопросами
+/// </summary>
 public class QuestionsService
 {
     /// <inheritdoc cref="DataContext"/>
     private readonly DataContext _dataContext;
 
-    /// <inheritdoc cref="ILogger{TCategoryName}"/>
-    private readonly ILogger<QuestionsService> _logger;
-
     /// <inheritdoc cref="IMapper"/>
     private readonly IMapper _mapper;
 
-    public QuestionsService(DataContext dataContext, ILogger<QuestionsService> logger, IMapper mapper)
+    public QuestionsService(DataContext dataContext, IMapper mapper)
     {
         _dataContext = dataContext;
-        _logger = logger;
         _mapper = mapper;
     }
 
     /// <summary>
     /// Записать ответ игрока в базу данных
     /// </summary>
-    public async Task WriteUserAnswer(UserAnswer answer)
+    public async Task WriteUserAnswer(Guid userId, UserAnswer answer)
     {
-        var user = _mapper.Map<UsersAnswers>(answer);
-
-        if (_dataContext.Answer.Find(answer.AnswerId).IsCorrect)
+        var userAnswer = _mapper.Map<UsersAnswer>(answer);
+        userAnswer.UserId = userId;
+        if ((await _dataContext.Answer.FindAsync(answer.AnswerId)).IsCorrect)
         {
-            var a = await _dataContext.User.FindAsync(answer.UserId);
-            a.Points++;
-            user.IsCorrect = true;
-            _dataContext.Update(a);
+            var player = await _dataContext.User.FindAsync(userId);
+            player.Points++;
+            player.LastActiveTime = DateTime.UtcNow;
+            userAnswer.IsCorrect = true;
+            _dataContext.Update(player);
         }
 
-        _logger.LogInformation("User Answer Question {@User}", user);
-        await _dataContext.UserAnswer.AddAsync(user);
+        await _dataContext.UserAnswer.AddAsync(userAnswer);
         await _dataContext.SaveChangesAsync();
     }
 
     /// <summary>
     /// Добавить вопрос в базу данных
     /// </summary>
-    public async Task AddQuestion(QuestionWithoutId question)
+    public async Task AddQuestion(QuestionInputDTO question)
     {
-        _logger.LogInformation("New Question {@Question}", question);
         var questionId = Guid.NewGuid();
         var questionEntity = new Question()
         {
             Id = questionId,
             Text = question.Text,
             ThemeId = question.ThemeId,
-            Answers = question.Answers.Select(x => new Answers()
+            Answers = question.Answers.Select(x => new Answer()
             {
                 Text = x.Text,
                 IsCorrect = x.IsCorrect,
@@ -66,24 +64,28 @@ public class QuestionsService
         await _dataContext.SaveChangesAsync();
     }
 
+    /// <summary>
+    /// Получить коллекцию вопросов по фильтру
+    /// </summary>
+    /// <param name="command">Фильтр</param>
+    /// <param name="token">Токен отмены запроса</param>
+    /// <returns>Коллекция вопросов с ответами</returns>
     public async Task<IReadOnlyCollection<QuestionWithAnswers>> GetQuestionsByFilter(GetQuestionCommand command, CancellationToken token)
     {
         var questionss = _dataContext.Question
             .AsNoTracking()
             .Where(x => command.ThemeId == null || x.ThemeId == command.ThemeId)
             .OrderBy(x => EF.Functions.Random())
-            .Take(command.Count ?? 10)
+            .Take(command.Count)
             .Include(x => x.Answers);
 
         var questions = await questionss.ToListAsync(token);
 
-        _logger.LogInformation("{@QuestionsWithAnswers}", questionss.ToQueryString());
-        //_logger.LogInformation("{@QuestionsWithAnswers}", questions);
         var questionsWithAnswers = questions.Select(x => new QuestionWithAnswers()
         {
             QuestionId = x.Id,
             Text = x.Text,
-            Answers = x.Answers.Select(x => _mapper.Map<Answer>(x)).ToList(),
+            Answers = x.Answers.Select(_mapper.Map<AnswerDTO>).ToList(),
         }).ToArray();
 
         return questionsWithAnswers;

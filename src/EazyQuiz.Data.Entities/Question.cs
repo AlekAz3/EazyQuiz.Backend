@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace EazyQuiz.Data.Entities;
 
 /// <summary>
-/// Описание обьекта вопроса
+/// Описание объекта вопроса
 /// </summary>
 [Table("Questions")]
 public class Question
@@ -24,6 +24,6 @@ public class Question
 
     public Theme? Theme { get; set; }
 
-    public ICollection<Answers> Answers { get; set; } = new List<Answers>();
-    public ICollection<UsersAnswers> UsersAnswers { get; set; } = new List<UsersAnswers>();
+    public ICollection<Answer> Answers { get; set; } = new List<Answer>();
+    public ICollection<UsersAnswer> UsersAnswers { get; set; } = new List<UsersAnswer>();
 }

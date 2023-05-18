@@ -21,6 +21,6 @@ namespace EazyQuiz.Models.DTO
         /// <summary>
         /// Коллекция ответов на вопрос
         /// </summary>
-        public IReadOnlyCollection<Answer> Answers { get; set; } = Array.Empty<Answer>();
+        public IReadOnlyCollection<AnswerDTO> Answers { get; set; } = Array.Empty<AnswerDTO>();
     }
 }

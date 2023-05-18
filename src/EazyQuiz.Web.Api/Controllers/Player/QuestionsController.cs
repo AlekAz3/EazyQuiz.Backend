@@ -1,5 +1,6 @@
 using EazyQuiz.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace EazyQuiz.Web.Api;
 
@@ -20,6 +21,12 @@ public class QuestionsController : BaseController
         _logger = logger;
     }
 
+    /// <summary>
+    /// Получить коллекцию вопросов по фильтру
+    /// </summary>
+    /// <param name="command">Фильтр</param>
+    /// <param name="token">Токен отмены запроса</param>
+    /// <returns>Коллекция вопросов с ответами</returns>
     [HttpGet]
     public async Task<IActionResult> GetQuestionByFilter([FromQuery] GetQuestionCommand command, CancellationToken token)
     {
@@ -33,17 +40,26 @@ public class QuestionsController : BaseController
     [HttpPost]
     public async Task<IActionResult> PostUserAnswer([FromBody] UserAnswer answer)
     {
-        await _questionsService.WriteUserAnswer(answer);
+        var userId = Guid.Parse(User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
+
+        await _questionsService.WriteUserAnswer(userId, answer);
         return Ok();
     }
 
     /// <summary>
     /// Добавить вопрос с админки
     /// </summary>
+    /// <remarks>Унести в другое место</remarks>
     [HttpPost(nameof(Add))]
-    public async Task<IActionResult> Add([FromBody] QuestionWithoutId question)
+    public async Task<IActionResult> Add([FromBody] QuestionInputDTO question)
     {
+        var role = User.Claims.First(x => x.Type == ClaimTypes.Role).Value;
+        if (role != "Admin")
+        {
+            return BadRequest();
+        }
         await _questionsService.AddQuestion(question);
+        _logger.LogInformation("Новый вопрос: \"{QuestionText}\", был добавлен в базу данных", question.Text);
         return Ok();
     }
 }

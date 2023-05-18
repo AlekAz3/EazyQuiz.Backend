@@ -17,18 +17,13 @@ namespace EazyQuiz.Models.DTO
         public UserPassword? Password { get; set; }
 
         /// <summary>
-        /// Возраст
-        /// </summary>
-        public int Age { get; set; }
-
-        /// <summary>
-        /// Пол
-        /// </summary>
-        public string Gender { get; set; } = string.Empty;
-
-        /// <summary>
         /// Страна проживания
         /// </summary>
         public string Country { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Роль
+        /// </summary>
+        public string Role { get; set; } = string.Empty;
     }
 }

@@ -2,8 +2,11 @@ using EazyQuiz.Extensions;
 using EazyQuiz.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 
-namespace EazyQuiz.Web.Api.Services;
+namespace EazyQuiz.Web.Api;
 
+/// <summary>
+/// Сервис по работе с историей ответов пользователей 
+/// </summary>
 public class HistoryService
 {
     /// <inheritdoc cref="DataContext"/>

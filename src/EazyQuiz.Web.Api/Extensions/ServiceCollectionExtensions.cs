@@ -5,6 +5,9 @@ using System.Text;
 
 namespace EazyQuiz.Web.Api;
 
+/// <summary>
+/// Набор расширений для <see cref="IServiceCollection"/>
+/// </summary>
 public static class ServiceCollectionExtensions
 {
 
@@ -53,7 +56,7 @@ public static class ServiceCollectionExtensions
             c.SwaggerDoc("v1", new OpenApiInfo
             {
                 Title = "EazyQuiz",
-                Version = "v0.4.0"
+                Version = "v0.5.0"
             });
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
             {

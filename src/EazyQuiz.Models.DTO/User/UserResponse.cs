@@ -1,5 +1,3 @@
-using System;
-
 namespace EazyQuiz.Models.DTO
 {
     /// <summary>
@@ -8,24 +6,9 @@ namespace EazyQuiz.Models.DTO
     public class UserResponse
     {
         /// <summary>
-        /// Ид
-        /// </summary>
-        public Guid Id { get; set; }
-
-        /// <summary>
         /// Ник
         /// </summary>
         public string? UserName { get; set; }
-
-        /// <summary>
-        /// Возраст
-        /// </summary>
-        public int Age { get; set; }
-
-        /// <summary>
-        /// Пол
-        /// </summary>
-        public string Gender { get; set; } = string.Empty;
 
         /// <summary>
         /// Счёт

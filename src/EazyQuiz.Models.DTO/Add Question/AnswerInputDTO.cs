@@ -4,7 +4,7 @@ namespace EazyQuiz.Models.DTO
     /// Ответ без Ид
     /// </summary>
     /// <remarks>Переименовать, используется для добавления вопросов</remarks>
-    public class AnswerWithoutId
+    public class AnswerInputDTO
     {
         /// <summary>
         /// Текст ответа

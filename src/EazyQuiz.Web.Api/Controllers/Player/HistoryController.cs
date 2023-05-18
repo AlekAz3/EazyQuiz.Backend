@@ -1,6 +1,6 @@
 using EazyQuiz.Models.DTO;
-using EazyQuiz.Web.Api.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace EazyQuiz.Web.Api;
 
@@ -20,13 +20,14 @@ public class HistoryController : BaseController
     /// <summary>
     /// Получить историю ответов по пагинации
     /// </summary>
-    /// <param name="userId">Ид пользователя</param>
     /// <param name="command">Параметры пагинации</param>
     /// <param name="token">Токен отмены запроса</param>
     /// <returns>Коллекцию ответов пользователя <see cref="UserAnswerHistory"/></returns>
     [HttpGet]
-    public async Task<IActionResult> GetHistoryByFilter([FromQuery] Guid userId, [FromQuery] GetHistoryCommand command, CancellationToken token)
+    public async Task<IActionResult> GetHistoryByFilter([FromQuery] GetHistoryCommand command, CancellationToken token)
     {
+        var userId = Guid.Parse(User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
+
         var list = await _service.GetHistoryByFilter(userId, command, token);
         return Ok(list);
     }

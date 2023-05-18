@@ -5,7 +5,7 @@ namespace EazyQuiz.Data.Entities;
 /// <summary>
 /// Временное хранение предложенных вопросов от пользователей
 /// </summary>
-public class UsersQuesions
+public class UsersQuestions
 {
     /// <summary>
     /// Ид

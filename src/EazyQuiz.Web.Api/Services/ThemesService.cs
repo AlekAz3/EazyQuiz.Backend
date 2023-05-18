@@ -3,7 +3,7 @@ using EazyQuiz.Data.Entities;
 using EazyQuiz.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 
-namespace EazyQuiz.Web.Api.Services;
+namespace EazyQuiz.Web.Api;
 
 /// <summary>
 /// Сервис работающий с темами
@@ -29,8 +29,10 @@ public class ThemesService
     /// <returns>Коллекция тем </returns>
     public async Task<IReadOnlyCollection<ThemeResponse>> GetAll(CancellationToken token)
     {
-        var a = await _context.Themes.ToListAsync(token);
-        return a.Select(x => _mapper.Map<ThemeResponse>(x)).ToList();
+        var themes = await _context.Themes
+            .AsNoTracking()
+            .ToListAsync(token);
+        return themes.Select(_mapper.Map<ThemeResponse>).ToList();
     }
 
     /// <summary>
@@ -40,8 +42,8 @@ public class ThemesService
     /// <param name="token">Токен отмены вопроса</param>
     public async Task AddTheme(string name, CancellationToken token)
     {
-        var a = new Theme() { Name = name };
-        _context.Add(a);
+        var theme = new Theme() { Name = name };
+        _context.Add(theme);
         await _context.SaveChangesAsync(token);
     }
 }

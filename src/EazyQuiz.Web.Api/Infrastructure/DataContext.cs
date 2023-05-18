@@ -21,31 +21,29 @@ public class DataContext : DbContext
     /// <summary>
     /// Таблица Answers
     /// </summary>
-    public DbSet<Answers> Answer { get; set; }
+    public DbSet<Answer> Answer { get; set; }
 
     /// <summary>
     /// Таблица UsersAnswers
     /// </summary>
-    public DbSet<UsersAnswers> UserAnswer { get; set; }
+    public DbSet<UsersAnswer> UserAnswer { get; set; }
 
     /// <summary>
-    /// Таблица UsersQuesions
+    /// Таблица UsersQuestions
     /// </summary>
-    public DbSet<UsersQuesions> UsersQuestions { get; set; }
+    public DbSet<UsersQuestions> UsersQuestions { get; set; }
 
-
+    /// <summary>
+    /// Таблица Themes
+    /// </summary>
     public DbSet<Theme> Themes { get; set; }
 
     /// <inheritdoc cref="IConfiguration"/>
     private readonly IConfiguration _config;
 
-    /// <inheritdoc cref="ILogger{TCategoryName}"/>
-    private readonly ILogger<DataContext> _log;
-
-    public DataContext(IConfiguration config, ILogger<DataContext> logger)
+    public DataContext(IConfiguration config)
     {
         _config = config;
-        _log = logger;
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

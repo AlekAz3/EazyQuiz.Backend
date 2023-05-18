@@ -1,4 +1,3 @@
-using System;
 namespace EazyQuiz.Models.DTO
 {
     /// <summary>
@@ -6,11 +5,6 @@ namespace EazyQuiz.Models.DTO
     /// </summary>
     public class AddQuestionByUser
     {
-        /// <summary>
-        /// Ид пользователя
-        /// </summary>
-        public Guid UserId { get; set; }
-
         /// <summary>
         /// Текст вопроса
         /// </summary>
