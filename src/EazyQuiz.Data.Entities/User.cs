@@ -53,4 +53,6 @@ public class User
     public ICollection<UsersAnswer> UsersAnswers { get; set; } = new List<UsersAnswer>();
 
     public ICollection<UsersQuestions> UsersQuestions { get; set; } = new List<UsersQuestions>();
+
+    public ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
 }
