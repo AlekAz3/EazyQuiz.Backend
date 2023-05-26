@@ -11,20 +11,23 @@ public class HistoryService
 {
     /// <inheritdoc cref="DataContext"/>
     private readonly DataContext _context;
+    private readonly CurrentUserService _currentUser;
 
-    public HistoryService(DataContext context)
+    public HistoryService(DataContext context, CurrentUserService currentUser)
     {
         _context = context;
+        _currentUser = currentUser;
     }
 
     /// <summary>
     /// Получить коллекцию истории ответов по пагинации
     /// </summary>
-    /// <param name="userId">Ид игрока</param>
     /// <param name="command">Параметры пагинации</param>
     /// <param name="token">Токен отмены запроса</param>
-    public async Task<InputCountDTO<UserAnswerHistory>> GetHistoryByFilter(Guid userId, GetHistoryCommand command, CancellationToken token)
+    public async Task<InputCountDTO<UserAnswerHistory>> GetHistoryByFilter(GetHistoryCommand command, CancellationToken token)
     {
+        var userId = _currentUser.GetUserId();
+
         int totalCount = await _context.UserAnswer
             .AsNoTracking()
             .Where(x => x.UserId == userId)

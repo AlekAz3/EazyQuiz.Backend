@@ -16,23 +16,23 @@ public class UsersQuestionService
 
     /// <inheritdoc cref="IMapper"/>
     private readonly IMapper _mapper;
+    private readonly CurrentUserService _currentUser;
 
-    public UsersQuestionService(DataContext context, IMapper mapper)
+    public UsersQuestionService(DataContext context, IMapper mapper, CurrentUserService currentUser)
     {
         _context = context;
         _mapper = mapper;
+        _currentUser = currentUser;
     }
 
     /// <summary>
     /// Добавить предложенный вопрос от пользователя
     /// </summary>
-    /// <param name="userId">Ид пользователя</param>
     /// <param name="questionByUser">Вопрос с ответом от пользователя</param>
     /// <param name="token">Токен отмены</param>
-    public async Task AddNewUserQuestionToQueue(Guid userId, AddQuestionByUser questionByUser, CancellationToken token)
+    public async Task AddNewUserQuestionToQueue(AddQuestionByUser questionByUser, CancellationToken token)
     {
         var question = _mapper.Map<UsersQuestions>(questionByUser);
-        question.UserId = userId;
         await _context.UsersQuestions.AddAsync(question, token);
         await _context.SaveChangesAsync(token);
     }
@@ -40,12 +40,12 @@ public class UsersQuestionService
     /// <summary>
     /// Получить коллекцию предложенных пользователем вопросов
     /// </summary>
-    /// <param name="userId">Ид пользователя</param>
     /// <param name="command">Параметры фильтрации</param>
     /// <param name="token">Токен отмены запроса</param>
     /// <returns>Коллекция вопросов</returns>
-    public async Task<InputCountDTO<QuestionByUserResponse>> GetUsersQuestions(Guid userId, GetHistoryCommand command, CancellationToken token)
+    public async Task<InputCountDTO<QuestionByUserResponse>> GetUsersQuestions(GetHistoryCommand command, CancellationToken token)
     {
+        var userId = _currentUser.GetUserId();
         int totalCount = await _context.UsersQuestions
             .AsNoTracking()
             .Where(x => x.UserId == userId)
@@ -106,5 +106,4 @@ public class UsersQuestionService
         var response = _mapper.Map<UserQuestionResponse>(data);
         return response;
     }
-
 }

@@ -1,6 +1,5 @@
 using EazyQuiz.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace EazyQuiz.Web.Api;
 
@@ -11,10 +10,12 @@ public class ManageUserQuestionsController : BaseController
 {
     /// <inheritdoc cref="UsersQuestionService"/>
     private readonly UsersQuestionService _service;
+    private readonly CurrentUserService _currentUser;
 
-    public ManageUserQuestionsController(UsersQuestionService service)
+    public ManageUserQuestionsController(UsersQuestionService service, CurrentUserService currentUser)
     {
         _service = service;
+        _currentUser = currentUser;
     }
 
     /// <summary>
@@ -27,8 +28,7 @@ public class ManageUserQuestionsController : BaseController
     [HttpGet]
     public async Task<IActionResult> GetByFilter([FromQuery] UserQuestionFilter filter, CancellationToken token)
     {
-        var role = User.Claims.First(x => x.Type == ClaimTypes.Role).Value;
-        if (role != "Admin")
+        if (_currentUser.GetUserRole() != "Admin")
         {
             return BadRequest();
         }
@@ -45,8 +45,7 @@ public class ManageUserQuestionsController : BaseController
     [HttpPut]
     public async Task<IActionResult> UpdateUserQuestion([FromBody] UpdateUserQuestion question, CancellationToken token)
     {
-        var role = User.Claims.First(x => x.Type == ClaimTypes.Role).Value;
-        if (role != "Admin")
+        if (_currentUser.GetUserRole() != "Admin")
         {
             return BadRequest();
         }

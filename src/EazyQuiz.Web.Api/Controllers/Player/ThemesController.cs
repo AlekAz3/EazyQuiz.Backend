@@ -13,11 +13,13 @@ public class ThemesController : BaseController
 
     /// <inheritdoc cref="ILogger{TCategoryName}"/>
     private readonly ILogger<ThemesController> _logger;
+    private readonly CurrentUserService _currentUser;
 
-    public ThemesController(ThemesService service, ILogger<ThemesController> logger)
+    public ThemesController(ThemesService service, ILogger<ThemesController> logger, CurrentUserService currentUser)
     {
         _service = service;
         _logger = logger;
+        _currentUser = currentUser;
     }
 
     /// <summary>
@@ -41,8 +43,7 @@ public class ThemesController : BaseController
     [HttpPost]
     public async Task<IActionResult> AddTheme([FromBody] string themeName, CancellationToken token)
     {
-        var role = User.Claims.First(x => x.Type == ClaimTypes.Role).Value;
-        if (role != "Admin")
+        if (_currentUser.GetUserRole() != "Admin")
         {
             return BadRequest();
         }

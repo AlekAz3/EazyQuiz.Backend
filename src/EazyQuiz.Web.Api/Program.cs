@@ -20,17 +20,20 @@ public class Program
 
         builder.Services.AddControllers()
             .AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.PropertyNamingPolicy = null;
-            });
+                {
+                    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                });
 
-        builder.Services.AddDbContext<DataContext>()
+        builder.Services
+             .AddHttpContextAccessor()
+             .AddDbContext<DataContext>()
              .AddScoped<UserService>()
              .AddScoped<QuestionsService>()
              .AddScoped<HistoryService>()
              .AddScoped<UsersQuestionService>()
              .AddScoped<ThemesService>()
              .AddScoped<LeaderboardService>()
+             .AddScoped<CurrentUserService>()
              .AddEndpointsApiExplorer()
              .AddAuth(builder.Configuration); //Добавление JWT
 

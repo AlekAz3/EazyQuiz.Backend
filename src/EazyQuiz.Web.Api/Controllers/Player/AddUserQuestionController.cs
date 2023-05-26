@@ -1,6 +1,5 @@
 using EazyQuiz.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace EazyQuiz.Web.Api;
 
@@ -25,8 +24,7 @@ public class AddUserQuestionController : BaseController
     [HttpPost]
     public async Task<IActionResult> AddNewUserQuestionToQueue([FromBody] AddQuestionByUser questionByUser, CancellationToken token)
     {
-        var userId = Guid.Parse(User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
-        await _service.AddNewUserQuestionToQueue(userId, questionByUser, token);
+        await _service.AddNewUserQuestionToQueue(questionByUser, token);
         return Ok();
     }
 
@@ -39,8 +37,7 @@ public class AddUserQuestionController : BaseController
     [HttpGet]
     public async Task<IActionResult> GetHistoryByFilter([FromQuery] GetHistoryCommand command, CancellationToken token)
     {
-        var userId = Guid.Parse(User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
-        var list = await _service.GetUsersQuestions(userId, command, token);
+        var list = await _service.GetUsersQuestions(command, token);
         return Ok(list);
     }
 }

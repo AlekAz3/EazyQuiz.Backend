@@ -14,11 +14,13 @@ public class LeaderboardService
 
     /// <inheritdoc cref="IMapper"/>
     private readonly IMapper _mappper;
+    private readonly CurrentUserService _currentUser;
 
-    public LeaderboardService(DataContext context, IMapper mappper)
+    public LeaderboardService(DataContext context, IMapper mappper, CurrentUserService currentUser)
     {
         _context = context;
         _mappper = mappper;
+        _currentUser = currentUser;
     }
 
     /// <summary>
@@ -44,12 +46,12 @@ public class LeaderboardService
     /// <summary>
     /// Получить место пользователя в таблицы лидеров
     /// </summary>
-    /// <param name="userId">Ид пользователя</param>
     /// <param name="country">Страна</param>
     /// <param name="token">Токен отмены запроса</param>
     /// <returns>Место в таблице лидеров</returns>
-    internal async Task<int> GetCurrentUserScore(Guid userId, string country, CancellationToken token)
+    internal async Task<int> GetCurrentUserScore(string country, CancellationToken token)
     {
+        var userId = _currentUser.GetUserId();
         var users = await _context.User
             .AsNoTracking()
             .Where(x => x.Role == "Player")

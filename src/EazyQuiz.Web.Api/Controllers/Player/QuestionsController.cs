@@ -40,9 +40,7 @@ public class QuestionsController : BaseController
     [HttpPost]
     public async Task<IActionResult> PostUserAnswer([FromBody] UserAnswer answer)
     {
-        var userId = Guid.Parse(User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
-
-        await _questionsService.WriteUserAnswer(userId, answer);
+        await _questionsService.WriteUserAnswer(answer);
         return Ok();
     }
 
