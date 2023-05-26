@@ -16,6 +16,8 @@ public class UsersQuestionService
 
     /// <inheritdoc cref="IMapper"/>
     private readonly IMapper _mapper;
+
+    /// <inheritdoc cref="CurrentUserService"/>
     private readonly CurrentUserService _currentUser;
 
     public UsersQuestionService(DataContext context, IMapper mapper, CurrentUserService currentUser)

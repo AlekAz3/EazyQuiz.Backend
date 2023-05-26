@@ -27,7 +27,8 @@ public class MappingProfile : Profile
         CreateMap<QuestionByUserResponse, UsersQuestions>().ReverseMap();
         CreateMap<UserQuestionResponse, UsersQuestions>().ReverseMap();
 
-        CreateMap<Theme, ThemeResponse>();
+        CreateMap<Theme, ThemeResponse>().ReverseMap();
+        CreateMap<Theme, ThemeResponseWithFlag>().ReverseMap();
 
         CreateMap<AddQuestionByUser, UsersQuestions>()
             .ForMember(x => x.LastUpdate, opt => opt.MapFrom(opt => DateTimeOffset.Now))

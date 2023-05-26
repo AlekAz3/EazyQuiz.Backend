@@ -14,6 +14,8 @@ public class LeaderboardService
 
     /// <inheritdoc cref="IMapper"/>
     private readonly IMapper _mappper;
+
+    /// <inheritdoc cref="CurrentUserService"/>
     private readonly CurrentUserService _currentUser;
 
     public LeaderboardService(DataContext context, IMapper mappper, CurrentUserService currentUser)
@@ -39,8 +41,7 @@ public class LeaderboardService
             .Take(filter.Count)
             .ToListAsync(token);
 
-        return users.Select(_mappper.Map<PublicUserInfo>)
-            .ToList();
+        return users.Select(_mappper.Map<PublicUserInfo>).ToList();
     }
 
     /// <summary>
@@ -52,6 +53,7 @@ public class LeaderboardService
     internal async Task<int> GetCurrentUserScore(string country, CancellationToken token)
     {
         var userId = _currentUser.GetUserId();
+
         var users = await _context.User
             .AsNoTracking()
             .Where(x => x.Role == "Player")

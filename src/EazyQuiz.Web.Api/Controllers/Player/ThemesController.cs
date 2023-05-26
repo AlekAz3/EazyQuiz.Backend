@@ -1,3 +1,5 @@
+using EazyQuiz.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -28,9 +30,9 @@ public class ThemesController : BaseController
     /// <param name="token">Токен отмены запроса</param>
     /// <returns>Коллекция тем </returns>
     [HttpGet]
-    public async Task<IActionResult> GetThemes(CancellationToken token)
+    public async Task<IActionResult> GetAllThemes(CancellationToken token)
     {
-        var themes = await _service.GetAll(token);
+        var themes = await _service.GetAllActive(token);
         return Ok(themes);
     }
 
@@ -50,5 +52,27 @@ public class ThemesController : BaseController
         await _service.AddTheme(themeName, token);
         _logger.LogInformation("Была добавлена новая тема: {ThemeName}", themeName);
         return Ok();
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> UpdateThemes([FromBody] IReadOnlyCollection<ThemeResponseWithFlag> themes, CancellationToken token)
+    {
+        if (_currentUser.GetUserRole() != "Admin")
+        {
+            return BadRequest();
+        }
+        await _service.UpdateThemes(themes, token);
+        return Ok();
+    }
+
+    [HttpGet("all")]
+    public async Task<IActionResult> GetAll(CancellationToken token)
+    {
+        if (_currentUser.GetUserRole() != "Admin")
+        {
+            return BadRequest();
+        }
+        var themes = await _service.GetAll(token);
+        return Ok(themes);
     }
 }

@@ -11,6 +11,8 @@ public class HistoryService
 {
     /// <inheritdoc cref="DataContext"/>
     private readonly DataContext _context;
+
+    /// <inheritdoc cref="CurrentUserService"/>
     private readonly CurrentUserService _currentUser;
 
     public HistoryService(DataContext context, CurrentUserService currentUser)
