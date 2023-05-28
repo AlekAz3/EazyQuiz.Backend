@@ -42,7 +42,7 @@ namespace EazyQuiz.Web.Api.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("Answers");
+                    b.ToTable("Answers", (string)null);
                 });
 
             modelBuilder.Entity("EazyQuiz.Data.Entities.Question", b =>
@@ -61,7 +61,7 @@ namespace EazyQuiz.Web.Api.Migrations
 
                     b.HasIndex("ThemeId");
 
-                    b.ToTable("Questions");
+                    b.ToTable("Questions", (string)null);
                 });
 
             modelBuilder.Entity("EazyQuiz.Data.Entities.Theme", b =>
@@ -70,16 +70,13 @@ namespace EazyQuiz.Web.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<bool>("Enabled")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Themes");
+                    b.ToTable("Themes", (string)null);
                 });
 
             modelBuilder.Entity("EazyQuiz.Data.Entities.User", b =>
@@ -114,7 +111,7 @@ namespace EazyQuiz.Web.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
 
                     b.HasData(
                         new
@@ -159,7 +156,7 @@ namespace EazyQuiz.Web.Api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UsersAnswers");
+                    b.ToTable("UsersAnswers", (string)null);
                 });
 
             modelBuilder.Entity("EazyQuiz.Data.Entities.UsersQuestions", b =>
@@ -190,7 +187,7 @@ namespace EazyQuiz.Web.Api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UsersQuestions");
+                    b.ToTable("UsersQuestions", (string)null);
                 });
 
             modelBuilder.Entity("EazyQuiz.Data.Entities.Answer", b =>

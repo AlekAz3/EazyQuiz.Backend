@@ -10,7 +10,6 @@ namespace EazyQuiz.Web.Api;
 /// </summary>
 public static class ServiceCollectionExtensions
 {
-
     /// <summary>
     /// Добавление аутентификации 
     /// </summary>
@@ -47,6 +46,22 @@ public static class ServiceCollectionExtensions
     }
 
     /// <summary>
+    /// Добавить сервисы EazyQuiz
+    /// </summary>
+    public static IServiceCollection AddEazyQuizServices(this IServiceCollection services)
+    {
+        services.AddScoped<UserService>()
+             .AddScoped<QuestionsService>()
+             .AddScoped<HistoryService>()
+             .AddScoped<UsersQuestionService>()
+             .AddScoped<ThemesService>()
+             .AddScoped<LeaderboardService>()
+             .AddScoped<CurrentUserService>()
+             .AddScoped<FeedbackService>();
+        return services;
+    }
+
+    /// <summary>
     /// Добавление сваггера с аутентификацией 
     /// </summary>
     public static IServiceCollection AddSwaggerWithAuth(this IServiceCollection services)
@@ -56,7 +71,7 @@ public static class ServiceCollectionExtensions
             c.SwaggerDoc("v1", new OpenApiInfo
             {
                 Title = "EazyQuiz",
-                Version = "v0.5.0"
+                Version = "v0.6.0"
             });
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
             {

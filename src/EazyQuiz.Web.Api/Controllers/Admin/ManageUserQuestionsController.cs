@@ -10,6 +10,8 @@ public class ManageUserQuestionsController : BaseController
 {
     /// <inheritdoc cref="UsersQuestionService"/>
     private readonly UsersQuestionService _service;
+
+    /// <inheritdoc cref="CurrentUserService"/>
     private readonly CurrentUserService _currentUser;
 
     public ManageUserQuestionsController(UsersQuestionService service, CurrentUserService currentUser)

@@ -29,7 +29,7 @@ public class ThemesService
     /// <returns>Коллекция тем </returns>
     public async Task<IReadOnlyCollection<ThemeResponse>> GetAllActive(CancellationToken token)
     {
-        var themes = await _context.Themes
+        var themes = await _context.Set<Theme>()
             .AsNoTracking()
             .Where(x => x.Enabled)
             .OrderBy(x => x.Name)
@@ -44,7 +44,7 @@ public class ThemesService
     /// <returns>Коллекция тем </returns>
     public async Task<IReadOnlyCollection<ThemeResponseWithFlag>> GetAll(CancellationToken token)
     {
-        var themes = await _context.Themes
+        var themes = await _context.Set<Theme>()
             .AsNoTracking()
             .ToListAsync(token);
 
@@ -54,19 +54,12 @@ public class ThemesService
     /// <summary>
     /// Обновить коллекцию тем
     /// </summary>
-    /// <param name="themes"></param>
-    /// <param name="token"></param>
-    /// <returns></returns>
+    /// <param name="themes">Коллекция тем</param>
+    /// <param name="token">Токен отмены запроса</param>
     public async Task UpdateThemes(IReadOnlyCollection<ThemeResponseWithFlag> themes, CancellationToken token)
     {
-        //var themesIds = themes.Select(x => x.Id).ToList();
-        //var entityThemes = _context.Themes.Where(x => themesIds.Contains(x.Id));
-
-        //_context.Themes.RemoveRange(entityThemes);
-        //_context.Themes.AddRange(themes.Select(_mapper.Map<Theme>));
-        //await _context.SaveChangesAsync(token);
         var entityThemes = themes.Select(_mapper.Map<Theme>);
-        _context.Themes.UpdateRange(entityThemes);
+        _context.Set<Theme>().UpdateRange(entityThemes);
         await _context.SaveChangesAsync(token);
 
     }

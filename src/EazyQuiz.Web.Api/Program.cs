@@ -27,13 +27,7 @@ public class Program
         builder.Services
              .AddHttpContextAccessor()
              .AddDbContext<DataContext>()
-             .AddScoped<UserService>()
-             .AddScoped<QuestionsService>()
-             .AddScoped<HistoryService>()
-             .AddScoped<UsersQuestionService>()
-             .AddScoped<ThemesService>()
-             .AddScoped<LeaderboardService>()
-             .AddScoped<CurrentUserService>()
+             .AddEazyQuizServices()
              .AddEndpointsApiExplorer()
              .AddAuth(builder.Configuration); //Добавление JWT
 
@@ -53,7 +47,6 @@ public class Program
         {
             app.UseHttpsRedirection();
         }
-
 
         app.UseAuthentication()
            .UseAuthorization();

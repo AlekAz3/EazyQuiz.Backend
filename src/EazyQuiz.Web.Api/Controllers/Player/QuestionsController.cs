@@ -47,7 +47,7 @@ public class QuestionsController : BaseController
     /// <summary>
     /// Добавить вопрос с админки
     /// </summary>
-    /// <remarks>Унести в другое место</remarks>
+    /// <remarks>Для администратора</remarks>
     [HttpPost(nameof(Add))]
     public async Task<IActionResult> Add([FromBody] QuestionInputDTO question)
     {

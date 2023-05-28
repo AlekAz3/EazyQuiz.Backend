@@ -1,6 +1,5 @@
 using EazyQuiz.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace EazyQuiz.Web.Api;
 

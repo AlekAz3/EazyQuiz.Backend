@@ -57,14 +57,14 @@ public class CurrentUserService
     /// <summary>
     /// Получить пользователя из базы данных
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Пользователь</returns>
     private async Task<User> GetCurrentUserFromDatabase()
     {
         var userIdClaim = GetUserId();
 
-        var user = await _context.User
+        var user = await _context.Set<User>()
             .AsNoTracking()
-            .FirstOrDefaultAsync(u => u.Id == userIdClaim);
+            .FirstAsync(u => u.Id == userIdClaim);
 
         return user;
     }

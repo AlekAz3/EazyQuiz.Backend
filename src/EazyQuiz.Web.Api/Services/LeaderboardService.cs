@@ -1,4 +1,5 @@
 using AutoMapper;
+using EazyQuiz.Data.Entities;
 using EazyQuiz.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,7 +34,7 @@ public class LeaderboardService
     /// <returns>Коллекция пользователей</returns>
     internal async Task<IReadOnlyCollection<PublicUserInfo>> GetByFilter(LeaderboardRequest filter, CancellationToken token)
     {
-        var users = await _context.User
+        var users = await _context.Set<User>()
             .AsNoTracking()
             .Where(x => x.Role == "Player")
             .Where(x => filter.Country == null || x.Country == filter.Country)
@@ -54,7 +55,7 @@ public class LeaderboardService
     {
         var userId = _currentUser.GetUserId();
 
-        var users = await _context.User
+        var users = await _context.Set<User>()
             .AsNoTracking()
             .Where(x => x.Role == "Player")
             .Where(x => country == null || x.Country == country)

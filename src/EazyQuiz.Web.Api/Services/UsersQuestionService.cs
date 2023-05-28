@@ -35,7 +35,7 @@ public class UsersQuestionService
     public async Task AddNewUserQuestionToQueue(AddQuestionByUser questionByUser, CancellationToken token)
     {
         var question = _mapper.Map<UsersQuestions>(questionByUser);
-        await _context.UsersQuestions.AddAsync(question, token);
+        await _context.Set<UsersQuestions>().AddAsync(question, token);
         await _context.SaveChangesAsync(token);
     }
 
@@ -48,12 +48,12 @@ public class UsersQuestionService
     public async Task<InputCountDTO<QuestionByUserResponse>> GetUsersQuestions(GetHistoryCommand command, CancellationToken token)
     {
         var userId = _currentUser.GetUserId();
-        int totalCount = await _context.UsersQuestions
+        int totalCount = await _context.Set<UsersQuestions>()
             .AsNoTracking()
             .Where(x => x.UserId == userId)
             .CountAsync(token);
 
-        var usersQuestions = await _context.UsersQuestions
+        var usersQuestions = await _context.Set<UsersQuestions>()
             .AsNoTracking()
             .Where(x => x.UserId == userId)
             .OrderByDescending(x => x.LastUpdate)
@@ -74,7 +74,7 @@ public class UsersQuestionService
     /// <remarks>Используется для админки</remarks>
     public async Task<IReadOnlyCollection<UserQuestionResponse>> GetByFilter(UserQuestionFilter filter, CancellationToken token)
     {
-        var data = await _context.UsersQuestions
+        var data = await _context.Set<UsersQuestions>()
             .AsNoTracking()
             .Where(x => filter.Status.IsNullOrEmpty() || x.Status == filter.Status)
             .AddPagination(filter)
@@ -91,7 +91,7 @@ public class UsersQuestionService
     /// <param name="token">Токен отмены запроса</param>
     public async Task<UserQuestionResponse> UpdateUserQuestion(UpdateUserQuestion question, CancellationToken token)
     {
-        var data = await _context.UsersQuestions
+        var data = await _context.Set<UsersQuestions>()
             .Where(x => x.Id == question.Id).SingleOrDefaultAsync(token);
 
         if (!question.Status.IsNullOrEmpty())

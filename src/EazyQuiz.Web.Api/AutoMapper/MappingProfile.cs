@@ -36,5 +36,11 @@ public class MappingProfile : Profile
             .ForMember(x => x.UserId, opt => opt.MapFrom<CurrentUserResolver>());
 
         CreateMap<User, PublicUserInfo>().ReverseMap();
+
+        CreateMap<FeedbackRequest, Feedback>()
+            .ForMember(x => x.Status, opt => opt.MapFrom(x => "Новый"))
+            .ForMember(x => x.UserId, opt => opt.MapFrom<CurrentUserResolver>());
+
+        CreateMap<Feedback, FeedbackResponse>();
     }
 }

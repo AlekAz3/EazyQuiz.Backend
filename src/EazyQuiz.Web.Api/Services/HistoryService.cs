@@ -1,3 +1,4 @@
+using EazyQuiz.Data.Entities;
 using EazyQuiz.Extensions;
 using EazyQuiz.Models.DTO;
 using Microsoft.EntityFrameworkCore;
@@ -30,12 +31,12 @@ public class HistoryService
     {
         var userId = _currentUser.GetUserId();
 
-        int totalCount = await _context.UserAnswer
+        int totalCount = await _context.Set<UsersAnswer>()
             .AsNoTracking()
             .Where(x => x.UserId == userId)
             .CountAsync(token);
 
-        var userAnswers = await _context.UserAnswer
+        var userAnswers = await _context.Set<UsersAnswer>()
             .AsNoTracking()
             .OrderByDescending(x => x.AnswerTime)
             .Where(x => x.UserId == userId)

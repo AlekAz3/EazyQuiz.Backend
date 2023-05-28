@@ -1,7 +1,5 @@
 using EazyQuiz.Models.DTO;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace EazyQuiz.Web.Api;
 
@@ -15,6 +13,8 @@ public class ThemesController : BaseController
 
     /// <inheritdoc cref="ILogger{TCategoryName}"/>
     private readonly ILogger<ThemesController> _logger;
+
+    /// <inheritdoc cref="CurrentUserService"/>
     private readonly CurrentUserService _currentUser;
 
     public ThemesController(ThemesService service, ILogger<ThemesController> logger, CurrentUserService currentUser)
@@ -25,7 +25,7 @@ public class ThemesController : BaseController
     }
 
     /// <summary>
-    /// Получить коллекцию всех тем 
+    /// Получить коллекцию всех активных тем тем 
     /// </summary>
     /// <param name="token">Токен отмены запроса</param>
     /// <returns>Коллекция тем </returns>
@@ -41,7 +41,7 @@ public class ThemesController : BaseController
     /// </summary>
     /// <param name="themeName">Название темы </param>
     /// <param name="token">Токен отмены запроса</param>
-    /// <remarks>Только для администратора</remarks>
+    /// <remarks>Для администратора</remarks>
     [HttpPost]
     public async Task<IActionResult> AddTheme([FromBody] string themeName, CancellationToken token)
     {
@@ -54,6 +54,12 @@ public class ThemesController : BaseController
         return Ok();
     }
 
+    /// <summary>
+    /// Обновить колллекцию тем
+    /// </summary>
+    /// <param name="themes">Темы</param>
+    /// <param name="token">Токен отмены запроса</param>
+    /// <remarks>Для администратора</remarks>
     [HttpPut]
     public async Task<IActionResult> UpdateThemes([FromBody] IReadOnlyCollection<ThemeResponseWithFlag> themes, CancellationToken token)
     {
@@ -65,6 +71,12 @@ public class ThemesController : BaseController
         return Ok();
     }
 
+    /// <summary>
+    /// Получить все темы
+    /// </summary>
+    /// <param name="token">Токен отмены запроса</param>
+    /// <returns>Коллекция тем вопросов</returns>
+    /// <remarks>Для администратора</remarks>
     [HttpGet("all")]
     public async Task<IActionResult> GetAll(CancellationToken token)
     {
