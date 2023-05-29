@@ -1,3 +1,4 @@
+using EazyQuiz.Data.Entities;
 using EazyQuiz.Extensions;
 using EazyQuiz.Models.DTO;
 using Microsoft.EntityFrameworkCore;
@@ -12,25 +13,30 @@ public class HistoryService
     /// <inheritdoc cref="DataContext"/>
     private readonly DataContext _context;
 
-    public HistoryService(DataContext context)
+    /// <inheritdoc cref="CurrentUserService"/>
+    private readonly CurrentUserService _currentUser;
+
+    public HistoryService(DataContext context, CurrentUserService currentUser)
     {
         _context = context;
+        _currentUser = currentUser;
     }
 
     /// <summary>
     /// Получить коллекцию истории ответов по пагинации
     /// </summary>
-    /// <param name="userId">Ид игрока</param>
     /// <param name="command">Параметры пагинации</param>
     /// <param name="token">Токен отмены запроса</param>
-    public async Task<InputCountDTO<UserAnswerHistory>> GetHistoryByFilter(Guid userId, GetHistoryCommand command, CancellationToken token)
+    public async Task<InputCountDTO<UserAnswerHistory>> GetHistoryByFilter(GetHistoryCommand command, CancellationToken token)
     {
-        int totalCount = await _context.UserAnswer
+        var userId = _currentUser.GetUserId();
+
+        int totalCount = await _context.Set<UsersAnswer>()
             .AsNoTracking()
             .Where(x => x.UserId == userId)
             .CountAsync(token);
 
-        var userAnswers = await _context.UserAnswer
+        var userAnswers = await _context.Set<UsersAnswer>()
             .AsNoTracking()
             .OrderByDescending(x => x.AnswerTime)
             .Where(x => x.UserId == userId)

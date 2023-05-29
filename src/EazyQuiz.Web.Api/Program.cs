@@ -20,17 +20,14 @@ public class Program
 
         builder.Services.AddControllers()
             .AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.PropertyNamingPolicy = null;
-            });
+                {
+                    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                });
 
-        builder.Services.AddDbContext<DataContext>()
-             .AddScoped<UserService>()
-             .AddScoped<QuestionsService>()
-             .AddScoped<HistoryService>()
-             .AddScoped<UsersQuestionService>()
-             .AddScoped<ThemesService>()
-             .AddScoped<LeaderboardService>()
+        builder.Services
+             .AddHttpContextAccessor()
+             .AddDbContext<DataContext>()
+             .AddEazyQuizServices()
              .AddEndpointsApiExplorer()
              .AddAuth(builder.Configuration); //Добавление JWT
 
@@ -50,7 +47,6 @@ public class Program
         {
             app.UseHttpsRedirection();
         }
-
 
         app.UseAuthentication()
            .UseAuthorization();

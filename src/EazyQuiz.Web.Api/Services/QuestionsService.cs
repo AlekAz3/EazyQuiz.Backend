@@ -16,29 +16,35 @@ public class QuestionsService
     /// <inheritdoc cref="IMapper"/>
     private readonly IMapper _mapper;
 
-    public QuestionsService(DataContext dataContext, IMapper mapper)
+    /// <inheritdoc cref="CurrentUserService"/>
+    private readonly CurrentUserService _currentUser;
+
+    public QuestionsService(DataContext dataContext, IMapper mapper, CurrentUserService currentUser)
     {
         _dataContext = dataContext;
         _mapper = mapper;
+        _currentUser = currentUser;
     }
 
     /// <summary>
     /// Записать ответ игрока в базу данных
     /// </summary>
-    public async Task WriteUserAnswer(Guid userId, UserAnswer answer)
+    public async Task WriteUserAnswer(UserAnswer answer)
     {
+        var user = await _currentUser.GetCurrentUser();
+
         var userAnswer = _mapper.Map<UsersAnswer>(answer);
-        userAnswer.UserId = userId;
-        if ((await _dataContext.Answer.FindAsync(answer.AnswerId)).IsCorrect)
+        userAnswer.UserId = user.Id;
+
+        if ((await _dataContext.Set<Answer>().FindAsync(answer.AnswerId)).IsCorrect)
         {
-            var player = await _dataContext.User.FindAsync(userId);
-            player.Points++;
-            player.LastActiveTime = DateTime.UtcNow;
+            user.Points++;
+            user.LastActiveTime = DateTime.UtcNow;
             userAnswer.IsCorrect = true;
-            _dataContext.Update(player);
+            _dataContext.Update(user);
         }
 
-        await _dataContext.UserAnswer.AddAsync(userAnswer);
+        await _dataContext.Set<UsersAnswer>().AddAsync(userAnswer);
         await _dataContext.SaveChangesAsync();
     }
 
@@ -72,12 +78,16 @@ public class QuestionsService
     /// <returns>Коллекция вопросов с ответами</returns>
     public async Task<IReadOnlyCollection<QuestionWithAnswers>> GetQuestionsByFilter(GetQuestionCommand command, CancellationToken token)
     {
-        var questionss = _dataContext.Question
+        var userId = _currentUser.GetUserId();
+
+        var questionss = _dataContext.Set<Question>()
             .AsNoTracking()
-            .Where(x => command.ThemeId == null || x.ThemeId == command.ThemeId)
+            .Where(x => !x.UsersAnswers.Any(x => x.UserId == userId))
+            .Include(x => x.Answers)
             .OrderBy(x => EF.Functions.Random())
-            .Take(command.Count)
-            .Include(x => x.Answers);
+            .Where(x => command.ThemeId == null || x.ThemeId == command.ThemeId)
+            .Take(command.Count);
+
 
         var questions = await questionss.ToListAsync(token);
 

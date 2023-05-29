@@ -4,10 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace EazyQuiz.Data.Entities;
 
 /// <summary>
-/// Временное хранение предложенных вопросов от пользователей
+/// Обратная связь
 /// </summary>
-[Table("UsersQuestions")]
-public class UsersQuestions
+[Table("Feedbacks")]
+public class Feedback
 {
     /// <summary>
     /// Ид
@@ -21,24 +21,22 @@ public class UsersQuestions
     public Guid UserId { get; set; }
 
     /// <summary>
-    /// Текст предложенного вопроса
+    /// Текст
     /// </summary>
-    public string QuestionText { get; set; } = string.Empty;
+    public string Text { get; set; } = string.Empty;
 
     /// <summary>
-    /// Текст правильного ответа 
+    /// Почта
     /// </summary>
-    public string AnswerText { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
 
     /// <summary>
-    /// Статус 
+    /// Статус
     /// </summary>
     public string Status { get; set; } = string.Empty;
 
     /// <summary>
-    /// Последнее обновление
+    /// Пользователь
     /// </summary>
-    public DateTimeOffset LastUpdate { get; set; }
-
-    public User User { get; set; }
+    public User? User { get; set; }
 }

@@ -1,4 +1,5 @@
 using AutoMapper;
+using EazyQuiz.Data.Entities;
 using EazyQuiz.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,10 +16,14 @@ public class LeaderboardService
     /// <inheritdoc cref="IMapper"/>
     private readonly IMapper _mappper;
 
-    public LeaderboardService(DataContext context, IMapper mappper)
+    /// <inheritdoc cref="CurrentUserService"/>
+    private readonly CurrentUserService _currentUser;
+
+    public LeaderboardService(DataContext context, IMapper mappper, CurrentUserService currentUser)
     {
         _context = context;
         _mappper = mappper;
+        _currentUser = currentUser;
     }
 
     /// <summary>
@@ -29,7 +34,7 @@ public class LeaderboardService
     /// <returns>Коллекция пользователей</returns>
     internal async Task<IReadOnlyCollection<PublicUserInfo>> GetByFilter(LeaderboardRequest filter, CancellationToken token)
     {
-        var users = await _context.User
+        var users = await _context.Set<User>()
             .AsNoTracking()
             .Where(x => x.Role == "Player")
             .Where(x => filter.Country == null || x.Country == filter.Country)
@@ -37,20 +42,20 @@ public class LeaderboardService
             .Take(filter.Count)
             .ToListAsync(token);
 
-        return users.Select(_mappper.Map<PublicUserInfo>)
-            .ToList();
+        return users.Select(_mappper.Map<PublicUserInfo>).ToList();
     }
 
     /// <summary>
     /// Получить место пользователя в таблицы лидеров
     /// </summary>
-    /// <param name="userId">Ид пользователя</param>
     /// <param name="country">Страна</param>
     /// <param name="token">Токен отмены запроса</param>
     /// <returns>Место в таблице лидеров</returns>
-    internal async Task<int> GetCurrentUserScore(Guid userId, string country, CancellationToken token)
+    internal async Task<int> GetCurrentUserScore(string country, CancellationToken token)
     {
-        var users = await _context.User
+        var userId = _currentUser.GetUserId();
+
+        var users = await _context.Set<User>()
             .AsNoTracking()
             .Where(x => x.Role == "Player")
             .Where(x => country == null || x.Country == country)

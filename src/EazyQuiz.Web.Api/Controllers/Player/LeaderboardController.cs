@@ -1,6 +1,5 @@
 using EazyQuiz.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace EazyQuiz.Web.Api;
 
@@ -39,8 +38,7 @@ public class LeaderboardController : BaseController
     [HttpGet("user")]
     public async Task<IActionResult> GetUser([FromQuery] string country, CancellationToken token)
     {
-        var userId = Guid.Parse(User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
-        var score = await _service.GetCurrentUserScore(userId, country, token);
+        var score = await _service.GetCurrentUserScore(country, token);
         return Ok(score);
     }
 }

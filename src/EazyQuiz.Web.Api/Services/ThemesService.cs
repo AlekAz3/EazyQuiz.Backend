@@ -23,16 +23,45 @@ public class ThemesService
     }
 
     /// <summary>
+    /// Получить все активные темы
+    /// </summary>
+    /// <param name="token">Токен отмены запроса</param>
+    /// <returns>Коллекция тем </returns>
+    public async Task<IReadOnlyCollection<ThemeResponse>> GetAllActive(CancellationToken token)
+    {
+        var themes = await _context.Set<Theme>()
+            .AsNoTracking()
+            .Where(x => x.Enabled)
+            .OrderBy(x => x.Name)
+            .ToListAsync(token);
+        return themes.Select(_mapper.Map<ThemeResponse>).ToList();
+    }
+
+    /// <summary>
     /// Получить все темы
     /// </summary>
     /// <param name="token">Токен отмены запроса</param>
     /// <returns>Коллекция тем </returns>
-    public async Task<IReadOnlyCollection<ThemeResponse>> GetAll(CancellationToken token)
+    public async Task<IReadOnlyCollection<ThemeResponseWithFlag>> GetAll(CancellationToken token)
     {
-        var themes = await _context.Themes
+        var themes = await _context.Set<Theme>()
             .AsNoTracking()
             .ToListAsync(token);
-        return themes.Select(_mapper.Map<ThemeResponse>).ToList();
+
+        return themes.Select(_mapper.Map<ThemeResponseWithFlag>).ToList();
+    }
+
+    /// <summary>
+    /// Обновить коллекцию тем
+    /// </summary>
+    /// <param name="themes">Коллекция тем</param>
+    /// <param name="token">Токен отмены запроса</param>
+    public async Task UpdateThemes(IReadOnlyCollection<ThemeResponseWithFlag> themes, CancellationToken token)
+    {
+        var entityThemes = themes.Select(_mapper.Map<Theme>);
+        _context.Set<Theme>().UpdateRange(entityThemes);
+        await _context.SaveChangesAsync(token);
+
     }
 
     /// <summary>

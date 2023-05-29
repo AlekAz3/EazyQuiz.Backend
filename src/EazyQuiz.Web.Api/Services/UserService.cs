@@ -36,7 +36,7 @@ public class UserService
     /// <param name="auth">Логин и пароль в <see cref="UserAuth"/></param>
     public async Task<UserResponse> Authenticate(UserAuth auth)
     {
-        var user = await _dataContext.User
+        var user = await _dataContext.Set<User>()
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Username == auth.Username);
 
@@ -62,7 +62,7 @@ public class UserService
     {
         var newUser = _mapper.Map<User>(user);
 
-        await _dataContext.User.AddAsync(newUser);
+        await _dataContext.Set<User>().AddAsync(newUser);
         await _dataContext.SaveChangesAsync();
     }
 
@@ -92,7 +92,7 @@ public class UserService
     /// </summary>
     public async Task<string> GetUserSalt(string userName)
     {
-        string userSalt = await _dataContext.User
+        string userSalt = await _dataContext.Set<User>()
             .AsNoTracking()
             .Where(x => userName == x.Username)
             .Select(x => x.PasswordSalt)

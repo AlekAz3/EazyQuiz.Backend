@@ -1,6 +1,5 @@
 using EazyQuiz.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace EazyQuiz.Web.Api;
 
@@ -26,9 +25,7 @@ public class HistoryController : BaseController
     [HttpGet]
     public async Task<IActionResult> GetHistoryByFilter([FromQuery] GetHistoryCommand command, CancellationToken token)
     {
-        var userId = Guid.Parse(User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
-
-        var list = await _service.GetHistoryByFilter(userId, command, token);
+        var list = await _service.GetHistoryByFilter(command, token);
         return Ok(list);
     }
 }

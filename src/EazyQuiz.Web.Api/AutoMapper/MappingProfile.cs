@@ -27,12 +27,20 @@ public class MappingProfile : Profile
         CreateMap<QuestionByUserResponse, UsersQuestions>().ReverseMap();
         CreateMap<UserQuestionResponse, UsersQuestions>().ReverseMap();
 
-        CreateMap<Theme, ThemeResponse>();
+        CreateMap<Theme, ThemeResponse>().ReverseMap();
+        CreateMap<Theme, ThemeResponseWithFlag>().ReverseMap();
 
         CreateMap<AddQuestionByUser, UsersQuestions>()
             .ForMember(x => x.LastUpdate, opt => opt.MapFrom(opt => DateTimeOffset.Now))
-            .ForMember(x => x.Status, opt => opt.MapFrom(opt => "Новый"));
+            .ForMember(x => x.Status, opt => opt.MapFrom(opt => "Новый"))
+            .ForMember(x => x.UserId, opt => opt.MapFrom<CurrentUserResolver>());
 
         CreateMap<User, PublicUserInfo>().ReverseMap();
+
+        CreateMap<FeedbackRequest, Feedback>()
+            .ForMember(x => x.Status, opt => opt.MapFrom(x => "Новый"))
+            .ForMember(x => x.UserId, opt => opt.MapFrom<CurrentUserResolver>());
+
+        CreateMap<Feedback, FeedbackResponse>();
     }
 }

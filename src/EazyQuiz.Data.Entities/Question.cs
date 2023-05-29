@@ -20,8 +20,14 @@ public class Question
     /// </summary>
     public string? Text { get; set; }
 
+    /// <summary>
+    /// Ид темы
+    /// </summary>
     public Guid ThemeId { get; set; }
 
+    /// <summary>
+    /// Тема
+    /// </summary>
     public Theme? Theme { get; set; }
 
     public ICollection<Answer> Answers { get; set; } = new List<Answer>();
