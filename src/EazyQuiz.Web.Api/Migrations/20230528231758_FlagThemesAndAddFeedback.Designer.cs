@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EazyQuiz.Web.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230528223803_ThemesAddFeedback")]
-    partial class ThemesAddFeedback
+    [Migration("20230528231758_FlagThemesAndAddFeedback")]
+    partial class FlagThemesAndAddFeedback
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -110,7 +110,7 @@ namespace EazyQuiz.Web.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Theme");
+                    b.ToTable("Themes");
                 });
 
             modelBuilder.Entity("EazyQuiz.Data.Entities.User", b =>

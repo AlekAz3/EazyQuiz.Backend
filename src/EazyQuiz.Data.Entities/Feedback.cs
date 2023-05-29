@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EazyQuiz.Data.Entities;
 
+/// <summary>
+/// Обратная связь
+/// </summary>
 [Table("Feedbacks")]
 public class Feedback
 {

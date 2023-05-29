@@ -107,7 +107,7 @@ namespace EazyQuiz.Web.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Theme");
+                    b.ToTable("Themes");
                 });
 
             modelBuilder.Entity("EazyQuiz.Data.Entities.User", b =>

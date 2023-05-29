@@ -6,34 +6,17 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EazyQuiz.Web.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class ThemesAddFeedback : Migration
+    public partial class FlagThemesAndAddFeedback : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Questions_Themes_ThemeId",
-                table: "Questions");
-
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Themes",
-                table: "Themes");
-
-            migrationBuilder.RenameTable(
-                name: "Themes",
-                newName: "Theme");
-
             migrationBuilder.AddColumn<bool>(
                 name: "Enabled",
-                table: "Theme",
+                table: "Themes",
                 type: "boolean",
                 nullable: false,
                 defaultValue: false);
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_Theme",
-                table: "Theme",
-                column: "Id");
 
             migrationBuilder.CreateTable(
                 name: "Feedbacks",
@@ -60,50 +43,17 @@ namespace EazyQuiz.Web.Api.Migrations
                 name: "IX_Feedbacks_UserId",
                 table: "Feedbacks",
                 column: "UserId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Questions_Theme_ThemeId",
-                table: "Questions",
-                column: "ThemeId",
-                principalTable: "Theme",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Questions_Theme_ThemeId",
-                table: "Questions");
-
             migrationBuilder.DropTable(
                 name: "Feedbacks");
 
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Theme",
-                table: "Theme");
-
             migrationBuilder.DropColumn(
                 name: "Enabled",
-                table: "Theme");
-
-            migrationBuilder.RenameTable(
-                name: "Theme",
-                newName: "Themes");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_Themes",
-                table: "Themes",
-                column: "Id");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Questions_Themes_ThemeId",
-                table: "Questions",
-                column: "ThemeId",
-                principalTable: "Themes",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                table: "Themes");
         }
     }
 }

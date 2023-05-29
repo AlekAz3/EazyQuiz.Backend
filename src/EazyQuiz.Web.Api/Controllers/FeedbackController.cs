@@ -27,7 +27,7 @@ public class FeedbackController : BaseController
     /// <param name="token">Токен отмены запроса</param>
     /// <returns>Коллекцию обратной связи</returns>
     /// <remarks>Для администратора</remarks>
-    [HttpGet]
+    [HttpGet ]
     public async Task<IActionResult> GetFeedbacks([FromQuery] string status, CancellationToken token)
     {
         if (_user.GetUserRole() != "Admin")

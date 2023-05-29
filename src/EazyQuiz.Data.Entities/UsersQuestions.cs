@@ -1,10 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EazyQuiz.Data.Entities;
 
 /// <summary>
 /// Временное хранение предложенных вопросов от пользователей
 /// </summary>
+[Table("UsersQuestions")]
 public class UsersQuestions
 {
     /// <summary>
