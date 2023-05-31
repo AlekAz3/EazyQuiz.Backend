@@ -21,8 +21,8 @@ namespace EazyQuiz.Models.DTO
         public string? Country { get; set; }
 
         /// <summary>
-        /// JWT Токен
+        /// JWT Токен с Refrash токен 
         /// </summary>
-        public string? Token { get; set; }
+        public Token? Token { get; set; }
     }
 }

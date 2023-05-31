@@ -70,4 +70,6 @@ public class AuthController : Controller
         }
         return Ok(userSalt);
     }
+
+    
 }

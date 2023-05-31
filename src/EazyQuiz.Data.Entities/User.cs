@@ -50,6 +50,11 @@ public class User
     /// </summary>
     public string? PasswordSalt { get; set; }
 
+    /// <summary>
+    /// Токен обновления 
+    /// </summary>
+    public string? RefrashToken { get; set; }
+
     public ICollection<UsersAnswer> UsersAnswers { get; set; } = new List<UsersAnswer>();
 
     public ICollection<UsersQuestions> UsersQuestions { get; set; } = new List<UsersQuestions>();
