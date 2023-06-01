@@ -71,5 +71,18 @@ public class AuthController : Controller
         return Ok(userSalt);
     }
 
-    
+    [HttpPost("token")]
+    public async Task<IActionResult> RefreshJWTToken([FromBody] string refresh, CancellationToken cancellationToken)
+    {
+        try
+        {
+            var token = await _userService.RefreshJwtToken(refresh, cancellationToken);
+            return Ok(token);
+
+        }
+        catch (Exception)
+        {
+            return BadRequest();
+        }
+    }
 }

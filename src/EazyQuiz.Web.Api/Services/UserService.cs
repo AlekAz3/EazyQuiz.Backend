@@ -42,7 +42,6 @@ public class UserService
     public async Task<UserResponse> Authenticate(UserAuth auth)
     {
         var user = await _context.Set<User>()
-            .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Username == auth.Username);
 
         if (user == null)
@@ -53,7 +52,19 @@ public class UserService
         if (auth.PasswordHash.Replace(' ', '+') == user.PasswordHash)
         {
             var userResponse = _mapper.Map<UserResponse>(user);
-            userResponse.Token = GenerateJwtToken(user);
+
+            var newRefreshToken = GenerateRefreshToken();
+            user.RefrashToken = newRefreshToken;
+
+            var token = new Token()
+            {
+                Jwt = GenerateJwtToken(user),
+                RefrashToken = newRefreshToken
+            };
+
+            userResponse.Token = token;
+
+            await _context.SaveChangesAsync();
 
             return userResponse;
         }
@@ -86,35 +97,41 @@ public class UserService
         var token = new JwtSecurityToken(_config["Jwt:Issuer"],
             _config["Jwt:Audience"],
             claims,
-            expires: DateTime.Now.AddDays(1),
+            expires: DateTime.Now.AddSeconds(5),
             signingCredentials: credentials);
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    public async Task<string> RefreshJwtToken(string refreshToken, CancellationToken cancellationToken)
+    public async Task<Token> RefreshJwtToken(string refreshToken, CancellationToken cancellationToken)
     {
-        var user = await _currentUser.GetCurrentUser();
+        var user = await _context.Set<User>()
+            .SingleOrDefaultAsync(x => x.RefrashToken == refreshToken, cancellationToken);
 
-        if (user.RefrashToken != refreshToken)
+        if (user is null)
         {
             throw new ArgumentException($"{refreshToken} is not valid");
         }
 
-        var token = GenerateJwtToken(user);
+        var jwtToken = GenerateJwtToken(user);
         var newRefreshToken = GenerateRefreshToken();
 
-        user.RefrashToken = refreshToken;
-        _context.Set<User>().Update(user);
+        user.RefrashToken = newRefreshToken;
 
         await _context.SaveChangesAsync(cancellationToken);
+
+        var token = new Token()
+        {
+            Jwt = jwtToken,
+            RefrashToken = newRefreshToken
+        };
 
         return token;
     }
 
     private string GenerateRefreshToken()
     {
-        var randomNumber = new byte[32];
+        var randomNumber = new byte[64];
 
         RandomNumberGenerator.Fill(randomNumber);
 
