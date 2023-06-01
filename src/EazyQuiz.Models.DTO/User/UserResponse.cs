@@ -1,8 +1,11 @@
+using System;
+
 namespace EazyQuiz.Models.DTO
 {
     /// <summary>
     /// ДТО Возвращаемое сервером после авторизации
     /// </summary>
+    [Serializable]
     public class UserResponse
     {
         /// <summary>

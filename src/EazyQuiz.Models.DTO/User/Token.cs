@@ -1,8 +1,11 @@
+using System;
+
 namespace EazyQuiz.Models.DTO
 {
     /// <summary>
     /// Токен
     /// </summary>
+    [Serializable]
     public class Token
     {
         /// <summary>
