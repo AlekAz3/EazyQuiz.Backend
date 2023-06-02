@@ -3,31 +3,30 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EazyQuiz.Data.Entities;
 
-
 /// <summary>
-/// Тема для вопросов
+///     Тема для вопросов
 /// </summary>
 [Table("Themes")]
 public class Theme
 {
     /// <summary>
-    /// Ид
+    ///     Ид
     /// </summary>
     [Key]
     public Guid Id { get; set; }
 
     /// <summary>
-    /// Название темы
+    ///     Название темы
     /// </summary>
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
-    /// Активность
+    ///     Активность
     /// </summary>
     public bool Enabled { get; set; }
 
     /// <summary>
-    /// Вопросы
+    ///     Вопросы
     /// </summary>
     public IEnumerable<Question> Questions { get; set; } = Enumerable.Empty<Question>();
 }

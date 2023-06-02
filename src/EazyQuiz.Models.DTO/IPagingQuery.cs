@@ -1,17 +1,17 @@
 namespace EazyQuiz.Models.DTO
 {
     /// <summary>
-    /// Параметры пагинации
+    ///     Параметры пагинации
     /// </summary>
     public interface IPagingQuery
     {
         /// <summary>
-        /// Номер страницы
+        ///     Номер страницы
         /// </summary>
         public int? PageNumber { get; set; }
 
         /// <summary>
-        /// Размер страницы
+        ///     Размер страницы
         /// </summary>
         public int? PageSize { get; set; }
     }

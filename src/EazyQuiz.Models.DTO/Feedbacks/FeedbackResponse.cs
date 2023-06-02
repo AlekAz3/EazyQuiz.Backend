@@ -3,27 +3,27 @@ using System;
 namespace EazyQuiz.Models.DTO
 {
     /// <summary>
-    /// ДТО обратной связи пользователей
+    ///     ДТО обратной связи пользователей
     /// </summary>
     public class FeedbackResponse
     {
         /// <summary>
-        /// Ид
+        ///     Ид
         /// </summary>
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Текст
+        ///     Текст
         /// </summary>
         public string Text { get; set; } = string.Empty;
 
         /// <summary>
-        /// Почта
+        ///     Почта
         /// </summary>
         public string Email { get; set; } = string.Empty;
 
         /// <summary>
-        /// Статус
+        ///     Статус
         /// </summary>
         public string Status { get; set; } = string.Empty;
     }

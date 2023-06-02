@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace EazyQuiz.Web.Api;
 
 /// <summary>
-/// Контроллер для управления пользователями
+///     Контроллер для управления пользователями
 /// </summary>
 public class UserController : BaseController
 {
-    /// <inheritdoc cref="UserService"/>
+    /// <inheritdoc cref="UserService" />
     private readonly UserService _service;
 
     public UserController(UserService service)
@@ -17,7 +17,7 @@ public class UserController : BaseController
     }
 
     /// <summary>
-    /// Сменить ник
+    ///     Сменить ник
     /// </summary>
     [HttpPost("username")]
     public async Task<IActionResult> ChangeUsername([FromRoute] string newUsername, CancellationToken cancellationToken)
@@ -27,10 +27,11 @@ public class UserController : BaseController
     }
 
     /// <summary>
-    /// Сменить пароль
+    ///     Сменить пароль
     /// </summary>
     [HttpPost("password")]
-    public async Task<IActionResult> ChangePassword([FromBody] UserPassword newPassword, CancellationToken cancellationToken)
+    public async Task<IActionResult> ChangePassword([FromBody] UserPassword newPassword,
+        CancellationToken cancellationToken)
     {
         await _service.ChangePassword(newPassword, cancellationToken);
         return Ok();

@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace EazyQuiz.Web.Api;
 
 /// <summary>
-/// Контроллер управления истории 
+///     Контроллер управления истории
 /// </summary>
 public class HistoryController : BaseController
 {
-    /// <inheritdoc cref="HistoryService"/>
+    /// <inheritdoc cref="HistoryService" />
     private readonly HistoryService _service;
 
     public HistoryController(HistoryService service)
@@ -17,11 +17,11 @@ public class HistoryController : BaseController
     }
 
     /// <summary>
-    /// Получить историю ответов по пагинации
+    ///     Получить историю ответов по пагинации
     /// </summary>
     /// <param name="command">Параметры пагинации</param>
     /// <param name="token">Токен отмены запроса</param>
-    /// <returns>Коллекцию ответов пользователя <see cref="UserAnswerHistory"/></returns>
+    /// <returns>Коллекцию ответов пользователя <see cref="UserAnswerHistory" /></returns>
     [HttpGet]
     public async Task<IActionResult> GetHistoryByFilter([FromQuery] GetHistoryCommand command, CancellationToken token)
     {

@@ -6,14 +6,14 @@ using Microsoft.EntityFrameworkCore;
 namespace EazyQuiz.Web.Api;
 
 /// <summary>
-/// Сервис работающий с темами
+///     Сервис работающий с темами
 /// </summary>
 public class ThemesService
 {
-    /// <inheritdoc cref="DataContext"/>
+    /// <inheritdoc cref="DataContext" />
     private readonly DataContext _context;
 
-    /// <inheritdoc cref="IMapper"/>
+    /// <inheritdoc cref="IMapper" />
     private readonly IMapper _mapper;
 
     public ThemesService(DataContext context, IMapper mapper)
@@ -23,7 +23,7 @@ public class ThemesService
     }
 
     /// <summary>
-    /// Получить все активные темы
+    ///     Получить все активные темы
     /// </summary>
     /// <param name="token">Токен отмены запроса</param>
     /// <returns>Коллекция тем </returns>
@@ -38,7 +38,7 @@ public class ThemesService
     }
 
     /// <summary>
-    /// Получить все темы
+    ///     Получить все темы
     /// </summary>
     /// <param name="token">Токен отмены запроса</param>
     /// <returns>Коллекция тем </returns>
@@ -52,7 +52,7 @@ public class ThemesService
     }
 
     /// <summary>
-    /// Обновить коллекцию тем
+    ///     Обновить коллекцию тем
     /// </summary>
     /// <param name="themes">Коллекция тем</param>
     /// <param name="token">Токен отмены запроса</param>
@@ -61,17 +61,16 @@ public class ThemesService
         var entityThemes = themes.Select(_mapper.Map<Theme>);
         _context.Set<Theme>().UpdateRange(entityThemes);
         await _context.SaveChangesAsync(token);
-
     }
 
     /// <summary>
-    /// Добавить тему
+    ///     Добавить тему
     /// </summary>
     /// <param name="name">Название темы</param>
     /// <param name="token">Токен отмены вопроса</param>
     public async Task AddTheme(string name, CancellationToken token)
     {
-        var theme = new Theme() { Name = name };
+        var theme = new Theme { Name = name };
         _context.Add(theme);
         await _context.SaveChangesAsync(token);
     }

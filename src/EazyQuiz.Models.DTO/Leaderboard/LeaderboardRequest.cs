@@ -1,17 +1,17 @@
 namespace EazyQuiz.Models.DTO
 {
     /// <summary>
-    /// Запрос на получение таблицы лидеров по фильтру
+    ///     Запрос на получение таблицы лидеров по фильтру
     /// </summary>
     public class LeaderboardRequest
     {
         /// <summary>
-        /// Количество
+        ///     Количество
         /// </summary>
         public int Count { get; set; } = 5;
 
         /// <summary>
-        /// Страна
+        ///     Страна
         /// </summary>
         public string? Country { get; set; }
     }

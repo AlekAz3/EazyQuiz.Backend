@@ -3,42 +3,42 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace EazyQuiz.Data.Entities;
 
 /// <summary>
-/// Ответы пользователей
+///     Ответы пользователей
 /// </summary>
 [Table("UsersAnswers")]
 public class UsersAnswer
 {
     /// <summary>
-    /// Ид
+    ///     Ид
     /// </summary>
     public Guid Id { get; set; }
 
     /// <summary>
-    /// Ид Юзера
+    ///     Ид пользователя
     /// </summary>
     public Guid UserId { get; set; }
 
     /// <summary>
-    /// Ид Ответа 
+    ///     Ид Ответа
     /// </summary>
     public Guid AnswerId { get; set; }
 
     /// <summary>
-    /// Ид вопроса
+    ///     Ид вопроса
     /// </summary>
     public Guid QuestionId { get; set; }
 
     /// <summary>
-    /// Время ответа на вопрос
+    ///     Время ответа на вопрос
     /// </summary>
     public DateTimeOffset AnswerTime { get; set; }
 
     /// <summary>
-    /// Правильный ответ
+    ///     Правильный ответ
     /// </summary>
     public bool IsCorrect { get; set; }
 
-    public User User { get; set; }
-    public Answer Answer { get; set; }
-    public Question Question { get; set; }
+    public User User { get; set; } = null!;
+    public Answer Answer { get; set; } = null!;
+    public Question Question { get; set; } = null!;
 }

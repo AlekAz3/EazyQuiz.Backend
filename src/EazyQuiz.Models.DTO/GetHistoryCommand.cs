@@ -1,7 +1,7 @@
 namespace EazyQuiz.Models.DTO
 {
     /// <summary>
-    /// Команда для получения истории с пагинацией
+    ///     Команда для получения истории с пагинацией
     /// </summary>
     public class GetHistoryCommand : IPagingQuery
     {

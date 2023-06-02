@@ -6,18 +6,18 @@ using Microsoft.EntityFrameworkCore;
 namespace EazyQuiz.Web.Api;
 
 /// <summary>
-/// Сервис лидерборда
+///     Сервис лидерборда
 /// </summary>
 public class LeaderboardService
 {
-    /// <inheritdoc cref="DataContext"/>
+    /// <inheritdoc cref="DataContext" />
     private readonly DataContext _context;
 
-    /// <inheritdoc cref="IMapper"/>
-    private readonly IMapper _mappper;
-
-    /// <inheritdoc cref="CurrentUserService"/>
+    /// <inheritdoc cref="CurrentUserService" />
     private readonly CurrentUserService _currentUser;
+
+    /// <inheritdoc cref="IMapper" />
+    private readonly IMapper _mappper;
 
     public LeaderboardService(DataContext context, IMapper mappper, CurrentUserService currentUser)
     {
@@ -27,12 +27,13 @@ public class LeaderboardService
     }
 
     /// <summary>
-    /// Получить список лидеров по фильтру 
+    ///     Получить список лидеров по фильтру
     /// </summary>
     /// <param name="filter">Фильтр</param>
     /// <param name="token">Токен отмены запроса</param>
     /// <returns>Коллекция пользователей</returns>
-    internal async Task<IReadOnlyCollection<PublicUserInfo>> GetByFilter(LeaderboardRequest filter, CancellationToken token)
+    internal async Task<IReadOnlyCollection<PublicUserInfo>> GetByFilter(LeaderboardRequest filter,
+        CancellationToken token)
     {
         var users = await _context.Set<User>()
             .AsNoTracking()
@@ -46,7 +47,7 @@ public class LeaderboardService
     }
 
     /// <summary>
-    /// Получить место пользователя в таблицы лидеров
+    ///     Получить место пользователя в таблицы лидеров
     /// </summary>
     /// <param name="country">Страна</param>
     /// <param name="token">Токен отмены запроса</param>

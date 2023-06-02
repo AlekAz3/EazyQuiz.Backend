@@ -1,13 +1,14 @@
+using EazyQuiz.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace EazyQuiz.Web.Api;
 
 /// <summary>
-/// Контекст подключения к базе данных
+///     Контекст подключения к базе данных
 /// </summary>
 public class DataContext : DbContext
 {
-    /// <inheritdoc cref="IConfiguration"/>
+    /// <inheritdoc cref="IConfiguration" />
     private readonly IConfiguration _config;
 
     public DataContext(IConfiguration config)
@@ -21,8 +22,6 @@ public class DataContext : DbContext
         optionsBuilder.UseNpgsql(connectionString);
     }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(Data.AssemblyMarker).Assembly);
-    }
+    protected override void OnModelCreating(ModelBuilder modelBuilder) =>
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(AssemblyMarker).Assembly);
 }

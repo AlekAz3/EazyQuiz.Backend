@@ -4,59 +4,65 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace EazyQuiz.Data.Entities;
 
 /// <summary>
-/// Описание пользователя
+///     Описание пользователя
 /// </summary>
 [Table("Users")]
 public class User
 {
     /// <summary>
-    /// Ид
+    ///     Ид
     /// </summary>
     [Key]
     public Guid Id { get; set; }
 
     /// <summary>
-    /// Ник
+    ///     Ник
     /// </summary>
     public string Username { get; set; } = string.Empty;
 
     /// <summary>
-    /// Счёт
+    ///     Счёт
     /// </summary>
     public int Points { get; set; }
 
     /// <summary>
-    /// Страна
+    ///     Страна
     /// </summary>
     public string Country { get; set; } = string.Empty;
 
     /// <summary>
-    /// Время последней активности
+    ///     Время последней активности
     /// </summary>
     public DateTimeOffset LastActiveTime { get; set; }
 
     /// <summary>
-    /// Роль
+    ///     Роль
     /// </summary>
     public string Role { get; set; } = string.Empty;
 
     /// <summary>
-    /// Пароль Хэш
+    ///     Пароль Хэш
     /// </summary>
     public string? PasswordHash { get; set; }
 
     /// <summary>
-    /// Соль пароля
+    ///     Соль пароля
     /// </summary>
     public string? PasswordSalt { get; set; }
 
     /// <summary>
-    /// Токен обновления 
+    ///     Токен обновления
     /// </summary>
-    public string? RefrashToken { get; set; }
+    public string? RefreshToken { get; set; }
 
+    /// <summary>
+    ///     Коллекция ответов пользователей
+    /// </summary>
     public ICollection<UsersAnswer> UsersAnswers { get; set; } = new List<UsersAnswer>();
 
+    /// <summary>
+    ///     Коллекция предложеных вопросов от пользователей
+    /// </summary>
     public ICollection<UsersQuestions> UsersQuestions { get; set; } = new List<UsersQuestions>();
 
     public ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();

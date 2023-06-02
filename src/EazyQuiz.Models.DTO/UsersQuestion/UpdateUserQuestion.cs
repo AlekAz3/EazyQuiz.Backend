@@ -3,17 +3,17 @@ using System;
 namespace EazyQuiz.Models.DTO
 {
     /// <summary>
-    /// Обновить состояние вопроса пользователя 
+    ///     Обновить состояние вопроса пользователя
     /// </summary>
     public class UpdateUserQuestion
     {
         /// <summary>
-        /// Ид
+        ///     Ид
         /// </summary>
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Статус
+        ///     Статус
         /// </summary>
         public string? Status { get; set; }
     }

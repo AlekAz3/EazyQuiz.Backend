@@ -3,18 +3,18 @@ using System;
 namespace EazyQuiz.Models.DTO
 {
     /// <summary>
-    /// Токен
+    ///     Токен
     /// </summary>
     [Serializable]
     public class Token
     {
         /// <summary>
-        /// Jwt
+        ///     Jwt
         /// </summary>
         public string? Jwt { get; set; }
 
         /// <summary>
-        /// RT
+        ///     RT
         /// </summary>
         public string? RefrashToken { get; set; }
     }

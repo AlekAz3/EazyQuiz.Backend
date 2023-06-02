@@ -11,20 +11,20 @@ using System.Text;
 namespace EazyQuiz.Web.Api;
 
 /// <summary>
-/// Класс реальзующий <inheritdoc cref="UserService"/>
+///     Класс реальзующий <inheritdoc cref="UserService" />
 /// </summary>
 public class UserService
 {
-    /// <inheritdoc cref="DataContext"/>
-    private readonly DataContext _context;
-
-    /// <inheritdoc cref="CurrentUserService"/>
-    private readonly CurrentUserService _currentUser;
-
-    /// <inheritdoc cref="IConfiguration"/>
+    /// <inheritdoc cref="IConfiguration" />
     private readonly IConfiguration _config;
 
-    /// <inheritdoc cref="IMapper"/>
+    /// <inheritdoc cref="DataContext" />
+    private readonly DataContext _context;
+
+    /// <inheritdoc cref="CurrentUserService" />
+    private readonly CurrentUserService _currentUser;
+
+    /// <inheritdoc cref="IMapper" />
     private readonly IMapper _mapper;
 
     public UserService(DataContext context, CurrentUserService currentUser, IConfiguration config, IMapper mapper)
@@ -36,9 +36,9 @@ public class UserService
     }
 
     /// <summary>
-    /// Аутентифицировать пользователя
+    ///     Аутентифицировать пользователя
     /// </summary>
-    /// <param name="auth">Логин и пароль в <see cref="UserAuth"/></param>
+    /// <param name="auth">Логин и пароль в <see cref="UserAuth" /></param>
     public async Task<UserResponse> Authenticate(UserAuth auth)
     {
         var user = await _context.Set<User>()
@@ -53,14 +53,10 @@ public class UserService
         {
             var userResponse = _mapper.Map<UserResponse>(user);
 
-            var newRefreshToken = GenerateRefreshToken();
-            user.RefrashToken = newRefreshToken;
+            string newRefreshToken = GenerateRefreshToken();
+            user.RefreshToken = newRefreshToken;
 
-            var token = new Token()
-            {
-                Jwt = GenerateJwtToken(user),
-                RefrashToken = newRefreshToken
-            };
+            var token = new Token { Jwt = GenerateJwtToken(user), RefrashToken = newRefreshToken };
 
             userResponse.Token = token;
 
@@ -68,11 +64,12 @@ public class UserService
 
             return userResponse;
         }
+
         return null;
     }
 
     /// <summary>
-    /// Записать в бд информацию о новом пользователе
+    ///     Записать в бд информацию о новом пользователе
     /// </summary>
     public async Task RegisterNewUser(UserRegister user)
     {
@@ -83,7 +80,7 @@ public class UserService
     }
 
     /// <summary>
-    /// Сгенерировать JWT токен 
+    ///     Сгенерировать JWT токен
     /// </summary>
     private string GenerateJwtToken(User user)
     {
@@ -91,8 +88,7 @@ public class UserService
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512);
         var claims = new[]
         {
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Role, user.Role)
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()), new Claim(ClaimTypes.Role, user.Role)
         };
         var token = new JwtSecurityToken(_config["Jwt:Issuer"],
             _config["Jwt:Audience"],
@@ -106,32 +102,28 @@ public class UserService
     public async Task<Token> RefreshJwtToken(string refreshToken, CancellationToken cancellationToken)
     {
         var user = await _context.Set<User>()
-            .SingleOrDefaultAsync(x => x.RefrashToken == refreshToken, cancellationToken);
+            .SingleOrDefaultAsync(x => x.RefreshToken == refreshToken, cancellationToken);
 
         if (user is null)
         {
             throw new ArgumentException($"{refreshToken} is not valid");
         }
 
-        var jwtToken = GenerateJwtToken(user);
-        var newRefreshToken = GenerateRefreshToken();
+        string jwtToken = GenerateJwtToken(user);
+        string newRefreshToken = GenerateRefreshToken();
 
-        user.RefrashToken = newRefreshToken;
+        user.RefreshToken = newRefreshToken;
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        var token = new Token()
-        {
-            Jwt = jwtToken,
-            RefrashToken = newRefreshToken
-        };
+        var token = new Token { Jwt = jwtToken, RefrashToken = newRefreshToken };
 
         return token;
     }
 
     private string GenerateRefreshToken()
     {
-        var randomNumber = new byte[64];
+        byte[] randomNumber = new byte[64];
 
         RandomNumberGenerator.Fill(randomNumber);
 
@@ -139,7 +131,7 @@ public class UserService
     }
 
     /// <summary>
-    /// Получить "Соль" пользователя
+    ///     Получить "Соль" пользователя
     /// </summary>
     public async Task<string> GetUserSalt(string userName)
     {
@@ -153,11 +145,12 @@ public class UserService
         {
             return "";
         }
+
         return userSalt;
     }
 
     /// <summary>
-    /// Смена ника пользователя
+    ///     Смена ника пользователя
     /// </summary>
     /// <param name="newUsername">Новый ник</param>
     /// <param name="cancellationToken">Токен отмены запроса</param>
@@ -173,7 +166,7 @@ public class UserService
     }
 
     /// <summary>
-    /// Сменить пароль
+    ///     Сменить пароль
     /// </summary>
     /// <param name="newPassword">Новый пароль</param>
     /// <param name="cancellationToken">Токен отмены запроса</param>

@@ -3,28 +3,28 @@ using System;
 namespace EazyQuiz.Models.DTO
 {
     /// <summary>
-    /// ДТО Возвращаемое сервером после авторизации
+    ///     ДТО Возвращаемое сервером после авторизации
     /// </summary>
     [Serializable]
     public class UserResponse
     {
         /// <summary>
-        /// Ник
+        ///     Ник
         /// </summary>
         public string? UserName { get; set; }
 
         /// <summary>
-        /// Счёт
+        ///     Счёт
         /// </summary>
         public int Points { get; set; }
 
         /// <summary>
-        /// Страна
+        ///     Страна
         /// </summary>
         public string? Country { get; set; }
 
         /// <summary>
-        /// JWT Токен с Refrash токен 
+        ///     JWT Токен с Refresh токен
         /// </summary>
         public Token? Token { get; set; }
     }

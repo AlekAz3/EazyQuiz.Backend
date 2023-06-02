@@ -4,14 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 namespace EazyQuiz.Web.Api.Controllers;
 
 /// <summary>
-/// Контроллер обратной связи
+///     Контроллер обратной связи
 /// </summary>
 public class FeedbackController : BaseController
 {
-    /// <inheritdoc cref="FeedbackService"/>
+    /// <inheritdoc cref="FeedbackService" />
     private readonly FeedbackService _service;
 
-    /// <inheritdoc cref="CurrentUserService"/>
+    /// <inheritdoc cref="CurrentUserService" />
     private readonly CurrentUserService _user;
 
     public FeedbackController(FeedbackService service, CurrentUserService user)
@@ -21,13 +21,13 @@ public class FeedbackController : BaseController
     }
 
     /// <summary>
-    /// Получить коллекцию обратной связи от пользоватлей
+    ///     Получить коллекцию обратной связи от пользоватлей
     /// </summary>
     /// <param name="status">Статус </param>
     /// <param name="token">Токен отмены запроса</param>
     /// <returns>Коллекцию обратной связи</returns>
     /// <remarks>Для администратора</remarks>
-    [HttpGet ]
+    [HttpGet]
     public async Task<IActionResult> GetFeedbacks([FromQuery] string status, CancellationToken token)
     {
         if (_user.GetUserRole() != "Admin")
@@ -40,7 +40,7 @@ public class FeedbackController : BaseController
     }
 
     /// <summary>
-    /// Отправить новую обратную связь
+    ///     Отправить новую обратную связь
     /// </summary>
     /// <param name="request">Запрос на добавление</param>
     /// <param name="token">Токен отмены запроса</param>
@@ -53,18 +53,20 @@ public class FeedbackController : BaseController
     }
 
     /// <summary>
-    /// Обновить обратную связь
+    ///     Обновить обратную связь
     /// </summary>
     /// <param name="feedbackUpdate">ЗАпрос на обновление</param>
     /// <param name="token">Токен отмены запроса</param>
     /// <remarks>Для администратора</remarks>
     [HttpPut]
-    public async Task<IActionResult> UpdateFeedback([FromBody] FeedbackUpdateDTO feedbackUpdate, CancellationToken token)
+    public async Task<IActionResult> UpdateFeedback([FromBody] FeedbackUpdateDTO feedbackUpdate,
+        CancellationToken token)
     {
         if (_user.GetUserRole() != "Admin")
         {
             return BadRequest();
         }
+
         await _service.UpdateFeedbacks(feedbackUpdate, token);
         return Ok();
     }

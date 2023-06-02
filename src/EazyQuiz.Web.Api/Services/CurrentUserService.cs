@@ -5,20 +5,20 @@ using System.Security.Claims;
 namespace EazyQuiz.Web.Api;
 
 /// <summary>
-/// Сервис для получение текущего пользователя
+///     Сервис для получение текущего пользователя
 /// </summary>
 public class CurrentUserService
 {
-    /// <inheritdoc cref="IHttpContextAccessor"/>
-    private readonly IHttpContextAccessor _httpContextAccessor;
-
-    /// <inheritdoc cref="DataContext"/>
+    /// <inheritdoc cref="DataContext" />
     private readonly DataContext _context;
 
     /// <summary>
-    /// Ленивое получение всей информации о пользователе с базы данных
+    ///     Ленивое получение всей информации о пользователе с базы данных
     /// </summary>
     private readonly Lazy<Task<User>> _currentUser;
+
+    /// <inheritdoc cref="IHttpContextAccessor" />
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
     public CurrentUserService(IHttpContextAccessor httpContextAccessor, DataContext context)
     {
@@ -28,34 +28,27 @@ public class CurrentUserService
     }
 
     /// <summary>
-    /// Получить Ид текущего пользователя
+    ///     Получить Ид текущего пользователя
     /// </summary>
     /// <returns></returns>
-    public Guid GetUserId()
-    {
-        return Guid.Parse(_httpContextAccessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
-    }
+    public Guid GetUserId() => Guid.Parse(_httpContextAccessor.HttpContext.User.Claims
+        .First(x => x.Type == ClaimTypes.NameIdentifier).Value);
 
     /// <summary>
-    /// Получить роль текущего пользователя
+    ///     Получить роль текущего пользователя
     /// </summary>
     /// <returns></returns>
-    public string GetUserRole()
-    {
-        return _httpContextAccessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.Role).Value;
-    }
+    public string GetUserRole() =>
+        _httpContextAccessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.Role).Value;
 
     /// <summary>
-    /// Получить текущего пользователя
+    ///     Получить текущего пользователя
     /// </summary>
     /// <returns></returns>
-    public async Task<User> GetCurrentUser()
-    {
-        return await _currentUser.Value;
-    }
+    public async Task<User> GetCurrentUser() => await _currentUser.Value;
 
     /// <summary>
-    /// Получить пользователя из базы данных
+    ///     Получить пользователя из базы данных
     /// </summary>
     /// <returns>Пользователь</returns>
     private async Task<User> GetCurrentUserFromDatabase()

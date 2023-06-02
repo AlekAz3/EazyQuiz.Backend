@@ -4,18 +4,18 @@ using Microsoft.AspNetCore.Mvc;
 namespace EazyQuiz.Web.Api;
 
 /// <summary>
-/// Контроллер управляющий темами вопросов
+///     Контроллер управляющий темами вопросов
 /// </summary>
 public class ThemesController : BaseController
 {
-    /// <inheritdoc cref="ThemesService"/>
-    private readonly ThemesService _service;
+    /// <inheritdoc cref="CurrentUserService" />
+    private readonly CurrentUserService _currentUser;
 
-    /// <inheritdoc cref="ILogger{TCategoryName}"/>
+    /// <inheritdoc cref="ILogger{TCategoryName}" />
     private readonly ILogger<ThemesController> _logger;
 
-    /// <inheritdoc cref="CurrentUserService"/>
-    private readonly CurrentUserService _currentUser;
+    /// <inheritdoc cref="ThemesService" />
+    private readonly ThemesService _service;
 
     public ThemesController(ThemesService service, ILogger<ThemesController> logger, CurrentUserService currentUser)
     {
@@ -25,7 +25,7 @@ public class ThemesController : BaseController
     }
 
     /// <summary>
-    /// Получить коллекцию всех активных тем тем 
+    ///     Получить коллекцию всех активных тем тем
     /// </summary>
     /// <param name="token">Токен отмены запроса</param>
     /// <returns>Коллекция тем </returns>
@@ -37,7 +37,7 @@ public class ThemesController : BaseController
     }
 
     /// <summary>
-    /// Добавить новую тему 
+    ///     Добавить новую тему
     /// </summary>
     /// <param name="themeName">Название темы </param>
     /// <param name="token">Токен отмены запроса</param>
@@ -49,30 +49,33 @@ public class ThemesController : BaseController
         {
             return BadRequest();
         }
+
         await _service.AddTheme(themeName, token);
         _logger.LogInformation("Была добавлена новая тема: {ThemeName}", themeName);
         return Ok();
     }
 
     /// <summary>
-    /// Обновить колллекцию тем
+    ///     Обновить колллекцию тем
     /// </summary>
     /// <param name="themes">Темы</param>
     /// <param name="token">Токен отмены запроса</param>
     /// <remarks>Для администратора</remarks>
     [HttpPut]
-    public async Task<IActionResult> UpdateThemes([FromBody] IReadOnlyCollection<ThemeResponseWithFlag> themes, CancellationToken token)
+    public async Task<IActionResult> UpdateThemes([FromBody] IReadOnlyCollection<ThemeResponseWithFlag> themes,
+        CancellationToken token)
     {
         if (_currentUser.GetUserRole() != "Admin")
         {
             return BadRequest();
         }
+
         await _service.UpdateThemes(themes, token);
         return Ok();
     }
 
     /// <summary>
-    /// Получить все темы
+    ///     Получить все темы
     /// </summary>
     /// <param name="token">Токен отмены запроса</param>
     /// <returns>Коллекция тем вопросов</returns>
@@ -84,6 +87,7 @@ public class ThemesController : BaseController
         {
             return BadRequest();
         }
+
         var themes = await _service.GetAll(token);
         return Ok(themes);
     }

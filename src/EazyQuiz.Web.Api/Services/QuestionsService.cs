@@ -6,18 +6,18 @@ using Microsoft.EntityFrameworkCore;
 namespace EazyQuiz.Web.Api;
 
 /// <summary>
-/// Сервис управляющий вопросами
+///     Сервис управляющий вопросами
 /// </summary>
 public class QuestionsService
 {
-    /// <inheritdoc cref="DataContext"/>
+    /// <inheritdoc cref="CurrentUserService" />
+    private readonly CurrentUserService _currentUser;
+
+    /// <inheritdoc cref="DataContext" />
     private readonly DataContext _dataContext;
 
-    /// <inheritdoc cref="IMapper"/>
+    /// <inheritdoc cref="IMapper" />
     private readonly IMapper _mapper;
-
-    /// <inheritdoc cref="CurrentUserService"/>
-    private readonly CurrentUserService _currentUser;
 
     public QuestionsService(DataContext dataContext, IMapper mapper, CurrentUserService currentUser)
     {
@@ -27,7 +27,7 @@ public class QuestionsService
     }
 
     /// <summary>
-    /// Записать ответ игрока в базу данных
+    ///     Записать ответ игрока в базу данных
     /// </summary>
     public async Task WriteUserAnswer(UserAnswer answer)
     {
@@ -49,34 +49,33 @@ public class QuestionsService
     }
 
     /// <summary>
-    /// Добавить вопрос в базу данных
+    ///     Добавить вопрос в базу данных
     /// </summary>
     public async Task AddQuestion(QuestionInputDTO question)
     {
         var questionId = Guid.NewGuid();
-        var questionEntity = new Question()
+        var questionEntity = new Question
         {
             Id = questionId,
             Text = question.Text,
             ThemeId = question.ThemeId,
-            Answers = question.Answers.Select(x => new Answer()
+            Answers = question.Answers.Select(x => new Answer
             {
-                Text = x.Text,
-                IsCorrect = x.IsCorrect,
-                QuestionId = questionId
-            }).ToList(),
+                Text = x.Text, IsCorrect = x.IsCorrect, QuestionId = questionId
+            }).ToList()
         };
         _dataContext.Add(questionEntity);
         await _dataContext.SaveChangesAsync();
     }
 
     /// <summary>
-    /// Получить коллекцию вопросов по фильтру
+    ///     Получить коллекцию вопросов по фильтру
     /// </summary>
     /// <param name="command">Фильтр</param>
     /// <param name="token">Токен отмены запроса</param>
     /// <returns>Коллекция вопросов с ответами</returns>
-    public async Task<IReadOnlyCollection<QuestionWithAnswers>> GetQuestionsByFilter(GetQuestionCommand command, CancellationToken token)
+    public async Task<IReadOnlyCollection<QuestionWithAnswers>> GetQuestionsByFilter(GetQuestionCommand command,
+        CancellationToken token)
     {
         var userId = _currentUser.GetUserId();
 
@@ -91,11 +90,9 @@ public class QuestionsService
 
         var questions = await questionss.ToListAsync(token);
 
-        var questionsWithAnswers = questions.Select(x => new QuestionWithAnswers()
+        var questionsWithAnswers = questions.Select(x => new QuestionWithAnswers
         {
-            QuestionId = x.Id,
-            Text = x.Text,
-            Answers = x.Answers.Select(_mapper.Map<AnswerDTO>).ToList(),
+            QuestionId = x.Id, Text = x.Text, Answers = x.Answers.Select(_mapper.Map<AnswerDTO>).ToList()
         }).ToArray();
 
         return questionsWithAnswers;

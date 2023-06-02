@@ -4,22 +4,22 @@ using System.Collections.Generic;
 namespace EazyQuiz.Models.DTO
 {
     /// <summary>
-    /// Вопрос с ответами
+    ///     Вопрос с ответами
     /// </summary>
     public class QuestionWithAnswers
     {
         /// <summary>
-        /// Ид вопроса
+        ///     Ид вопроса
         /// </summary>
         public Guid QuestionId { get; set; }
 
         /// <summary>
-        /// Текст вопроса
+        ///     Текст вопроса
         /// </summary>
         public string Text { get; set; } = string.Empty;
 
         /// <summary>
-        /// Коллекция ответов на вопрос
+        ///     Коллекция ответов на вопрос
         /// </summary>
         public IReadOnlyCollection<AnswerDTO> Answers { get; set; } = Array.Empty<AnswerDTO>();
     }

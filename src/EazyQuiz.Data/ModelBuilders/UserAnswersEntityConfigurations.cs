@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace EazyQuiz.Data;
 
 /// <summary>
-/// Конфигурация сущности <see cref="UsersAnswer"/>
+///     Конфигурация сущности <see cref="UsersAnswer" />
 /// </summary>
 internal class UserAnswersEntityConfigurations : IEntityTypeConfiguration<UsersAnswer>
 {
