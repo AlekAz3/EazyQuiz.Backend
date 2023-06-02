@@ -61,9 +61,12 @@ public class User
     public ICollection<UsersAnswer> UsersAnswers { get; set; } = new List<UsersAnswer>();
 
     /// <summary>
-    ///     Коллекция предложеных вопросов от пользователей
+    ///     Коллекция предложенных вопросов от пользователей
     /// </summary>
     public ICollection<UsersQuestions> UsersQuestions { get; set; } = new List<UsersQuestions>();
 
+    /// <summary>
+    ///     Коллекция отзывов
+    /// </summary>
     public ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
 }
