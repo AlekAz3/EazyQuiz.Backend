@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EazyQuiz.Cryptography", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EazyQuiz.Cryptography.Tests", "tests\EazyQuiz.Cryptography.Tests\EazyQuiz.Cryptography.Tests.csproj", "{274A66C1-7332-41D4-BF51-39C12E1570DC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EazyQuiz.Extensioons.Tests", "tests\EazyQuiz.Extensioons.Tests\EazyQuiz.Extensioons.Tests.csproj", "{699931C8-9403-46B9-85CE-3D5B40BFC7AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EazyQuiz.Extensions.Tests", "tests\EazyQuiz.Extensions.Tests\EazyQuiz.Extensions.Tests.csproj", "{699931C8-9403-46B9-85CE-3D5B40BFC7AF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EazyQuiz.Models.DTO", "src\EazyQuiz.Models.DTO\EazyQuiz.Models.DTO.csproj", "{256026B3-AE03-4D86-93D6-1844D06F9F1D}"
 EndProject

@@ -1,14 +1,12 @@
-using EazyQuiz.Extensions;
+namespace EazyQuiz.Extensions.Tests;
 
-namespace EazyQuiz.Extensioons.Tests;
-
-public class StringExtentionTests
+public class StringExtensionTests
 {
     [Theory]
     [InlineData("sdaf", false)]
     [InlineData("SWDda", true)]
     [InlineData("sdwDd", true)]
-    public void IsContaintsUpperCaseLetterTests(string str, bool expected)
+    public void IsContainsUpperCaseLetterTests(string str, bool expected)
     {
         bool result = str.IsContaintsUpperCaseLetter();
         Assert.Equal(expected, result);
