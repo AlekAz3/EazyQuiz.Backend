@@ -159,9 +159,7 @@ public class UserService
         var user = await _currentUser.GetCurrentUser();
 
         user.Username = newUsername;
-
-        _context.Set<User>().Update(user);
-
+        _context.Update(user);
         await _context.SaveChangesAsync(cancellationToken);
     }
 

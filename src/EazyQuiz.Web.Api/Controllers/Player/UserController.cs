@@ -20,7 +20,7 @@ public class UserController : BaseController
     ///     Сменить ник
     /// </summary>
     [HttpPost("username")]
-    public async Task<IActionResult> ChangeUsername([FromRoute] string newUsername, CancellationToken cancellationToken)
+    public async Task<IActionResult> ChangeUsername([FromBody] string newUsername, CancellationToken cancellationToken)
     {
         await _service.ChangeUsername(newUsername, cancellationToken);
         return Ok();
