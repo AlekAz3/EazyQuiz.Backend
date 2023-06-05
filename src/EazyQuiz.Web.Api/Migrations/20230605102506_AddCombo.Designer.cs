@@ -3,6 +3,7 @@ using System;
 using EazyQuiz.Web.Api;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EazyQuiz.Web.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230605102506_AddCombo")]
+    partial class AddCombo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +45,7 @@ namespace EazyQuiz.Web.Api.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("Answers", (string)null);
+                    b.ToTable("Answers");
                 });
 
             modelBuilder.Entity("EazyQuiz.Data.Entities.Feedback", b =>
@@ -70,7 +73,7 @@ namespace EazyQuiz.Web.Api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Feedbacks", (string)null);
+                    b.ToTable("Feedbacks");
                 });
 
             modelBuilder.Entity("EazyQuiz.Data.Entities.Question", b =>
@@ -89,7 +92,7 @@ namespace EazyQuiz.Web.Api.Migrations
 
                     b.HasIndex("ThemeId");
 
-                    b.ToTable("Questions", (string)null);
+                    b.ToTable("Questions");
                 });
 
             modelBuilder.Entity("EazyQuiz.Data.Entities.Theme", b =>
@@ -107,7 +110,7 @@ namespace EazyQuiz.Web.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Themes", (string)null);
+                    b.ToTable("Themes");
                 });
 
             modelBuilder.Entity("EazyQuiz.Data.Entities.User", b =>
@@ -148,7 +151,7 @@ namespace EazyQuiz.Web.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
 
                     b.HasData(
                         new
@@ -194,7 +197,7 @@ namespace EazyQuiz.Web.Api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UsersAnswers", (string)null);
+                    b.ToTable("UsersAnswers");
                 });
 
             modelBuilder.Entity("EazyQuiz.Data.Entities.UsersQuestions", b =>
@@ -225,7 +228,7 @@ namespace EazyQuiz.Web.Api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UsersQuestions", (string)null);
+                    b.ToTable("UsersQuestions");
                 });
 
             modelBuilder.Entity("EazyQuiz.Data.Entities.Answer", b =>

@@ -8,11 +8,11 @@ namespace EazyQuiz.Models.DTO
         /// <summary>
         ///     Логин
         /// </summary>
-        public string? Username { get; set; }
+        public string Username { get; set; } = null!;
 
         /// <summary>
         ///     Пароль
         /// </summary>
-        public string? PasswordHash { get; set; }
+        public string PasswordHash { get; set; } = null!;
     }
 }

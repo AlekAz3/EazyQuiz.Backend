@@ -29,21 +29,26 @@ public class QuestionsService
     /// <summary>
     ///     Записать ответ игрока в базу данных
     /// </summary>
+    /// <exception cref="ArgumentNullException"></exception>
     public async Task WriteUserAnswer(UserAnswer answer)
     {
         var user = await _currentUser.GetCurrentUser();
 
         var userAnswer = _mapper.Map<UsersAnswer>(answer);
         userAnswer.UserId = user.Id;
+        
+        user.LastActiveTime = DateTime.UtcNow;
 
-        if ((await _dataContext.Set<Answer>().FindAsync(answer.AnswerId)).IsCorrect)
+        if (answer.Combo is not null)
         {
-            user.Points++;
-            user.LastActiveTime = DateTime.UtcNow;
-            userAnswer.IsCorrect = true;
-            _dataContext.Update(user);
+            user.MaxCombo = answer.Combo.Value;
         }
 
+        userAnswer.IsCorrect = (await _dataContext.Set<Answer>().FindAsync(answer.AnswerId))!.IsCorrect;
+        
+        user.Points += answer.AddPoint;
+        
+        _dataContext.Update(user);
         await _dataContext.Set<UsersAnswer>().AddAsync(userAnswer);
         await _dataContext.SaveChangesAsync();
     }
@@ -61,7 +66,9 @@ public class QuestionsService
             ThemeId = question.ThemeId,
             Answers = question.Answers.Select(x => new Answer
             {
-                Text = x.Text, IsCorrect = x.IsCorrect, QuestionId = questionId
+                Text = x.Text,
+                IsCorrect = x.IsCorrect,
+                QuestionId = questionId
             }).ToList()
         };
         _dataContext.Add(questionEntity);
@@ -79,20 +86,21 @@ public class QuestionsService
     {
         var userId = _currentUser.GetUserId();
 
-        var questionss = _dataContext.Set<Question>()
+        var questions = await _dataContext.Set<Question>()
             .AsNoTracking()
-            .Where(x => !x.UsersAnswers.Any(x => x.UserId == userId))
+            .Where(x => x.UsersAnswers.All(y => y.UserId != userId))
             .Include(x => x.Answers)
             .OrderBy(x => EF.Functions.Random())
             .Where(x => command.ThemeId == null || x.ThemeId == command.ThemeId)
-            .Take(command.Count);
-
-
-        var questions = await questionss.ToListAsync(token);
-
+            .Take(command.Count)
+            .ToListAsync(token);
+        
+        
         var questionsWithAnswers = questions.Select(x => new QuestionWithAnswers
         {
-            QuestionId = x.Id, Text = x.Text, Answers = x.Answers.Select(_mapper.Map<AnswerDTO>).ToList()
+            QuestionId = x.Id,
+            Text = x.Text,
+            Answers = x.Answers.Select(_mapper.Map<AnswerDTO>).ToList()
         }).ToArray();
 
         return questionsWithAnswers;

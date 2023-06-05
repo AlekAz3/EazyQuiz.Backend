@@ -41,6 +41,11 @@ public class User
     public string Role { get; set; } = string.Empty;
 
     /// <summary>
+    ///     Максимальное комбо
+    /// </summary>
+    public int MaxCombo { get; set; }
+    
+    /// <summary>
     ///     Пароль Хэш
     /// </summary>
     public string? PasswordHash { get; set; }
