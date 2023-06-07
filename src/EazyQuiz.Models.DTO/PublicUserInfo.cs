@@ -11,7 +11,7 @@ namespace EazyQuiz.Models.DTO
         public string UserName { get; set; } = string.Empty;
 
         /// <summary>
-        ///     Колличество очков
+        ///     Количество очков
         /// </summary>
         public int Points { get; set; }
     }

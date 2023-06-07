@@ -11,7 +11,7 @@ using System.Text;
 namespace EazyQuiz.Web.Api;
 
 /// <summary>
-///     Класс реальзующий <inheritdoc cref="UserService" />
+///     Класс для работы с пользователями
 /// </summary>
 public class UserService
 {
@@ -120,7 +120,11 @@ public class UserService
 
         return token;
     }
-
+    
+    /// <summary>
+    ///     Сгенерировать рефреш токен
+    /// </summary>
+    /// <returns>Рефреш токен</returns>
     private string GenerateRefreshToken()
     {
         byte[] randomNumber = new byte[64];
