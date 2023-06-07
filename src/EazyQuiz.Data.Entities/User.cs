@@ -4,55 +4,74 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace EazyQuiz.Data.Entities;
 
 /// <summary>
-/// Описание пользователя
+///     Описание пользователя
 /// </summary>
 [Table("Users")]
 public class User
 {
     /// <summary>
-    /// Ид
+    ///     Ид
     /// </summary>
     [Key]
     public Guid Id { get; set; }
 
     /// <summary>
-    /// Ник
+    ///     Ник
     /// </summary>
     public string Username { get; set; } = string.Empty;
 
     /// <summary>
-    /// Счёт
+    ///     Счёт
     /// </summary>
     public int Points { get; set; }
 
     /// <summary>
-    /// Страна
+    ///     Страна
     /// </summary>
     public string Country { get; set; } = string.Empty;
 
     /// <summary>
-    /// Время последней активности
+    ///     Время последней активности
     /// </summary>
     public DateTimeOffset LastActiveTime { get; set; }
 
     /// <summary>
-    /// Роль
+    ///     Роль
     /// </summary>
     public string Role { get; set; } = string.Empty;
 
     /// <summary>
-    /// Пароль Хэш
+    ///     Максимальное комбо
+    /// </summary>
+    public int MaxCombo { get; set; }
+    
+    /// <summary>
+    ///     Пароль Хэш
     /// </summary>
     public string? PasswordHash { get; set; }
 
     /// <summary>
-    /// Соль пароля
+    ///     Соль пароля
     /// </summary>
     public string? PasswordSalt { get; set; }
 
+    /// <summary>
+    ///     Токен обновления
+    /// </summary>
+    public string? RefreshToken { get; set; }
+
+    /// <summary>
+    ///     Коллекция ответов пользователей
+    /// </summary>
     public ICollection<UsersAnswer> UsersAnswers { get; set; } = new List<UsersAnswer>();
 
+    /// <summary>
+    ///     Коллекция предложенных вопросов от пользователей
+    /// </summary>
     public ICollection<UsersQuestions> UsersQuestions { get; set; } = new List<UsersQuestions>();
 
+    /// <summary>
+    ///     Коллекция отзывов
+    /// </summary>
     public ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
 }

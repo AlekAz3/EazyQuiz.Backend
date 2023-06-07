@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace EazyQuiz.Web.Api;
 
 /// <summary>
-/// Контроллер управляющий таблицей лидеров
+///     Контроллер управляющий таблицей лидеров
 /// </summary>
 public class LeaderboardController : BaseController
 {
-    /// <inheritdoc cref="LeaderboardService"/>
+    /// <inheritdoc cref="LeaderboardService" />
     private readonly LeaderboardService _service;
 
     public LeaderboardController(LeaderboardService service)
@@ -17,7 +17,7 @@ public class LeaderboardController : BaseController
     }
 
     /// <summary>
-    /// Получить таблицу лидеров по фильтру
+    ///     Получить таблицу лидеров по фильтру
     /// </summary>
     /// <param name="filter">Фильтр</param>
     /// <param name="token">Токен отмены запроса</param>
@@ -30,7 +30,7 @@ public class LeaderboardController : BaseController
     }
 
     /// <summary>
-    /// Получить место конкретного игрока
+    ///     Получить место конкретного игрока
     /// </summary>
     /// <param name="country">Страна</param>
     /// <param name="token">Токен отмены запроса</param>
@@ -38,7 +38,7 @@ public class LeaderboardController : BaseController
     [HttpGet("user")]
     public async Task<IActionResult> GetUser([FromQuery] string country, CancellationToken token)
     {
-        var score = await _service.GetCurrentUserScore(country, token);
+        int score = await _service.GetCurrentUserScore(country, token);
         return Ok(score);
     }
 }

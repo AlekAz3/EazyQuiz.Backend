@@ -4,29 +4,29 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace EazyQuiz.Data.Entities;
 
 /// <summary>
-/// Описание объекта вопроса
+///     Описание объекта вопроса
 /// </summary>
 [Table("Questions")]
 public class Question
 {
     /// <summary>
-    /// Ид
+    ///     Ид
     /// </summary>
     [Key]
     public Guid Id { get; set; }
 
     /// <summary>
-    /// Тест вопроса
+    ///     Тест вопроса
     /// </summary>
     public string? Text { get; set; }
 
     /// <summary>
-    /// Ид темы
+    ///     Ид темы
     /// </summary>
     public Guid ThemeId { get; set; }
 
     /// <summary>
-    /// Тема
+    ///     Тема
     /// </summary>
     public Theme? Theme { get; set; }
 

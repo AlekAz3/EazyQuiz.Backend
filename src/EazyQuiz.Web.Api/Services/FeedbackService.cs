@@ -6,14 +6,14 @@ using Microsoft.EntityFrameworkCore;
 namespace EazyQuiz.Web.Api;
 
 /// <summary>
-/// Сервис работающий с обратной связью
+///     Сервис работающий с обратной связью
 /// </summary>
 public class FeedbackService
 {
-    /// <inheritdoc cref="DataContext"/>
+    /// <inheritdoc cref="DataContext" />
     private readonly DataContext _dataContext;
 
-    /// <inheritdoc cref="IMapper"/>
+    /// <inheritdoc cref="IMapper" />
     private readonly IMapper _mapper;
 
     public FeedbackService(DataContext dataContext, IMapper mapper)
@@ -23,7 +23,7 @@ public class FeedbackService
     }
 
     /// <summary>
-    /// Добавить новую обратную связь
+    ///     Добавить новую обратную связь
     /// </summary>
     /// <param name="feedback">Запрос на добавление</param>
     /// <param name="token">Токен отмены запроса</param>
@@ -35,7 +35,7 @@ public class FeedbackService
     }
 
     /// <summary>
-    /// Получить коллекцию обратной связи
+    ///     Получить коллекцию обратной связи
     /// </summary>
     /// <param name="status">Статус</param>
     /// <param name="token">Токен отмены запроса</param>
@@ -50,7 +50,7 @@ public class FeedbackService
     }
 
     /// <summary>
-    /// Обновить статус обратной связи
+    ///     Обновить статус обратной связи
     /// </summary>
     /// <param name="feedbackUpdate">Команда</param>
     /// <param name="token">Токен отмены запроса</param>

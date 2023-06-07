@@ -1,17 +1,17 @@
 namespace EazyQuiz.Models.DTO
 {
     /// <summary>
-    /// ДТО добавление кастомного вопроса от пользователя
+    ///     ДТО добавление кастомного вопроса от пользователя
     /// </summary>
     public class AddQuestionByUser
     {
         /// <summary>
-        /// Текст вопроса
+        ///     Текст вопроса
         /// </summary>
         public string QuestionText { get; set; } = string.Empty;
 
         /// <summary>
-        /// Текст ответа
+        ///     Текст ответа
         /// </summary>
         public string AnswerText { get; set; } = string.Empty;
     }

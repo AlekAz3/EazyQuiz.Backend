@@ -3,22 +3,22 @@ using System;
 namespace EazyQuiz.Models.DTO
 {
     /// <summary>
-    /// ДТО ответа на вопрос
+    ///     ДТО ответа на вопрос
     /// </summary>
     public class AnswerDTO
     {
         /// <summary>
-        /// Ид
+        ///     Ид
         /// </summary>
         public Guid AnswerId { get; set; }
 
         /// <summary>
-        /// Текст ответа
+        ///     Текст ответа
         /// </summary>
         public string? AnswerText { get; set; }
 
         /// <summary>
-        /// Правильность
+        ///     Правильность
         /// </summary>
         public bool IsCorrect { get; set; }
     }

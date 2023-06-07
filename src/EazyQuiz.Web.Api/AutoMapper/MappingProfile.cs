@@ -5,7 +5,7 @@ using EazyQuiz.Models.DTO;
 namespace EazyQuiz.Web.Api;
 
 /// <summary>
-/// Профиль маппинга
+///     Профиль маппинга
 /// </summary>
 public class MappingProfile : Profile
 {

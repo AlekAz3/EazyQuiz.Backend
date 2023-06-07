@@ -6,14 +6,14 @@ using Microsoft.EntityFrameworkCore;
 namespace EazyQuiz.Web.Api;
 
 /// <summary>
-/// Сервис по работе с историей ответов пользователей 
+///     Сервис по работе с историей ответов пользователей
 /// </summary>
 public class HistoryService
 {
-    /// <inheritdoc cref="DataContext"/>
+    /// <inheritdoc cref="DataContext" />
     private readonly DataContext _context;
 
-    /// <inheritdoc cref="CurrentUserService"/>
+    /// <inheritdoc cref="CurrentUserService" />
     private readonly CurrentUserService _currentUser;
 
     public HistoryService(DataContext context, CurrentUserService currentUser)
@@ -23,11 +23,12 @@ public class HistoryService
     }
 
     /// <summary>
-    /// Получить коллекцию истории ответов по пагинации
+    ///     Получить коллекцию истории ответов по пагинации
     /// </summary>
     /// <param name="command">Параметры пагинации</param>
     /// <param name="token">Токен отмены запроса</param>
-    public async Task<InputCountDTO<UserAnswerHistory>> GetHistoryByFilter(GetHistoryCommand command, CancellationToken token)
+    public async Task<InputCountDTO<UserAnswerHistory>> GetHistoryByFilter(GetHistoryCommand command,
+        CancellationToken token)
     {
         var userId = _currentUser.GetUserId();
 
@@ -45,12 +46,12 @@ public class HistoryService
             .AddPagination(command)
             .ToListAsync(token);
 
-        var res = userAnswers.Select(x => new UserAnswerHistory()
+        var res = userAnswers.Select(x => new UserAnswerHistory
         {
             QuestionText = x.Question.Text,
             AnswerText = x.Answer.Text,
             IsCorrect = x.IsCorrect,
-            AnswerTime = x.AnswerTime,
+            AnswerTime = x.AnswerTime
         });
 
         return new InputCountDTO<UserAnswerHistory>(totalCount, res);

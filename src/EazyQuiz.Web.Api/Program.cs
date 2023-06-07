@@ -2,34 +2,34 @@ using Serilog;
 
 namespace EazyQuiz.Web.Api;
 
-public class Program
+public static class Program
 {
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
         var logger = new LoggerConfiguration()
-        .ReadFrom.Configuration(builder.Configuration) //Использование Serilog
-        .Enrich.FromLogContext()
-                .WriteTo.Console()
-                .WriteTo.File($@".\logs\{DateTimeOffset.Now:dd-MM-yyyy}\log.txt", rollingInterval: RollingInterval.Hour)
-                .CreateLogger();
+            .ReadFrom.Configuration(builder.Configuration) //Использование Serilog
+            .Enrich.FromLogContext()
+            .WriteTo.Console()
+            .WriteTo.File($@".\logs\{DateTimeOffset.Now:dd-MM-yyyy}\log.txt", rollingInterval: RollingInterval.Hour)
+            .CreateLogger();
 
         builder.Logging.ClearProviders()
             .AddSerilog(logger);
 
         builder.Services.AddControllers()
             .AddJsonOptions(options =>
-                {
-                    options.JsonSerializerOptions.PropertyNamingPolicy = null;
-                });
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+            });
 
         builder.Services
-             .AddHttpContextAccessor()
-             .AddDbContext<DataContext>()
-             .AddEazyQuizServices()
-             .AddEndpointsApiExplorer()
-             .AddAuth(builder.Configuration); //Добавление JWT
+            .AddHttpContextAccessor()
+            .AddDbContext<DataContext>()
+            .AddEazyQuizServices()
+            .AddEndpointsApiExplorer()
+            .AddAuth(builder.Configuration); //Добавление JWT
 
 
         builder.Services.AddSwaggerWithAuth();
@@ -41,7 +41,7 @@ public class Program
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
         app.UseSwagger()
-           .UseSwaggerUI();
+            .UseSwaggerUI();
 
         if (app.Environment.IsProduction())
         {
@@ -49,7 +49,7 @@ public class Program
         }
 
         app.UseAuthentication()
-           .UseAuthorization();
+            .UseAuthorization();
 
         app.MapControllers();
 

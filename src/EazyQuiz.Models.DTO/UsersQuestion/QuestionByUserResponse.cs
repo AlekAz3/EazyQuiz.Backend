@@ -3,27 +3,27 @@ using System;
 namespace EazyQuiz.Models.DTO
 {
     /// <summary>
-    /// Просмотр пользователю своих предложенных вопросов
+    ///     Просмотр пользователю своих предложенных вопросов
     /// </summary>
     public class QuestionByUserResponse
     {
         /// <summary>
-        /// Текст вопроса 
+        ///     Текст вопроса
         /// </summary>
         public string QuestionText { get; set; } = string.Empty;
 
         /// <summary>
-        /// Текст ответа
+        ///     Текст ответа
         /// </summary>
         public string AnswerText { get; set; } = string.Empty;
 
         /// <summary>
-        /// Последнее обновление
+        ///     Последнее обновление
         /// </summary>
         public DateTimeOffset LastUpdate { get; set; }
 
         /// <summary>
-        /// Статус
+        ///     Статус
         /// </summary>
         public string Status { get; set; } = string.Empty;
     }

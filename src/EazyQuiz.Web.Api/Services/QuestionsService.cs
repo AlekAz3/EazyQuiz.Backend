@@ -6,18 +6,18 @@ using Microsoft.EntityFrameworkCore;
 namespace EazyQuiz.Web.Api;
 
 /// <summary>
-/// Сервис управляющий вопросами
+///     Сервис управляющий вопросами
 /// </summary>
 public class QuestionsService
 {
-    /// <inheritdoc cref="DataContext"/>
+    /// <inheritdoc cref="CurrentUserService" />
+    private readonly CurrentUserService _currentUser;
+
+    /// <inheritdoc cref="DataContext" />
     private readonly DataContext _dataContext;
 
-    /// <inheritdoc cref="IMapper"/>
+    /// <inheritdoc cref="IMapper" />
     private readonly IMapper _mapper;
-
-    /// <inheritdoc cref="CurrentUserService"/>
-    private readonly CurrentUserService _currentUser;
 
     public QuestionsService(DataContext dataContext, IMapper mapper, CurrentUserService currentUser)
     {
@@ -27,75 +27,80 @@ public class QuestionsService
     }
 
     /// <summary>
-    /// Записать ответ игрока в базу данных
+    ///     Записать ответ игрока в базу данных
     /// </summary>
+    /// <exception cref="ArgumentNullException"></exception>
     public async Task WriteUserAnswer(UserAnswer answer)
     {
         var user = await _currentUser.GetCurrentUser();
 
         var userAnswer = _mapper.Map<UsersAnswer>(answer);
         userAnswer.UserId = user.Id;
+        
+        user.LastActiveTime = DateTime.UtcNow;
 
-        if ((await _dataContext.Set<Answer>().FindAsync(answer.AnswerId)).IsCorrect)
+        if (answer.Combo is not null)
         {
-            user.Points++;
-            user.LastActiveTime = DateTime.UtcNow;
-            userAnswer.IsCorrect = true;
-            _dataContext.Update(user);
+            user.MaxCombo = answer.Combo.Value;
         }
 
+        userAnswer.IsCorrect = (await _dataContext.Set<Answer>().FindAsync(answer.AnswerId))!.IsCorrect;
+        
+        user.Points += answer.AddPoint;
+        
+        _dataContext.Update(user);
         await _dataContext.Set<UsersAnswer>().AddAsync(userAnswer);
         await _dataContext.SaveChangesAsync();
     }
 
     /// <summary>
-    /// Добавить вопрос в базу данных
+    ///     Добавить вопрос в базу данных
     /// </summary>
     public async Task AddQuestion(QuestionInputDTO question)
     {
         var questionId = Guid.NewGuid();
-        var questionEntity = new Question()
+        var questionEntity = new Question
         {
             Id = questionId,
             Text = question.Text,
             ThemeId = question.ThemeId,
-            Answers = question.Answers.Select(x => new Answer()
+            Answers = question.Answers.Select(x => new Answer
             {
                 Text = x.Text,
                 IsCorrect = x.IsCorrect,
                 QuestionId = questionId
-            }).ToList(),
+            }).ToList()
         };
         _dataContext.Add(questionEntity);
         await _dataContext.SaveChangesAsync();
     }
 
     /// <summary>
-    /// Получить коллекцию вопросов по фильтру
+    ///     Получить коллекцию вопросов по фильтру
     /// </summary>
     /// <param name="command">Фильтр</param>
     /// <param name="token">Токен отмены запроса</param>
     /// <returns>Коллекция вопросов с ответами</returns>
-    public async Task<IReadOnlyCollection<QuestionWithAnswers>> GetQuestionsByFilter(GetQuestionCommand command, CancellationToken token)
+    public async Task<IReadOnlyCollection<QuestionWithAnswers>> GetQuestionsByFilter(GetQuestionCommand command,
+        CancellationToken token)
     {
         var userId = _currentUser.GetUserId();
 
-        var questionss = _dataContext.Set<Question>()
+        var questions = await _dataContext.Set<Question>()
             .AsNoTracking()
-            .Where(x => !x.UsersAnswers.Any(x => x.UserId == userId))
+            .Where(x => x.UsersAnswers.All(y => y.UserId != userId))
             .Include(x => x.Answers)
             .OrderBy(x => EF.Functions.Random())
             .Where(x => command.ThemeId == null || x.ThemeId == command.ThemeId)
-            .Take(command.Count);
-
-
-        var questions = await questionss.ToListAsync(token);
-
-        var questionsWithAnswers = questions.Select(x => new QuestionWithAnswers()
+            .Take(command.Count)
+            .ToListAsync(token);
+        
+        
+        var questionsWithAnswers = questions.Select(x => new QuestionWithAnswers
         {
             QuestionId = x.Id,
             Text = x.Text,
-            Answers = x.Answers.Select(_mapper.Map<AnswerDTO>).ToList(),
+            Answers = x.Answers.Select(_mapper.Map<AnswerDTO>).ToList()
         }).ToArray();
 
         return questionsWithAnswers;

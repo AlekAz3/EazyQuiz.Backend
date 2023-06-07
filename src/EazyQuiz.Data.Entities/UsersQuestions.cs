@@ -4,41 +4,44 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace EazyQuiz.Data.Entities;
 
 /// <summary>
-/// Временное хранение предложенных вопросов от пользователей
+///     Временное хранение предложенных вопросов от пользователей
 /// </summary>
 [Table("UsersQuestions")]
 public class UsersQuestions
 {
     /// <summary>
-    /// Ид
+    ///     Ид
     /// </summary>
     [Key]
     public Guid Id { get; set; }
 
     /// <summary>
-    /// Ид пользователя
+    ///     Ид пользователя
     /// </summary>
     public Guid UserId { get; set; }
 
     /// <summary>
-    /// Текст предложенного вопроса
+    ///     Текст предложенного вопроса
     /// </summary>
     public string QuestionText { get; set; } = string.Empty;
 
     /// <summary>
-    /// Текст правильного ответа 
+    ///     Текст правильного ответа
     /// </summary>
     public string AnswerText { get; set; } = string.Empty;
 
     /// <summary>
-    /// Статус 
+    ///     Статус
     /// </summary>
     public string Status { get; set; } = string.Empty;
 
     /// <summary>
-    /// Последнее обновление
+    ///     Последнее обновление
     /// </summary>
     public DateTimeOffset LastUpdate { get; set; }
 
-    public User User { get; set; }
+    /// <summary>
+    ///     Пользователь
+    /// </summary>
+    public User? User { get; set; }
 }

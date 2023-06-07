@@ -1,17 +1,17 @@
 namespace EazyQuiz.Models.DTO
 {
     /// <summary>
-    /// Отправить обратную связь на сервер
+    ///     Отправить обратную связь на сервер
     /// </summary>
     public class FeedbackRequest
     {
         /// <summary>
-        /// Текст
+        ///     Текст
         /// </summary>
         public string Text { get; set; } = null!;
 
         /// <summary>
-        /// Почта
+        ///     Почта
         /// </summary>
         public string Email { get; set; } = string.Empty;
     }

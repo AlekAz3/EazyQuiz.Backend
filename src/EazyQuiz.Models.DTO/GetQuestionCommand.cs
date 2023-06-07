@@ -3,17 +3,17 @@ using System;
 namespace EazyQuiz.Models.DTO
 {
     /// <summary>
-    /// Команда для получения вопросу по фильтру 
+    ///     Команда для получения вопросу по фильтру
     /// </summary>
     public class GetQuestionCommand
     {
         /// <summary>
-        /// Ид темы вопроса 
+        ///     Ид темы вопроса
         /// </summary>
         public Guid? ThemeId { get; set; }
 
         /// <summary>
-        /// Количество вопросов
+        ///     Количество вопросов
         /// </summary>
         public int Count { get; set; } = 10;
     }

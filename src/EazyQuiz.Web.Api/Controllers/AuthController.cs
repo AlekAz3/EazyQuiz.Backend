@@ -5,16 +5,16 @@ using Microsoft.AspNetCore.Mvc;
 namespace EazyQuiz.Web.Api;
 
 /// <summary>
-/// Контроллер Входа/Регистрации
+///     Контроллер Входа/Регистрации
 /// </summary>
 [Route("api/[controller]")]
 [ApiController]
 public class AuthController : Controller
 {
-    /// <inheritdoc cref="ILogger{TCategoryName}"/>
+    /// <inheritdoc cref="ILogger{TCategoryName}" />
     private readonly ILogger<AuthController> _log;
 
-    /// <inheritdoc cref="UserService"/>
+    /// <inheritdoc cref="UserService" />
     private readonly UserService _userService;
 
     public AuthController(ILogger<AuthController> logger, UserService userService)
@@ -24,9 +24,9 @@ public class AuthController : Controller
     }
 
     /// <summary>
-    /// Запись в БД нового игрока/пользователя 
+    ///     Запись в БД нового игрока/пользователя
     /// </summary>
-    /// <param name="user">Логин и Пароль в <see cref="UserRegister"/></param>
+    /// <param name="user">Логин и Пароль в <see cref="UserRegister" /></param>
     [HttpPost]
     public async Task<IActionResult> RegisterNewPlayer([FromBody] UserRegister user)
     {
@@ -36,7 +36,7 @@ public class AuthController : Controller
     }
 
     /// <summary>
-    /// Вход в систему возвращает <see cref="UserResponse"/> с токеном JWT
+    ///     Вход в систему возвращает <see cref="UserResponse" /> с токеном JWT
     /// </summary>
     /// <param name="auth"></param>
     [HttpGet]
@@ -49,12 +49,13 @@ public class AuthController : Controller
         {
             return NotFound();
         }
+
         _log.LogInformation("Игрок {Username} зашел в игру", auth.Username);
         return Ok(userResponse);
     }
 
     /// <summary>
-    /// Получение соли по нику
+    ///     Получение соли по нику
     /// </summary>
     /// <param name="username">Ник</param>
     [HttpGet("{username}")]
@@ -68,6 +69,21 @@ public class AuthController : Controller
             _log.LogInformation("Игрок с ником {Username} не был найден", username);
             return NotFound();
         }
+
         return Ok(userSalt);
+    }
+
+    [HttpPost("token")]
+    public async Task<IActionResult> RefreshJWTToken([FromBody] string refresh, CancellationToken cancellationToken)
+    {
+        try
+        {
+            var token = await _userService.RefreshJwtToken(refresh, cancellationToken);
+            return Ok(token);
+        }
+        catch (Exception)
+        {
+            return BadRequest();
+        }
     }
 }

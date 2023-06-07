@@ -6,7 +6,7 @@ namespace EazyQuiz.Extensions
     public static class QueryableExtentions
     {
         /// <summary>
-        /// Добавляет пагинацию для IQueryable
+        ///     Добавляет пагинацию для IQueryable
         /// </summary>
         /// <param name="query">Исходный IQueryable</param>
         /// <param name="command">Фильтр</param>
