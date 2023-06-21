@@ -102,12 +102,7 @@ public class UserService
     public async Task<Token> RefreshJwtToken(string refreshToken, CancellationToken cancellationToken)
     {
         var user = await _context.Set<User>()
-            .SingleOrDefaultAsync(x => x.RefreshToken == refreshToken, cancellationToken);
-
-        if (user is null)
-        {
-            throw new ArgumentException($"{refreshToken} is not valid");
-        }
+            .SingleOrDefaultAsync(x => x.RefreshToken == refreshToken, cancellationToken) ?? throw new ArgumentException($"{refreshToken} is not valid");
 
         string jwtToken = GenerateJwtToken(user);
         string newRefreshToken = GenerateRefreshToken();
@@ -120,7 +115,7 @@ public class UserService
 
         return token;
     }
-    
+
     /// <summary>
     ///     Сгенерировать рефреш токен
     /// </summary>

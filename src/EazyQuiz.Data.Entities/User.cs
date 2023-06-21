@@ -44,7 +44,7 @@ public class User
     ///     Максимальное комбо
     /// </summary>
     public int MaxCombo { get; set; }
-    
+
     /// <summary>
     ///     Пароль Хэш
     /// </summary>

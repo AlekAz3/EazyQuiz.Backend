@@ -36,8 +36,8 @@ public class QuestionsService
 
         var userAnswer = _mapper.Map<UsersAnswer>(answer);
         userAnswer.UserId = user.Id;
-        
-        user.LastActiveTime = DateTime.UtcNow;
+
+        user.LastActiveTime = DateTimeOffset.Now;
 
         if (answer.Combo is not null)
         {
@@ -45,9 +45,9 @@ public class QuestionsService
         }
 
         userAnswer.IsCorrect = (await _dataContext.Set<Answer>().FindAsync(answer.AnswerId))!.IsCorrect;
-        
+
         user.Points += answer.AddPoint;
-        
+
         _dataContext.Update(user);
         await _dataContext.Set<UsersAnswer>().AddAsync(userAnswer);
         await _dataContext.SaveChangesAsync();
@@ -94,8 +94,8 @@ public class QuestionsService
             .Where(x => command.ThemeId == null || x.ThemeId == command.ThemeId)
             .Take(command.Count)
             .ToListAsync(token);
-        
-        
+
+
         var questionsWithAnswers = questions.Select(x => new QuestionWithAnswers
         {
             QuestionId = x.Id,

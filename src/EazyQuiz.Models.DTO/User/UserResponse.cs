@@ -22,12 +22,12 @@ namespace EazyQuiz.Models.DTO
         ///     Страна
         /// </summary>
         public string? Country { get; set; }
-        
+
         /// <summary>
         ///     Максимальное комбо
         /// </summary>
         public string? MaxCombo { get; set; }
-        
+
         /// <summary>
         ///     JWT Токен с Refresh токен
         /// </summary>
