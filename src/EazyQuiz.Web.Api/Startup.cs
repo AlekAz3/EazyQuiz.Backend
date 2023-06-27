@@ -21,6 +21,7 @@ public class Startup
             {
                 options.JsonSerializerOptions.PropertyNamingPolicy = null;
             });
+
         services
             .AddHttpContextAccessor()
             .AddDbContext<DataContext>()
@@ -50,10 +51,13 @@ public class Startup
         }
 
         app.UseRouting();
+
+        app.UseEazyQuizMiddleware();
         
         app.UseAuthentication()
             .UseAuthorization();
 
+        
         app.UseEndpoints(endpointRouteBuilder =>
         {
             endpointRouteBuilder.MapControllers();

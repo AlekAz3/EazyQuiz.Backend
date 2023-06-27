@@ -1,4 +1,5 @@
 using EazyQuiz.Models.DTO;
+using EazyQuiz.Web.Api.Attributes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EazyQuiz.Web.Api;
@@ -6,18 +7,15 @@ namespace EazyQuiz.Web.Api;
 /// <summary>
 ///     Контроллер для управления предложенными вопросами от игроков
 /// </summary>
+[AdminOnly]
 public class ManageUserQuestionsController : BaseController
 {
-    /// <inheritdoc cref="CurrentUserService" />
-    private readonly CurrentUserService _currentUser;
-
     /// <inheritdoc cref="UsersQuestionService" />
     private readonly UsersQuestionService _service;
 
-    public ManageUserQuestionsController(UsersQuestionService service, CurrentUserService currentUser)
+    public ManageUserQuestionsController(UsersQuestionService service)
     {
         _service = service;
-        _currentUser = currentUser;
     }
 
     /// <summary>
@@ -30,11 +28,6 @@ public class ManageUserQuestionsController : BaseController
     [HttpGet]
     public async Task<IActionResult> GetByFilter([FromQuery] UserQuestionFilter filter, CancellationToken token)
     {
-        if (_currentUser.GetUserRole() != "Admin")
-        {
-            return BadRequest();
-        }
-
         var result = await _service.GetByFilter(filter, token);
         return Ok(result);
     }
@@ -48,11 +41,6 @@ public class ManageUserQuestionsController : BaseController
     [HttpPut]
     public async Task<IActionResult> UpdateUserQuestion([FromBody] UpdateUserQuestion question, CancellationToken token)
     {
-        if (_currentUser.GetUserRole() != "Admin")
-        {
-            return BadRequest();
-        }
-
         await _service.UpdateUserQuestion(question, token);
         return Ok();
     }

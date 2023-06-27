@@ -1,4 +1,5 @@
 using EazyQuiz.Models.DTO;
+using EazyQuiz.Web.Api.Attributes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EazyQuiz.Web.Api.Controllers;
@@ -11,13 +12,9 @@ public class FeedbackController : BaseController
     /// <inheritdoc cref="FeedbackService" />
     private readonly FeedbackService _service;
 
-    /// <inheritdoc cref="CurrentUserService" />
-    private readonly CurrentUserService _user;
-
-    public FeedbackController(FeedbackService service, CurrentUserService user)
+    public FeedbackController(FeedbackService service)
     {
         _service = service;
-        _user = user;
     }
 
     /// <summary>
@@ -26,15 +23,10 @@ public class FeedbackController : BaseController
     /// <param name="status">Статус </param>
     /// <param name="token">Токен отмены запроса</param>
     /// <returns>Коллекцию обратной связи</returns>
-    /// <remarks>Для администратора</remarks>
     [HttpGet]
+    [AdminOnly]
     public async Task<IActionResult> GetFeedbacks([FromQuery] string status, CancellationToken token)
     {
-        if (_user.GetUserRole() != "Admin")
-        {
-            return BadRequest();
-        }
-
         var feedbacks = await _service.GetFeedback(status, token);
         return Ok(feedbacks);
     }
@@ -57,16 +49,11 @@ public class FeedbackController : BaseController
     /// </summary>
     /// <param name="feedbackUpdate">ЗАпрос на обновление</param>
     /// <param name="token">Токен отмены запроса</param>
-    /// <remarks>Для администратора</remarks>
     [HttpPut]
+    [AdminOnly]
     public async Task<IActionResult> UpdateFeedback([FromBody] FeedbackUpdateDTO feedbackUpdate,
         CancellationToken token)
     {
-        if (_user.GetUserRole() != "Admin")
-        {
-            return BadRequest();
-        }
-
         await _service.UpdateFeedbacks(feedbackUpdate, token);
         return Ok();
     }

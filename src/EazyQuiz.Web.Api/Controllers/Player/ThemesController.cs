@@ -1,4 +1,5 @@
 using EazyQuiz.Models.DTO;
+using EazyQuiz.Web.Api.Attributes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EazyQuiz.Web.Api;
@@ -8,20 +9,16 @@ namespace EazyQuiz.Web.Api;
 /// </summary>
 public class ThemesController : BaseController
 {
-    /// <inheritdoc cref="CurrentUserService" />
-    private readonly CurrentUserService _currentUser;
-
     /// <inheritdoc cref="ILogger{TCategoryName}" />
     private readonly ILogger<ThemesController> _logger;
 
     /// <inheritdoc cref="ThemesService" />
     private readonly ThemesService _service;
 
-    public ThemesController(ThemesService service, ILogger<ThemesController> logger, CurrentUserService currentUser)
+    public ThemesController(ThemesService service, ILogger<ThemesController> logger)
     {
         _service = service;
         _logger = logger;
-        _currentUser = currentUser;
     }
 
     /// <summary>
@@ -43,13 +40,9 @@ public class ThemesController : BaseController
     /// <param name="token">Токен отмены запроса</param>
     /// <remarks>Для администратора</remarks>
     [HttpPost]
+    [AdminOnly]
     public async Task<IActionResult> AddTheme([FromBody] string themeName, CancellationToken token)
     {
-        if (_currentUser.GetUserRole() != "Admin")
-        {
-            return BadRequest();
-        }
-
         await _service.AddTheme(themeName, token);
         _logger.LogInformation("Была добавлена новая тема: {ThemeName}", themeName);
         return Ok();
@@ -60,16 +53,11 @@ public class ThemesController : BaseController
     /// </summary>
     /// <param name="themes">Темы</param>
     /// <param name="token">Токен отмены запроса</param>
-    /// <remarks>Для администратора</remarks>
     [HttpPut]
+    [AdminOnly]
     public async Task<IActionResult> UpdateThemes([FromBody] IReadOnlyCollection<ThemeResponseWithFlag> themes,
         CancellationToken token)
     {
-        if (_currentUser.GetUserRole() != "Admin")
-        {
-            return BadRequest();
-        }
-
         await _service.UpdateThemes(themes, token);
         return Ok();
     }
@@ -79,15 +67,10 @@ public class ThemesController : BaseController
     /// </summary>
     /// <param name="token">Токен отмены запроса</param>
     /// <returns>Коллекция тем вопросов</returns>
-    /// <remarks>Для администратора</remarks>
     [HttpGet("all")]
+    [AdminOnly]
     public async Task<IActionResult> GetAll(CancellationToken token)
     {
-        if (_currentUser.GetUserRole() != "Admin")
-        {
-            return BadRequest();
-        }
-
         var themes = await _service.GetAll(token);
         return Ok(themes);
     }

@@ -1,4 +1,5 @@
 using EazyQuiz.Models.DTO;
+using EazyQuiz.Web.Api.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -50,14 +51,9 @@ public class QuestionsController : BaseController
     /// </summary>
     /// <remarks>Для администратора</remarks>
     [HttpPost(nameof(Add))]
+    [AdminOnly]
     public async Task<IActionResult> Add([FromBody] QuestionInputDTO question)
     {
-        string role = User.Claims.First(x => x.Type == ClaimTypes.Role).Value;
-        if (role != "Admin")
-        {
-            return BadRequest();
-        }
-
         await _questionsService.AddQuestion(question);
         _logger.LogInformation("Новый вопрос: \"{QuestionText}\", был добавлен в базу данных", question.Text);
         return Ok();
